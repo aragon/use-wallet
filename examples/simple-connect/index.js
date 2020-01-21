@@ -13,7 +13,6 @@ const { providers: EthersProviders, utils, EtherSymbol } = ethers
 
 function App() {
   const [lastError, setLastError] = useState('')
-
   const wallet = useWallet()
 
   const activate = async connector => {
@@ -75,7 +74,11 @@ function App() {
       {wallet.account && (
         <p>
           <span>Balance:</span>
-          <span>{utils.formatEther(wallet.balance)} ETH</span>
+          <span>
+            {wallet.balance === '-1'
+              ? 'Unknown'
+              : `${utils.formatEther(wallet.balance)} ETH`}
+          </span>
         </p>
       )}
     </>
