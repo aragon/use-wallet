@@ -34,7 +34,7 @@ Oh yes:
 
 ### Special thanks
 
-useWallet() is a built above
+useWallet() is a built on
 [web3-react](https://github.com/NoahZinsmeister/web3-react) and its connectors,
 which are doing all the hard work internally.
 

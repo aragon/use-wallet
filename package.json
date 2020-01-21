@@ -1,6 +1,6 @@
 {
   "name": "use-wallet",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "module": "dist/index.js",
   "author": "Aragon Association <legal@aragon.org>",
   "license": "AGPL-3.0",
