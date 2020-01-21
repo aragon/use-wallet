@@ -2,7 +2,7 @@
 
 useWallet() allows dapp users to connect to the provider of their choice in a way that is as straightforward as possible. It provides a common data structure for any connected account, no matter what provider has been chosen by the user. It aims to provide some features that are often reimplemented by dapp developers: connecting to a wallet, keeping track of transactions.
 
-### Features
+## Features
 
 - All-in-one solution to connect to Ethereum providers.
 - Completely library agnostic (use Web3.js, ethers.js, …).
@@ -23,14 +23,8 @@ Oh yes:
 ### What useWallet() is not
 
 - An Ethereum wallet implementation.
-- A low-level ethereum provider connector.
-- An library to interact with Ethereum.
-
-### Special thanks
-
-useWallet() is a built on
-[web3-react](https://github.com/NoahZinsmeister/web3-react) and its connectors,
-which are doing all the hard work internally.
+- A low-level, fully configurable connecting system for Ethereum providers (see [web3-react](https://github.com/NoahZinsmeister/web3-react) if you are after that).
+- An general library to interact with Ethereum (ethers.js, Web3.js etc.).
 
 ## Usage
 
@@ -110,3 +104,9 @@ This is the hook to be used throughought the app. It returns an object represent
 - `connectors`: the full list of connectors.
 - `deactivate()`: call this function to “disconnect” from the current provider.
 - `networkName`: a human-readable name corresponding to the Chain ID.
+
+## Special thanks
+
+useWallet() is a built on
+[web3-react](https://github.com/NoahZinsmeister/web3-react) and its connectors,
+which are doing all the hard work internally.
