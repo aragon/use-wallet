@@ -60,9 +60,15 @@ function MyApp() {
   )
 }
 
-// Wrap your app in UseWalletProvider
+// Wrap the components using useWallet() in <UseWalletProvider />
 ReactDOM.render(
-  <UseWalletProvider>
+  <UseWalletProvider
+    chainId={1}
+    connectors={{
+      // This is how connectors get configured
+      portis: { dAppId: 'my-dapp-id-123-xyz' },
+    }}
+  >
     <MyApp />
   </UseWalletProvider>,
   document.querySelector('#app')
