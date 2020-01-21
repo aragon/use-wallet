@@ -135,6 +135,7 @@ function useWallet() {
       connected,
       connectors,
       deactivate: web3ReactContext.deactivate,
+      ethereum,
       networkName: getNetworkName(chainId),
     }),
     [
@@ -144,6 +145,7 @@ function useWallet() {
       chainId,
       connected,
       connectors,
+      ethereum,
       web3ReactContext,
     ]
   )

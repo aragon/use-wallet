@@ -14,6 +14,7 @@ useWallet() allows dapp users to connect to the provider of their choice in a wa
 Oh yes:
 
 - React only.
+- Web environment.
 - Exports as ES Modules.
 - Ethereum only (for now).
 - Supports one network at a time.
@@ -103,6 +104,7 @@ This is the hook to be used throughought the app. It returns an object represent
 - `connected`: whether the account is connected or not (same as testing `account !== null`).
 - `connectors`: the full list of connectors.
 - `deactivate()`: call this function to “disconnect” from the current provider.
+- `ethereum`: the connected [Ethereum provider](https://eips.ethereum.org/EIPS/eip-1193).
 - `networkName`: a human-readable name corresponding to the Chain ID.
 
 ## Special thanks
