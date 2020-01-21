@@ -29,9 +29,13 @@ Oh yes:
 
 ## Usage
 
+Add it to your project:
+
 ```console
 yarn add use-wallet
 ```
+
+Use it in your React app:
 
 ```jsx
 import { useWallet, UseWalletProvider } from 'use-wallet'
