@@ -1,12 +1,6 @@
 # useWallet()
 
-## Introduction
-
-useWallet() allows dapp users to connect to the provider of their choice in a
-way that is as straightforward as possible. It provides an identical data
-structure for the connected account, no matter what provider has been chosen by
-the user. It aims to provide the features that are constantly reimplemented in
-the context of a dapp.
+useWallet() allows dapp users to connect to the provider of their choice in a way that is as straightforward as possible. It provides a common data structure for any connected account, no matter what provider has been chosen by the user. It aims to provide some features that are often reimplemented by dapp developers: connecting to a wallet, keeping track of transactions.
 
 ### Features
 
