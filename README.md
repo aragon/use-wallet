@@ -38,9 +38,12 @@ yarn add use-wallet
 Use it in your React app:
 
 ```jsx
+// App.js
+
+import React from 'react'
 import { useWallet, UseWalletProvider } from 'use-wallet'
 
-function MyApp() {
+function App() {
   const { account, balance, connected, activate, deactivate } = useWallet()
 
   return (
@@ -64,8 +67,8 @@ function MyApp() {
   )
 }
 
-// Wrap the components using useWallet() in <UseWalletProvider />
-ReactDOM.render(
+// Wrap everything in <UseWalletProvider />
+export default () => (
   <UseWalletProvider
     chainId={1}
     connectors={{
@@ -73,9 +76,8 @@ ReactDOM.render(
       portis: { dAppId: 'my-dapp-id-123-xyz' },
     }}
   >
-    <MyApp />
-  </UseWalletProvider>,
-  document.querySelector('#app')
+    <App />
+  </UseWalletProvider>
 )
 ```
 
