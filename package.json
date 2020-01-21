@@ -1,0 +1,49 @@
+{
+  "name": "use-wallet",
+  "version": "0.0.0",
+  "module": "dist/index.js",
+  "author": "Aragon Association <legal@aragon.org>",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "build": "babel src --out-dir dist --source-maps",
+    "dev": "yarn build --watch",
+    "lint": "yarn eslint ./src",
+    "test": "yarn lint"
+  },
+  "dependencies": {
+    "@web3-react/authereum-connector": "^6.0.2",
+    "@web3-react/core": "^6.0.2",
+    "@web3-react/fortmatic-connector": "^6.0.2",
+    "@web3-react/frame-connector": "^6.0.2",
+    "@web3-react/injected-connector": "^6.0.3",
+    "@web3-react/portis-connector": "^6.0.2",
+    "@web3-react/squarelink-connector": "^6.0.2",
+    "@web3-react/torus-connector": "^6.0.2",
+    "@web3-react/walletconnect-connector": "^6.0.2",
+    "@web3-react/walletlink-connector": "^6.0.2",
+    "jsbi": "^3.1.1",
+    "prop-types": "^15.7.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-config-standard-react": "^9.2.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "prettier": "^1.19.1"
+  },
+  "peerDependencies": {
+    "react": "^16.12.0"
+  }
+}
