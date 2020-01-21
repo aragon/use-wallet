@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "author": "Aragon Association <legal@aragon.org>",
   "license": "AGPL-3.0",
+  "main": "dist/index.js",
   "module": "dist/index.js",
   "scripts": {
     "build": "yarn rollup --config",
