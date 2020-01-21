@@ -1,0 +1,12 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": "> 2%, not dead, not ie > 0",
+        "modules": false
+      }
+    ],
+    "@babel/preset-react"
+  ]
+}
