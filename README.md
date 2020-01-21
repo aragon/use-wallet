@@ -82,7 +82,9 @@ ReactDOM.render(
 
 ## API
 
-### <UseWalletProvider />
+### &lt;UseWalletProvider />
+
+This is the provider component. It should be placed above any component using `useWallet()`. Apart from `children`, it accepts two other props:
 
 #### chainId
 
@@ -105,7 +107,7 @@ See the [web3-react documentation](https://github.com/NoahZinsmeister/web3-react
 
 ### useWallet()
 
-Returns an object representing the connected account (“wallet”), containing:
+This is the hook to be used throughought the app. It returns an object representing the connected account (“wallet”), containing:
 
 - `account`: the address of the account, or `null` when disconnected.
 - `activate(connectorId)`: call this function with a connector ID to “connect” to a provider (see above for the connectors provided by default).
