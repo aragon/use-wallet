@@ -33,10 +33,12 @@ const pollBalance = pollEvery((account, ethereum, onUpdate) => {
       return ethereum
         .send('eth_getBalance', [account, 'latest'])
         .then(value => {
-          if (!value || !value.result || value.error) {
+          const result =
+            typeof value === 'string' ? value : value && value.result
+          if (!value || !result || (value && value.error)) {
             return NO_BALANCE
           }
-          return JSBI.BigInt(value.result).toString()
+          return JSBI.BigInt(result).toString()
         })
         .catch(() => NO_BALANCE)
     },
