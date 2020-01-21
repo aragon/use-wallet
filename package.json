@@ -5,6 +5,7 @@
   "license": "AGPL-3.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "sideEffects": false,
   "files": [
     "dist",
     "examples",
