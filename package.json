@@ -55,7 +55,8 @@
     "eslint-plugin-standard": "^4.0.1",
     "prettier": "^1.19.1",
     "rollup": "^1.29.1",
-    "rollup-plugin-babel": "^4.3.3"
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-terser": "^5.2.0"
   },
   "peerDependencies": {
     "react": "^16.12.0"
