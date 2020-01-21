@@ -5,6 +5,12 @@
   "license": "AGPL-3.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "files": [
+    "dist",
+    "examples",
+    "src",
+    ".babelrc.json"
+  ],
   "scripts": {
     "build": "yarn rollup --config",
     "dev": "yarn rollup --config --watch",
