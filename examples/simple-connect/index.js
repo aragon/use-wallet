@@ -32,10 +32,6 @@ function App() {
     <>
       <h1>use-wallet</h1>
 
-      <p>
-        <span>Block: {wallet.blockNumber}</span>
-      </p>
-
       {(() => {
         if (lastError) {
           return (
@@ -46,10 +42,19 @@ function App() {
           )
         }
 
+        if (wallet.activating) {
+          return (
+            <p>
+              <span>Connecting to {wallet.activating}…</span>
+              <button onClick={() => wallet.deactivate()}>cancel</button>
+            </p>
+          )
+        }
+
         if (wallet.connected) {
           return (
             <p>
-              <span>Connected:</span>
+              <span>Connected.</span>
               <button onClick={() => wallet.deactivate()}>disconnect</button>
             </p>
           )
@@ -80,9 +85,15 @@ function App() {
           <span>Balance:</span>
           <span>
             {wallet.balance === '-1'
-              ? 'Unknown'
+              ? '…'
               : `${utils.formatEther(wallet.balance)} ETH`}
           </span>
+        </p>
+      )}
+
+      {wallet.connected && (
+        <p>
+          <span>Block:</span> <span>{wallet.blockNumber || '…'}</span>
         </p>
       )}
     </>
