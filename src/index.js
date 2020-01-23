@@ -113,18 +113,37 @@ function useBlockNumberIfWatched(watchBlockNumber) {
 
 // Only watch block numbers, and return functions allowing to subscribe to it.
 function useWatchBlockNumber({ ethereum, pollBlockNumberInterval }) {
+  const lastBlockNumber = useRef(null)
+
   // Using listeners lets useWallet() decide if it wants to expose the block
   // number, which implies to re-render whenever the block number updates.
   const blockNumberListeners = useRef(new Set())
+
   const addBlockNumberListener = useCallback(cb => {
     blockNumberListeners.current.add(cb)
+
+    // send the block number to the new listener
+    cb(lastBlockNumber.current)
   }, [])
+
   const removeBlockNumberListener = useCallback(cb => {
     blockNumberListeners.current.delete(cb)
   }, [])
 
+  // Update the block number and broadcast it to the listeners
+  const updateBlockNumber = useCallback(
+    blockNumber => {
+      lastBlockNumber.current = blockNumber
+      for (const cb of blockNumberListeners.current.values()) {
+        cb(lastBlockNumber.current)
+      }
+    },
+    [blockNumberListeners]
+  )
+
   useEffect(() => {
     if (!ethereum) {
+      updateBlockNumber(null)
       return
     }
 
@@ -134,12 +153,8 @@ function useWatchBlockNumber({ ethereum, pollBlockNumberInterval }) {
       return {
         request: () => getBlockNumber(ethereum),
         onResult: latestBlockNumber => {
-          if (cancel) {
-            return
-          }
-          const blockNumber = JSBI.BigInt(latestBlockNumber).toString()
-          for (const cb of blockNumberListeners.current.values()) {
-            cb(blockNumber)
+          if (!cancel) {
+            updateBlockNumber(JSBI.BigInt(latestBlockNumber).toString())
           }
         },
       }
