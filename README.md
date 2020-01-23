@@ -93,6 +93,10 @@ This is the provider component. It should be placed above any component using `u
 
 The [Chain ID](https://chainid.network/) supported by the connection. Defaults to 1.
 
+#### watchBlockNumber
+
+Whether or not to watch the track the block number in every useWallet() hook. If set to `false`, the value of the `blockNumber` property will be `null`, and the parent component won’t re-render when a new bolck number arrives. Defaults to `true`.
+
 #### connectors
 
 The configuration of the different connectors. If a connector that requires a configuration gets used without, an error will be thrown.
@@ -110,7 +114,15 @@ See the [web3-react documentation](https://github.com/NoahZinsmeister/web3-react
 
 ### useWallet()
 
-This is the hook to be used throughought the app. It returns an object representing the connected account (“wallet”), containing:
+This is the hook to be used throughought the app.
+
+It takes an optional object as a single param, containing the following:
+
+- `watchBlockNumber`: whether or not to watch the track the block number. If set to `false`, the value of the `blockNumber` property will be `null`, and the parent component won’t re-render when a new bolck number arrives. Defaults to the value specified on the provider.
+- `pollBalanceInterval`: the interval used to poll the wallet balance. Defaults to 2000.
+- `pollBlockNumberInterval`: the interval used to poll the block number. Defaults to 5000.
+
+It returns an object representing the connected account (“wallet”), containing:
 
 - `account`: the address of the account, or `null` when disconnected.
 - `activate(connectorId)`: call this function with a connector ID to “connect” to a provider (see above for the connectors provided by default).

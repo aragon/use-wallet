@@ -32,6 +32,10 @@ function App() {
     <>
       <h1>use-wallet</h1>
 
+      <p>
+        <span>Block: {wallet.blockNumber}</span>
+      </p>
+
       {(() => {
         if (lastError) {
           return (
