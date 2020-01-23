@@ -186,6 +186,7 @@ function UseWalletProvider({
     throw new Error('<UseWalletProvider /> has already been declared.')
   }
 
+  const [activating, setActivating] = useState(null)
   const [isContract, setIsContract] = useState(false)
   const [connected, setConnected] = useState(false)
   const web3ReactContext = useWeb3React()
@@ -204,14 +205,19 @@ function UseWalletProvider({
     [chainId, connectorsInitsOrConfigs]
   )
 
+  const deactivate = useCallback(async () => {
+    if (web3ReactContext.active) {
+      await web3ReactContext.deactivate()
+    }
+    setActivating(null)
+  }, [web3ReactContext])
+
   const activate = useCallback(
     async (connectorId = 'injected') => {
       // Prevent race conditions between connections by using an external ID.
       const id = ++activationId.current
 
-      if (web3ReactContext.active) {
-        await web3ReactContext.deactivate()
-      }
+      deactivate()
 
       // Check if another connection has happened right after deactivate().
       if (id !== activationId.current) {
@@ -236,8 +242,12 @@ function UseWalletProvider({
       try {
         // TODO: there is no way to cancel an activation to complete, but we
         // could reconnect to the last provider the user tried to connect to.
+        setActivating(connectorId)
         await web3ReactContext.activate(web3ReactConnector, null, true)
+        setActivating(null)
       } catch (err) {
+        setActivating(null)
+
         // Don’t throw if another connection has happened in the meantime.
         if (id !== activationId.current) {
           return
@@ -253,7 +263,7 @@ function UseWalletProvider({
         throw err
       }
     },
-    [chainId, connectors, web3ReactContext]
+    [chainId, connectors, web3ReactContext, deactivate]
   )
 
   useEffect(() => {
@@ -284,17 +294,19 @@ function UseWalletProvider({
       _web3ReactContext: web3ReactContext,
       account: account || null,
       activate,
+      activating,
       balance,
       chainId,
       connected,
       connectors,
-      deactivate: web3ReactContext.deactivate,
+      deactivate,
       ethereum,
       networkName: getNetworkName(chainId),
     }),
     [
       account,
       activate,
+      activating,
       balance,
       chainId,
       connected,

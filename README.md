@@ -126,6 +126,7 @@ It returns an object representing the connected account (“wallet”), containi
 
 - `account`: the address of the account, or `null` when disconnected.
 - `activate(connectorId)`: call this function with a connector ID to “connect” to a provider (see above for the connectors provided by default).
+- `activating`: which provider is currently waiting to be activated. `null` otherwise.
 - `balance`: the balance of the account, in wei.
 - `connected`: whether the account is connected or not (same as testing `account !== null`).
 - `connectors`: the full list of connectors.
