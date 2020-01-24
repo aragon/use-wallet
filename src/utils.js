@@ -8,6 +8,34 @@ export function getNetworkName(chainId) {
   return 'Unknown'
 }
 
+export function rpcResult(response) {
+  // Some providers don’t wrap the response
+  if (response && response.jsonrpc) {
+    if (response.error) {
+      throw new Error(response.error)
+    }
+    return response.result
+  }
+  return response
+}
+
+export async function getAccountIsContract(ethereum, account) {
+  try {
+    const code = await ethereum.send('eth_getCode', [account]).then(rpcResult)
+    return code !== '0x'
+  } catch (err) {
+    return false
+  }
+}
+
+export async function getAccountBalance(ethereum, account) {
+  return ethereum.send('eth_getBalance', [account, 'latest']).then(rpcResult)
+}
+
+export async function getBlockNumber(ethereum) {
+  return ethereum.send('eth_blockNumber', []).then(rpcResult)
+}
+
 export function pollEvery(fn, delay) {
   let timer = -1
   let stop = false

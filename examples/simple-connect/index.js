@@ -14,6 +14,7 @@ const { providers: EthersProviders, utils, EtherSymbol } = ethers
 function App() {
   const [lastError, setLastError] = useState('')
   const wallet = useWallet()
+  const blockNumber = wallet.getBlockNumber()
 
   const activate = async connector => {
     setLastError('')
@@ -42,10 +43,19 @@ function App() {
           )
         }
 
+        if (wallet.activating) {
+          return (
+            <p>
+              <span>Connecting to {wallet.activating}…</span>
+              <button onClick={() => wallet.deactivate()}>cancel</button>
+            </p>
+          )
+        }
+
         if (wallet.connected) {
           return (
             <p>
-              <span>Connected:</span>
+              <span>Connected.</span>
               <button onClick={() => wallet.deactivate()}>disconnect</button>
             </p>
           )
@@ -76,9 +86,15 @@ function App() {
           <span>Balance:</span>
           <span>
             {wallet.balance === '-1'
-              ? 'Unknown'
+              ? '…'
               : `${utils.formatEther(wallet.balance)} ETH`}
           </span>
+        </p>
+      )}
+
+      {wallet.connected && (
+        <p>
+          <span>Block:</span> <span>{blockNumber || '…'}</span>
         </p>
       )}
     </>

@@ -46,23 +46,24 @@ import React from 'react'
 import { useWallet, UseWalletProvider } from 'use-wallet'
 
 function App() {
-  const { account, balance, connected, activate, deactivate } = useWallet()
+  const wallet = useWallet()
+  const blockNumber = wallet.getBlockNumber()
 
   return (
     <>
       <h1>Wallet</h1>
-      {connected ? (
+      {wallet.connected ? (
         <div>
-          <div>Account: {account}</div>
-          <div>Balance: {balance}</div>
-          <button onClick={() => deactivate()}>disconnect</button>
+          <div>Account: {wallet.account}</div>
+          <div>Balance: {wallet.balance}</div>
+          <button onClick={() => wallet.deactivate()}>disconnect</button>
         </div>
       ) : (
         <div>
           Connect:
-          <button onClick={() => activate()}>MetaMask</button>
-          <button onClick={() => activate('frame')}>Frame</button>
-          <button onClick={() => activate('portis')}>Portis</button>
+          <button onClick={() => wallet.activate()}>MetaMask</button>
+          <button onClick={() => wallet.activate('frame')}>Frame</button>
+          <button onClick={() => wallet.activate('portis')}>Portis</button>
         </div>
       )}
     </>
@@ -110,15 +111,25 @@ See the [web3-react documentation](https://github.com/NoahZinsmeister/web3-react
 
 ### useWallet()
 
-This is the hook to be used throughought the app. It returns an object representing the connected account (“wallet”), containing:
+This is the hook to be used throughout the app.
+
+It takes an optional object as a single param, containing the following:
+
+- `pollBalanceInterval`: the interval used to poll the wallet balance. Defaults to 2000.
+- `pollBlockNumberInterval`: the interval used to poll the block number. Defaults to 5000.
+
+It returns an object representing the connected account (“wallet”), containing:
 
 - `account`: the address of the account, or `null` when disconnected.
 - `activate(connectorId)`: call this function with a connector ID to “connect” to a provider (see above for the connectors provided by default).
+- `activating`: which provider is currently waiting to be activated. `null` otherwise.
 - `balance`: the balance of the account, in wei.
+- `getBlockNumber()`: this function returns the current block number. This is a function because the block number updates often, which could triggers as many extra renders. Making an explicit call to get the block number allows `useWallet()` to avoid these extra renders when the block number is not needed.
 - `connected`: whether the account is connected or not (same as testing `account !== null`).
 - `connectors`: the full list of connectors.
 - `deactivate()`: call this function to “disconnect” from the current provider.
 - `ethereum`: the connected [Ethereum provider](https://eips.ethereum.org/EIPS/eip-1193).
+- `isContract`: whether or not the account is a contract.
 - `networkName`: a human-readable name corresponding to the Chain ID.
 
 ## Special thanks
