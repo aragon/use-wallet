@@ -25,11 +25,9 @@ import {
   getBlockNumber,
   getNetworkName,
   pollEvery,
-  rpcResult,
 } from './utils'
 
 const NO_BALANCE = '-1'
-const POLL_BALANCE_INTERVAL = 1000
 
 const UseWalletContext = React.createContext(null)
 
@@ -97,7 +95,7 @@ function useWalletBalance({ account, ethereum, pollBalanceInterval }) {
             .catch(() => NO_BALANCE)
         },
         onResult(balance) {
-          if (balance !== lastBalance) {
+          if (!cancel && balance !== lastBalance) {
             lastBalance = balance
             onUpdate(balance)
           }
@@ -177,7 +175,7 @@ function useWatchBlockNumber({ ethereum, pollBlockNumberInterval }) {
       cancel = true
       stopPollingBlockNumber()
     }
-  }, [ethereum, pollBlockNumberInterval])
+  }, [ethereum, pollBlockNumberInterval, updateBlockNumber])
 
   return { addBlockNumberListener, removeBlockNumberListener }
 }
@@ -311,6 +309,7 @@ function UseWalletProvider({
       connectors,
       deactivate,
       ethereum,
+      isContract,
       networkName: getNetworkName(chainId),
     }),
     [
@@ -321,7 +320,9 @@ function UseWalletProvider({
       chainId,
       connected,
       connectors,
+      deactivate,
       ethereum,
+      isContract,
       web3ReactContext,
     ]
   )
