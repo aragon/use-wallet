@@ -129,6 +129,7 @@ It returns an object representing the connected account (“wallet”), containi
 - `connectors`: the full list of connectors.
 - `deactivate()`: call this function to “disconnect” from the current provider.
 - `ethereum`: the connected [Ethereum provider](https://eips.ethereum.org/EIPS/eip-1193).
+- `isContract`: whether or not the account is a contract.
 - `networkName`: a human-readable name corresponding to the Chain ID.
 
 ## Special thanks
