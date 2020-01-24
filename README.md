@@ -114,7 +114,7 @@ See the [web3-react documentation](https://github.com/NoahZinsmeister/web3-react
 
 ### useWallet()
 
-This is the hook to be used throughought the app.
+This is the hook to be used throughout the app.
 
 It takes an optional object as a single param, containing the following:
 
