@@ -14,6 +14,7 @@ const { providers: EthersProviders, utils, EtherSymbol } = ethers
 function App() {
   const [lastError, setLastError] = useState('')
   const wallet = useWallet()
+  const blockNumber = wallet.getBlockNumber()
 
   const activate = async connector => {
     setLastError('')
@@ -93,7 +94,7 @@ function App() {
 
       {wallet.connected && (
         <p>
-          <span>Block:</span> <span>{wallet.blockNumber || '…'}</span>
+          <span>Block:</span> <span>{blockNumber || '…'}</span>
         </p>
       )}
     </>

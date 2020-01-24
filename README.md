@@ -46,23 +46,24 @@ import React from 'react'
 import { useWallet, UseWalletProvider } from 'use-wallet'
 
 function App() {
-  const { account, balance, connected, activate, deactivate } = useWallet()
+  const wallet = useWallet()
+  const blockNumber = wallet.getBlockNumber()
 
   return (
     <>
       <h1>Wallet</h1>
-      {connected ? (
+      {wallet.connected ? (
         <div>
-          <div>Account: {account}</div>
-          <div>Balance: {balance}</div>
-          <button onClick={() => deactivate()}>disconnect</button>
+          <div>Account: {wallet.account}</div>
+          <div>Balance: {wallet.balance}</div>
+          <button onClick={() => wallet.deactivate()}>disconnect</button>
         </div>
       ) : (
         <div>
           Connect:
-          <button onClick={() => activate()}>MetaMask</button>
-          <button onClick={() => activate('frame')}>Frame</button>
-          <button onClick={() => activate('portis')}>Portis</button>
+          <button onClick={() => wallet.activate()}>MetaMask</button>
+          <button onClick={() => wallet.activate('frame')}>Frame</button>
+          <button onClick={() => wallet.activate('portis')}>Portis</button>
         </div>
       )}
     </>
@@ -93,10 +94,6 @@ This is the provider component. It should be placed above any component using `u
 
 The [Chain ID](https://chainid.network/) supported by the connection. Defaults to 1.
 
-#### watchBlockNumber
-
-Whether or not to watch the track the block number in every useWallet() hook. If set to `false`, the value of the `blockNumber` property will be `null`, and the parent component won’t re-render when a new bolck number arrives. Defaults to `true`.
-
 #### connectors
 
 The configuration of the different connectors. If a connector that requires a configuration gets used without, an error will be thrown.
@@ -118,7 +115,6 @@ This is the hook to be used throughought the app.
 
 It takes an optional object as a single param, containing the following:
 
-- `watchBlockNumber`: whether or not to watch the track the block number. If set to `false`, the value of the `blockNumber` property will be `null`, and the parent component won’t re-render when a new bolck number arrives. Defaults to the value specified on the provider.
 - `pollBalanceInterval`: the interval used to poll the wallet balance. Defaults to 2000.
 - `pollBlockNumberInterval`: the interval used to poll the block number. Defaults to 5000.
 
@@ -128,6 +124,7 @@ It returns an object representing the connected account (“wallet”), containi
 - `activate(connectorId)`: call this function with a connector ID to “connect” to a provider (see above for the connectors provided by default).
 - `activating`: which provider is currently waiting to be activated. `null` otherwise.
 - `balance`: the balance of the account, in wei.
+- `getBlockNumber()`: this function returns the current block number. This is a function because the block number updates often, which could triggers as many extra renders. Making an explicit call to get the block number allows `useWallet()` to avoid these extra renders when the block number is not needed.
 - `connected`: whether the account is connected or not (same as testing `account !== null`).
 - `connectors`: the full list of connectors.
 - `deactivate()`: call this function to “disconnect” from the current provider.

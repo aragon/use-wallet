@@ -33,24 +33,48 @@ const POLL_BALANCE_INTERVAL = 1000
 
 const UseWalletContext = React.createContext(null)
 
-function useWallet({ watchBlockNumber } = {}) {
+function useWallet() {
   const walletContext = useContext(UseWalletContext)
 
   if (walletContext === null) {
     throw new Error(
-      'useWallet() can only be used inside of <UseWalletProvider />, please declare it above.'
+      'useWallet() can only be used inside of <UseWalletProvider />, ' +
+        'please declare it at a higher level.'
     )
   }
 
-  // If not specified in the hook params, use the provider setting.
-  if (watchBlockNumber === undefined) {
-    watchBlockNumber = walletContext.watchBlockNumber
-  }
-
-  const blockNumber = useBlockNumberIfWatched(watchBlockNumber)
+  const getBlockNumber = useGetBlockNumber()
   const { wallet } = walletContext
 
-  return useMemo(() => ({ ...wallet, blockNumber }), [blockNumber, wallet])
+  return useMemo(() => ({ ...wallet, getBlockNumber }), [
+    getBlockNumber,
+    wallet,
+  ])
+}
+
+function useGetBlockNumber() {
+  const walletContext = useContext(UseWalletContext)
+  const [blockNumber, setBlockNumber] = useState(null)
+  const requestedBlockNumber = useRef(false)
+
+  const getBlockNumber = useCallback(() => {
+    requestedBlockNumber.current = true
+    walletContext.addBlockNumberListener(setBlockNumber)
+    return blockNumber
+  }, [walletContext, blockNumber])
+
+  useEffect(() => {
+    if (!requestedBlockNumber.current) {
+      return
+    }
+
+    walletContext.addBlockNumberListener(setBlockNumber)
+    return () => {
+      walletContext.removeBlockNumberListener(setBlockNumber)
+    }
+  }, [requestedBlockNumber, walletContext])
+
+  return getBlockNumber
 }
 
 function useWalletBalance({ account, ethereum, pollBalanceInterval }) {
@@ -94,23 +118,6 @@ function useWalletBalance({ account, ethereum, pollBalanceInterval }) {
   return balance
 }
 
-function useBlockNumberIfWatched(watchBlockNumber) {
-  const walletContext = useContext(UseWalletContext)
-  const [blockNumber, setBlockNumber] = useState(null)
-
-  useEffect(() => {
-    if (!watchBlockNumber) {
-      return
-    }
-    walletContext.addBlockNumberListener(setBlockNumber)
-    return () => {
-      walletContext.removeBlockNumberListener(setBlockNumber)
-    }
-  }, [watchBlockNumber, walletContext])
-
-  return blockNumber
-}
-
 // Only watch block numbers, and return functions allowing to subscribe to it.
 function useWatchBlockNumber({ ethereum, pollBlockNumberInterval }) {
   const lastBlockNumber = useRef(null)
@@ -120,10 +127,15 @@ function useWatchBlockNumber({ ethereum, pollBlockNumberInterval }) {
   const blockNumberListeners = useRef(new Set())
 
   const addBlockNumberListener = useCallback(cb => {
-    blockNumberListeners.current.add(cb)
+    if (blockNumberListeners.current.has(cb)) {
+      return
+    }
 
-    // send the block number to the new listener
+    // Immediately send the block number to the new listener
     cb(lastBlockNumber.current)
+
+    // Add the listener
+    blockNumberListeners.current.add(cb)
   }, [])
 
   const removeBlockNumberListener = useCallback(cb => {
@@ -131,15 +143,14 @@ function useWatchBlockNumber({ ethereum, pollBlockNumberInterval }) {
   }, [])
 
   // Update the block number and broadcast it to the listeners
-  const updateBlockNumber = useCallback(
-    blockNumber => {
-      lastBlockNumber.current = blockNumber
-      for (const cb of blockNumberListeners.current.values()) {
-        cb(lastBlockNumber.current)
-      }
-    },
-    [blockNumberListeners]
-  )
+  const updateBlockNumber = useCallback(blockNumber => {
+    if (lastBlockNumber.current === blockNumber) {
+      return
+    }
+
+    lastBlockNumber.current = blockNumber
+    blockNumberListeners.current.forEach(cb => cb(blockNumber))
+  }, [])
 
   useEffect(() => {
     if (!ethereum) {
@@ -178,7 +189,6 @@ function UseWalletProvider({
   connectors: connectorsInitsOrConfigs,
   pollBalanceInterval,
   pollBlockNumberInterval,
-  watchBlockNumber,
 }) {
   const walletContext = useContext(UseWalletContext)
 
@@ -325,7 +335,6 @@ function UseWalletProvider({
           pollBlockNumberInterval,
           removeBlockNumberListener,
           wallet,
-          watchBlockNumber,
         }}
       >
         {children}
@@ -340,7 +349,6 @@ UseWalletProvider.propTypes = {
   connectors: PropTypes.objectOf(PropTypes.object),
   pollBalanceInterval: PropTypes.number,
   pollBlockNumberInterval: PropTypes.number,
-  watchBlockNumber: PropTypes.bool,
 }
 
 UseWalletProvider.defaultProps = {
@@ -348,7 +356,6 @@ UseWalletProvider.defaultProps = {
   connectors: {},
   pollBalanceInterval: 2000,
   pollBlockNumberInterval: 5000,
-  watchBlockNumber: true,
 }
 
 function UseWalletProviderWrapper(props) {
