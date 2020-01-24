@@ -8,7 +8,6 @@
   "sideEffects": false,
   "files": [
     "dist",
-    "examples",
     "src",
     ".babelrc.json"
   ],
