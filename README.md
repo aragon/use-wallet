@@ -118,7 +118,7 @@ This is the hook to be used throughought the app.
 
 It takes an optional object as a single param, containing the following:
 
-- `watchBlockNumber`: whether or not to watch the track the block number. If set to `false`, the value of the `blockNumber` property will be `null`, and the parent component won’t re-render when a new bolck number arrives. Defaults to the value specified on the provider.
+- `watchBlockNumber`: whether or not to watch the track the block number. If set to `false`, the value of the `blockNumber` property will be `null`, and the parent component won’t re-render when a new block number arrives. Defaults to the value specified on the provider.
 - `pollBalanceInterval`: the interval used to poll the wallet balance. Defaults to 2000.
 - `pollBlockNumberInterval`: the interval used to poll the block number. Defaults to 5000.
 
