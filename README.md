@@ -95,7 +95,7 @@ The [Chain ID](https://chainid.network/) supported by the connection. Defaults t
 
 #### watchBlockNumber
 
-Whether or not to watch the track the block number in every useWallet() hook. If set to `false`, the value of the `blockNumber` property will be `null`, and the parent component won’t re-render when a new bolck number arrives. Defaults to `true`.
+Whether or not to watch the track the block number in every useWallet() hook. If set to `false`, the value of the `blockNumber` property will be `null`, and the parent component won’t re-render when a new block number arrives. Defaults to `true`.
 
 #### connectors
 
