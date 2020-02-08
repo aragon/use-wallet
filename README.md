@@ -122,6 +122,7 @@ It returns an object representing the connected account (“wallet”), containi
 
 - `account`: the address of the account, or `null` when disconnected.
 - `activate(connectorId)`: call this function with a connector ID to “connect” to a provider (see above for the connectors provided by default).
+- `activated`: which provider is currently activated. `null` otherwise.
 - `activating`: which provider is currently waiting to be activated. `null` otherwise.
 - `balance`: the balance of the account, in wei.
 - `getBlockNumber()`: this function returns the current block number. This is a function because the block number updates often, which could triggers as many extra renders. Making an explicit call to get the block number allows `useWallet()` to avoid these extra renders when the block number is not needed.
