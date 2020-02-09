@@ -6,11 +6,7 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "sideEffects": false,
-  "files": [
-    "dist",
-    "src",
-    ".babelrc.json"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "yarn rollup --config",
     "dev": "yarn rollup --config --watch",
