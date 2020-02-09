@@ -195,6 +195,7 @@ function UseWalletProvider({
   }
 
   const [activating, setActivating] = useState(null)
+  const [activated, setActivated] = useState(null)
   const [isContract, setIsContract] = useState(false)
   const [connected, setConnected] = useState(false)
   const web3ReactContext = useWeb3React()
@@ -218,6 +219,7 @@ function UseWalletProvider({
       await web3ReactContext.deactivate()
     }
     setActivating(null)
+    setActivated(null)
   }, [web3ReactContext])
 
   const activate = useCallback(
@@ -248,10 +250,11 @@ function UseWalletProvider({
       }
 
       try {
-        // TODO: there is no way to cancel an activation to complete, but we
+        // TODO: there is no way to prevent an activation to complete, but we
         // could reconnect to the last provider the user tried to connect to.
         setActivating(connectorId)
         await web3ReactContext.activate(web3ReactConnector, null, true)
+        setActivated(connectorId)
         setActivating(null)
       } catch (err) {
         setActivating(null)
@@ -302,6 +305,7 @@ function UseWalletProvider({
       _web3ReactContext: web3ReactContext,
       account: account || null,
       activate,
+      activated,
       activating,
       balance,
       chainId,
@@ -315,6 +319,7 @@ function UseWalletProvider({
     [
       account,
       activate,
+      activated,
       activating,
       balance,
       chainId,
