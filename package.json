@@ -11,7 +11,9 @@
     "build": "yarn rollup --config",
     "dev": "yarn rollup --config --watch",
     "lint": "yarn eslint ./src",
-    "test": "yarn lint"
+    "test": "yarn lint",
+    "prepare": "rm -rf ./dist && yarn build",
+    "prepublishOnly": "git push && git push --tags"
   },
   "dependencies": {
     "@web3-react/authereum-connector": "^6.0.2",
