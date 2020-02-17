@@ -20,10 +20,16 @@ export function rpcResult(response) {
 }
 
 async function sendCompat(ethereum, method, params) {
-  // Old MetaMask versions are using sendAsync(), and web3.js 1.x is
-  // overwriting send() with sendAsync(), despite them being incompatible.
-  // There is no way to detect that send() follows the correct implementation,
-  // so we use sendAsync() when it is available.
+  // As of today (2020-02-17), MetaMask defines a send() method that correspond
+  // to the one defined in EIP 1193. This is a breaking change since MetaMask
+  // used to define a send() method that was an alias of the sendAsync()
+  // method, and has a different signature than the send() defined by EIP 1193.
+  // The latest version of Web3.js (1.2.6) is overwriting the ethereum.send()
+  // provided by MetaMask, to replace it with ethereum.sendAsync(), making it
+  // incompatible with EIP 1193 again.
+  // This  means there is no way to detect that the ethereum.send() provided
+  // corresponds to EIP 1193 or not. This is why we use sendAsync() when
+  // available and send() otherwise, rather than the other way around.
   if (ethereum.sendAsync && ethereum.selectedAddress) {
     return new Promise((resolve, reject) => {
       ethereum.sendAsync(
