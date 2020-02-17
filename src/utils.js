@@ -10,18 +10,47 @@ export function getNetworkName(chainId) {
 
 export function rpcResult(response) {
   // Some providers don’t wrap the response
-  if (response && response.jsonrpc) {
+  if (response && 'jsonrpc' in response) {
     if (response.error) {
       throw new Error(response.error)
     }
-    return response.result
+    return response.result || null
   }
-  return response
+  return response || null
+}
+
+async function sendCompat(ethereum, method, params) {
+  // As of today (2020-02-17), MetaMask defines a send() method that correspond
+  // to the one defined in EIP 1193. This is a breaking change since MetaMask
+  // used to define a send() method that was an alias of the sendAsync()
+  // method, and has a different signature than the send() defined by EIP 1193.
+  // The latest version of Web3.js (1.2.6) is overwriting the ethereum.send()
+  // provided by MetaMask, to replace it with ethereum.sendAsync(), making it
+  // incompatible with EIP 1193 again.
+  // This  means there is no way to detect that the ethereum.send() provided
+  // corresponds to EIP 1193 or not. This is why we use sendAsync() when
+  // available and send() otherwise, rather than the other way around.
+  if (ethereum.sendAsync && ethereum.selectedAddress) {
+    return new Promise((resolve, reject) => {
+      ethereum.sendAsync(
+        { method, params, from: ethereum.selectedAddress },
+        (err, result) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(result)
+          }
+        }
+      )
+    }).then(rpcResult)
+  }
+
+  return ethereum.send(method, params).then(rpcResult)
 }
 
 export async function getAccountIsContract(ethereum, account) {
   try {
-    const code = await ethereum.send('eth_getCode', [account]).then(rpcResult)
+    const code = await sendCompat(ethereum, 'eth_getCode', [account])
     return code !== '0x'
   } catch (err) {
     return false
@@ -29,11 +58,11 @@ export async function getAccountIsContract(ethereum, account) {
 }
 
 export async function getAccountBalance(ethereum, account) {
-  return ethereum.send('eth_getBalance', [account, 'latest']).then(rpcResult)
+  return sendCompat(ethereum, 'eth_getBalance', [account, 'latest'])
 }
 
 export async function getBlockNumber(ethereum) {
-  return ethereum.send('eth_blockNumber', []).then(rpcResult)
+  return sendCompat(ethereum, 'eth_blockNumber', [])
 }
 
 export function pollEvery(fn, delay) {
