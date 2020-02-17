@@ -163,7 +163,11 @@ function useWatchBlockNumber({ ethereum, pollBlockNumberInterval }) {
         request: () => getBlockNumber(ethereum),
         onResult: latestBlockNumber => {
           if (!cancel) {
-            updateBlockNumber(JSBI.BigInt(latestBlockNumber).toString())
+            updateBlockNumber(
+              latestBlockNumber === null
+                ? null
+                : JSBI.BigInt(latestBlockNumber).toString()
+            )
           }
         },
       }

@@ -14,9 +14,9 @@ export function rpcResult(response) {
     if (response.error) {
       throw new Error(response.error)
     }
-    return response.result || ''
+    return response.result || null
   }
-  return response || ''
+  return response || null
 }
 
 async function sendCompat(ethereum, method, params) {
