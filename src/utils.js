@@ -10,7 +10,7 @@ export function getNetworkName(chainId) {
 
 export function rpcResult(response) {
   // Some providers don’t wrap the response
-  if (response && 'jsonrpc' in response) {
+  if (typeof response === 'object' && 'jsonrpc' in response) {
     if (response.error) {
       throw new Error(response.error)
     }
