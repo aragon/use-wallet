@@ -1,0 +1,4 @@
+{
+  "packages": ["./"],
+  "sandboxes": ["/examples/simple-connect", "/examples/web3-js-compat"]
+}
