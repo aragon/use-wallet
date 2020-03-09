@@ -16,8 +16,6 @@ useWallet() allows dapp users to connect to the provider of their choice in a wa
 Oh yes:
 
 - React only.
-- Web environment.
-- Exports as ES Modules.
 - Ethereum only (for now).
 - Supports one network at a time.
 - Embeds as many providers as possible.
