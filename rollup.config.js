@@ -32,6 +32,7 @@ export default {
       preferBuiltins: false,
     }),
     commonjs(),
+    nodePolyfills(),
     json(),
     terser(),
   ],
