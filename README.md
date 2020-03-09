@@ -102,8 +102,6 @@ Configuration for the different connectors. If you use a connector that requires
 - `portis`: `{ dAppId }`
 - `authereum`: no configuration needed.
 - `squarelink`: `{ clientId, options }`
-- `torus`: `{ initOptions, constructorOptions }`
-- `walletlink`: `{ url, appName, appLogoUrl }`
 
 See the [web3-react documentation](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs) for more details.
 
