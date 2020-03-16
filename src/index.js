@@ -33,7 +33,7 @@ const UseWalletContext = React.createContext(null)
 
 function useWallet() {
   const walletContext = useContext(UseWalletContext)
-
+  console.log('boom')
   if (walletContext === null) {
     throw new Error(
       'useWallet() can only be used inside of <UseWalletProvider />, ' +
