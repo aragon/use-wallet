@@ -2,7 +2,7 @@
   "name": "use-wallet",
   "version": "0.4.4",
   "author": "Aragon Association <legal@aragon.org>",
-  "license": "AGPL-3.0",
+  "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "sideEffects": false,
