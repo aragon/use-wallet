@@ -7,11 +7,19 @@ import { terser } from 'rollup-plugin-terser'
 
 export default {
   input: './src/index.js',
-  output: {
-    dir: './dist',
-    format: 'esm',
-    sourcemap: true,
-  },
+  output: [
+    {
+      dir: './dist',
+      format: 'esm',
+      sourcemap: true,
+    },
+    {
+      dir: './dist/cjs',
+      format: 'cjs',
+      sourcemap: true,
+      exports: 'named',
+    },
+  ],
   context: 'window',
   external: [...builtins, 'react'],
   plugins: [
