@@ -11,7 +11,6 @@ import {
 } from '@web3-react/injected-connector'
 import { PortisConnector } from '@web3-react/portis-connector'
 import { SquarelinkConnector } from '@web3-react/squarelink-connector'
-import { TorusConnector } from '@web3-react/torus-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { RejectedActivationError, ConnectorConfigError } from './errors'
 
@@ -20,6 +19,9 @@ import { RejectedActivationError, ConnectorConfigError } from './errors'
 //   UserRejectedRequestError as WalletConnectUserRejectedRequestError,
 //   WalletConnectConnector,
 // } from '@web3-react/walletconnect-connector'
+
+// TODO: fix babel-runtime issue with torus-connector
+// import { TorusConnector } from '@web3-react/torus-connector'
 
 export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
   // Split the connector initializers from the confs.
@@ -95,15 +97,15 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
         })
       },
     },
-    torus: {
-      web3ReactConnector({ chainId, initOptions, constructorOptions }) {
-        return new TorusConnector({
-          chainId,
-          constructorOptions,
-          initOptions,
-        })
-      },
-    },
+    // torus: {
+    //   web3ReactConnector({ chainId, initOptions, constructorOptions }) {
+    //     return new TorusConnector({
+    //       chainId,
+    //       constructorOptions,
+    //       initOptions,
+    //     })
+    //   },
+    // },
     // walletconnect: {
     //   web3ReactConnector({ chainId, rpcUrl, bridge, pollingInterval }) {
     //     if (!rpcUrl) {

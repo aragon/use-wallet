@@ -16,8 +16,6 @@ useWallet() allows dapp users to connect to the provider of their choice in a wa
 Oh yes:
 
 - React only.
-- Web environment.
-- Exports as ES Modules.
 - Ethereum only (for now).
 - Supports one network at a time.
 - Embeds as many providers as possible.
@@ -104,8 +102,6 @@ Configuration for the different connectors. If you use a connector that requires
 - `portis`: `{ dAppId }`
 - `authereum`: no configuration needed.
 - `squarelink`: `{ clientId, options }`
-- `torus`: `{ initOptions, constructorOptions }`
-- `walletlink`: `{ url, appName, appLogoUrl }`
 
 See the [web3-react documentation](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs) for more details.
 
