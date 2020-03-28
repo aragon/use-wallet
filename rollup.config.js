@@ -2,7 +2,6 @@ import babel from 'rollup-plugin-babel'
 import builtins from 'builtin-modules'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
-import nodePolyfills from 'rollup-plugin-node-polyfills'
 import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 
@@ -32,7 +31,6 @@ export default {
       preferBuiltins: false,
     }),
     commonjs(),
-    nodePolyfills(),
     json(),
     terser(),
   ],
