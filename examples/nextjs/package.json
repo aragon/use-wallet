@@ -1,7 +1,7 @@
 {
   "name": "nextjs",
   "dependencies": {
-    "next": "^9.2.2",
+    "next": "^9.3.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "use-wallet": "file:../.."
