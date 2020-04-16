@@ -21,7 +21,7 @@ import { RejectedActivationError, ConnectorConfigError } from './errors'
 // } from '@web3-react/walletconnect-connector'
 
 // TODO: fix babel-runtime issue with torus-connector
-// import { TorusConnector } from '@web3-react/torus-connector'
+import { TorusConnector } from '@web3-react/torus-connector'
 
 export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
   // Split the connector initializers from the confs.
@@ -97,15 +97,15 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
         })
       },
     },
-    // torus: {
-    //   web3ReactConnector({ chainId, initOptions, constructorOptions }) {
-    //     return new TorusConnector({
-    //       chainId,
-    //       constructorOptions,
-    //       initOptions,
-    //     })
-    //   },
-    // },
+    torus: {
+      web3ReactConnector({ chainId, initOptions, constructorOptions }) {
+        return new TorusConnector({
+          chainId,
+          constructorOptions,
+          initOptions,
+        })
+      },
+    },
     // walletconnect: {
     //   web3ReactConnector({ chainId, rpcUrl, bridge, pollingInterval }) {
     //     if (!rpcUrl) {
