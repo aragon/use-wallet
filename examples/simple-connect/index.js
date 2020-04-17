@@ -1,7 +1,6 @@
 import 'babel-polyfill'
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-// import { providers as EthersProviders, utils, EtherSymbol } from 'ethers'
 import * as ethers from 'ethers'
 import {
   RejectedActivationError,
@@ -68,6 +67,7 @@ function App() {
             <button onClick={() => activate('frame')}>frame</button>
             <button onClick={() => activate('portis')}>portis</button>
             <button onClick={() => activate('fortmatic')}>fortmatic</button>
+            <button onClick={() => activate('torus')}>torus</button>
           </p>
         )
       })()}
