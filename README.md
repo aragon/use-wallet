@@ -27,6 +27,12 @@ Oh yes:
 - A low-level, fully configurable connection system for Ethereum providers (see [web3-react](https://github.com/NoahZinsmeister/web3-react) if you are after that).
 - An general library to interact with Ethereum (see ethers.js, Web3.js, etc.).
 
+### Used by
+
+- [Aragon client](https://github.com/aragon/aragon)
+- [Aragon's Court Dashboard](https://github.com/aragon/court-dashboard)
+- _(Your project!)_
+
 ## Usage
 
 Add it to your project:
