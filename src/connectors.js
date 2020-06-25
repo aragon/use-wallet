@@ -14,11 +14,10 @@ import { SquarelinkConnector } from '@web3-react/squarelink-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { RejectedActivationError, ConnectorConfigError } from './errors'
 
-// TODO: fix syntax error issue with the walletconnect-connector module.
-// import {
-//   UserRejectedRequestError as WalletConnectUserRejectedRequestError,
-//   WalletConnectConnector,
-// } from '@web3-react/walletconnect-connector'
+import {
+  UserRejectedRequestError as WalletConnectUserRejectedRequestError,
+  WalletConnectConnector,
+} from '@web3-react/walletconnect-connector'
 
 // TODO: fix babel-runtime issue with torus-connector
 import { TorusConnector } from '@web3-react/torus-connector'
@@ -106,26 +105,26 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
         })
       },
     },
-    // walletconnect: {
-    //   web3ReactConnector({ chainId, rpcUrl, bridge, pollingInterval }) {
-    //     if (!rpcUrl) {
-    //       throw new ConnectorConfigError(
-    //         'The WalletConnect connector requires rpcUrl to be set.'
-    //       )
-    //     }
-    //     return new WalletConnectConnector({
-    //       bridge,
-    //       pollingInterval,
-    //       qrcode,
-    //       rpc: { [chainId]: rpcUrl },
-    //     })
-    //   },
-    //   handleActivationError(err) {
-    //     if (err instanceof WalletConnectUserRejectedRequestError) {
-    //       throw new RejectedActivationError()
-    //     }
-    //   },
-    // },
+    walletconnect: {
+      web3ReactConnector({ chainId, rpcUrl, bridge, pollingInterval }) {
+        if (!rpcUrl) {
+          throw new ConnectorConfigError(
+            'The WalletConnect connector requires rpcUrl to be set.'
+          )
+        }
+        return new WalletConnectConnector({
+          bridge,
+          pollingInterval,
+          qrcode: true,
+          rpc: { [chainId]: rpcUrl },
+        })
+      },
+      handleActivationError(err) {
+        if (err instanceof WalletConnectUserRejectedRequestError) {
+          throw new RejectedActivationError()
+        }
+      },
+    },
     walletlink: {
       web3ReactConnector({ chainId, url, appName, appLogoUrl }) {
         if (chainId !== 1) {
