@@ -1141,7 +1141,7 @@
     enc-utils "2.1.0"
     js-sha3 "0.8.0"
 
-"@walletconnect/web3-provider@^1.0.8":
+"@walletconnect/web3-provider@^1.0.11":
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/@walletconnect/web3-provider/-/web3-provider-1.0.11.tgz#462d84808379f5ec8747e46de217286d61837620"
   integrity sha512-ppzYwfrVtl5j8zMOPl07v5w+Gb0ptspQm3TGUqVVClaIdXt96uCBBPxwi5bZa4pSXVKgJvI9EbKzaqUS8kVsyQ==
@@ -1254,12 +1254,12 @@
   resolved "https://registry.yarnpkg.com/@web3-react/types/-/types-6.0.7.tgz#34a6204224467eedc6123abaf55fbb6baeb2809f"
   integrity sha512-ofGmfDhxmNT1/P/MgVa8IKSkCStFiyvXe+U5tyZurKdrtTDFU+wJ/LxClPDtFerWpczNFPUSrKcuhfPX1sI6+A==
 
-"@web3-react/walletconnect-connector@^6.1.1":
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/@web3-react/walletconnect-connector/-/walletconnect-connector-6.1.1.tgz#34b71959d997261bbffe1997bcddd23930ac2245"
-  integrity sha512-jQDqDJogtsVmzAbvuf6BHdfALrmlroTpcV9etaIM+xDHwnaUt7M/0X4Q6veFGjBw8CDZAX9xxtXoXLxM2f3jVg==
+"@web3-react/walletconnect-connector@^6.1.4":
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/@web3-react/walletconnect-connector/-/walletconnect-connector-6.1.4.tgz#fc811df26a25b8c81d02f5b5c953ceb6417954a1"
+  integrity sha512-2Bv+qo7aGOgsmnon87DWft8gbGdr35xhYwFAlEJxSXHGiRTZAi6ymGTyjb2X5B4sQTb0VWBwC0nGlzYHN1Sm1Q==
   dependencies:
-    "@walletconnect/web3-provider" "^1.0.8"
+    "@walletconnect/web3-provider" "^1.0.11"
     "@web3-react/abstract-connector" "^6.0.7"
     "@web3-react/types" "^6.0.7"
     tiny-invariant "^1.0.6"
