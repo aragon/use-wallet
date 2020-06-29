@@ -57,13 +57,20 @@ function App() {
         }
 
         return (
-          <p>
-            <span>Connect:</span>
-            <button onClick={() => activate('injected')}>injected</button>
-            <button onClick={() => activate('frame')}>frame</button>
-            <button onClick={() => activate('portis')}>portis</button>
-            <button onClick={() => activate('fortmatic')}>fortmatic</button>
-          </p>
+          <div className="connect">
+            <div className="connect-label">Connect:</div>
+            <div className="connect-buttons">
+              <button onClick={() => activate('injected')}>injected</button>
+              <button onClick={() => activate('frame')}>frame</button>
+              <button onClick={() => activate('portis')}>portis</button>
+              <button onClick={() => activate('fortmatic')}>fortmatic</button>
+              <button onClick={() => activate('torus')}>torus</button>
+              <button onClick={() => activate('walletconnect')}>
+                walletconnect
+              </button>
+              <button onClick={() => activate('walletlink')}>walletlink</button>
+            </div>
+          </div>
         )
       })()}
 
@@ -103,6 +110,8 @@ function HomePage() {
       connectors={{
         fortmatic: { apiKey: '' },
         portis: { dAppId: '' },
+        walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
+        walletlink: { url: 'https://mainnet.eth.aragon.network/' },
       }}
     >
       <App />
@@ -131,11 +140,22 @@ function HomePage() {
             margin: 2rem 0;
           }
           button {
-            width: 7rem;
             height: 3rem;
             cursor: pointer;
             font-size: 1rem;
             padding: 0;
+          }
+          .connect-label {
+            margin-bottom: 1rem;
+          }
+          .connect-buttons {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+          }
+          .connect-buttons button {
+            width: 100%;
+            height: 4rem;
           }
         `}
       </style>
