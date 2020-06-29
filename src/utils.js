@@ -33,7 +33,13 @@ async function sendCompat(ethereum, method, params) {
   if (ethereum.sendAsync && ethereum.selectedAddress) {
     return new Promise((resolve, reject) => {
       ethereum.sendAsync(
-        { method, params, from: ethereum.selectedAddress },
+        {
+          method,
+          params,
+          from: ethereum.selectedAddress,
+          jsonrpc: '2.0',
+          id: 0,
+        },
         (err, result) => {
           if (err) {
             reject(err)
