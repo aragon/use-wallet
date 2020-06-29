@@ -113,8 +113,8 @@ ReactDOM.render(
     connectors={{
       fortmatic: { apiKey: '' },
       portis: { dAppId: '' },
-      walletconnect: { rpcUrl: '' },
-      walletlink: { url: '' },
+      walletconnect: { rpcUrl: 'wss://mainnet.eth.aragon.network/ws' },
+      walletlink: { url: 'wss://mainnet.eth.aragon.network/ws' },
     }}
   >
     <App />
