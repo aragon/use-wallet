@@ -66,6 +66,8 @@ function App() {
             <button onClick={() => activate('frame')}>frame</button>
             <button onClick={() => activate('portis')}>portis</button>
             <button onClick={() => activate('fortmatic')}>fortmatic</button>
+            <button onClick={() => activate('walletlink')}>walletlink</button>
+            <button onClick={() => activate('walletconnect')}>walletconnect</button>
           </p>
         )
       })()}
@@ -101,6 +103,8 @@ ReactDOM.render(
     connectors={{
       fortmatic: { apiKey: '' },
       portis: { dAppId: '' },
+      walletconnect: { rpcUrl: '' },
+      walletlink: { url: '' },
     }}
   >
     <App />

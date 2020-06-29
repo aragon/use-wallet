@@ -63,6 +63,8 @@ function App() {
             <button onClick={() => activate('frame')}>frame</button>
             <button onClick={() => activate('portis')}>portis</button>
             <button onClick={() => activate('fortmatic')}>fortmatic</button>
+            <button onClick={() => activate('walletconnect')}>walletconnect</button>
+            <button onClick={() => activate('walletlink')}>walletlink</button>
           </p>
         )
       })()}
@@ -103,6 +105,8 @@ function HomePage() {
       connectors={{
         fortmatic: { apiKey: '' },
         portis: { dAppId: '' },
+        walletconnect: { rpcUrl: '' },
+        walletlink: { url: '' },
       }}
     >
       <App />
