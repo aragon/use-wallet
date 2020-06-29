@@ -112,6 +112,11 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
             'The WalletConnect connector requires rpcUrl to be set.'
           )
         }
+        if (!/^https?:\/\//.test(rpcUrl)) {
+          throw new ConnectorConfigError(
+            'The WalletConnect connector requires rpcUrl to be an HTTP URL.'
+          )
+        }
         return new WalletConnectConnector({
           bridge,
           pollingInterval,
@@ -130,6 +135,11 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
         if (chainId !== 1) {
           throw new ConnectorConfigError(
             'The WalletLink connector requires chainId to be 1.'
+          )
+        }
+        if (!/^https?:\/\//.test(url)) {
+          throw new ConnectorConfigError(
+            'The WalletLink connector requires url to be an HTTP URL.'
           )
         }
         return new WalletLinkConnector({ url, appName, appLogoUrl })
