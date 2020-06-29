@@ -1,6 +1,6 @@
 {
   "name": "use-wallet",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": "Aragon Association <legal@aragon.org>",
   "license": "MIT",
   "main": "dist/cjs/index.js",
