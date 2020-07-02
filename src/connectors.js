@@ -22,7 +22,11 @@ import {
 // TODO: fix babel-runtime issue with torus-connector
 import { TorusConnector } from '@web3-react/torus-connector'
 
-export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
+export function getConnectors(
+  chainId,
+  connectorsInitsOrConfigs = {},
+  ethereum
+) {
   // Split the connector initializers from the confs.
   const [inits, configs] = Object.entries(connectorsInitsOrConfigs).reduce(
     ([inits, configs], [id, initOrConfig]) => {
@@ -38,8 +42,12 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
 
   const connectors = {
     injected: {
-      web3ReactConnector({ chainId }) {
-        return new InjectedConnector({ supportedChainIds: [chainId] })
+      web3ReactConnector({ chainId, providedEthereum }) {
+        return new InjectedConnector({
+          ethereum,
+          provider: providedEthereum,
+          supportedChainIds: [chainId],
+        })
       },
       handleActivationError(err) {
         if (err instanceof InjectedUserRejectedRequestError) {
