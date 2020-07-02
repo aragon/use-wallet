@@ -337,19 +337,17 @@ function UseWalletProvider({
   )
 
   return (
-    <Web3ReactProvider getLibrary={ethereum => ethereum}>
-      <UseWalletContext.Provider
-        value={{
-          addBlockNumberListener,
-          pollBalanceInterval,
-          pollBlockNumberInterval,
-          removeBlockNumberListener,
-          wallet,
-        }}
-      >
-        {children}
-      </UseWalletContext.Provider>
-    </Web3ReactProvider>
+    <UseWalletContext.Provider
+      value={{
+        addBlockNumberListener,
+        pollBalanceInterval,
+        pollBlockNumberInterval,
+        removeBlockNumberListener,
+        wallet,
+      }}
+    >
+      {children}
+    </UseWalletContext.Provider>
   )
 }
 
@@ -368,9 +366,13 @@ UseWalletProvider.defaultProps = {
   pollBlockNumberInterval: 5000,
 }
 
-function UseWalletProviderWrapper(props) {
+function UseWalletProviderWrapper({ ethereum: providedEthereum, ...props }) {
+  const getLibrary = useCallback(ethereum => providedEthereum || ethereum, [
+    providedEthereum,
+  ])
+
   return (
-    <Web3ReactProvider getLibrary={ethereum => ethereum}>
+    <Web3ReactProvider getLibrary={getLibrary}>
       <UseWalletProvider {...props} />
     </Web3ReactProvider>
   )
