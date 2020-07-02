@@ -214,8 +214,8 @@ function UseWalletProvider({
 
   // Combine the user-provided connectors with the default ones (see connectors.js).
   const connectors = useMemo(
-    () => getConnectors(chainId, connectorsInitsOrConfigs, providedEthereum),
-    [chainId, connectorsInitsOrConfigs, providedEthereum]
+    () => getConnectors(chainId, connectorsInitsOrConfigs),
+    [chainId, connectorsInitsOrConfigs]
   )
 
   const deactivate = useCallback(async () => {
