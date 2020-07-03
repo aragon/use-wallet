@@ -370,7 +370,7 @@ UseWalletProvider.defaultProps = {
   pollBlockNumberInterval: 5000,
 }
 
-function UseWalletProviderWrapper({ ...props }) {
+function UseWalletProviderWrapper(props) {
   return (
     <Web3ReactProvider getLibrary={ethereum => ethereum}>
       <UseWalletProvider {...props} />
