@@ -191,7 +191,6 @@ function UseWalletProvider({
   connectors: connectorsInitsOrConfigs,
   pollBalanceInterval,
   pollBlockNumberInterval,
-  providedEthereum,
 }) {
   const walletContext = useContext(UseWalletContext)
 
@@ -249,7 +248,6 @@ function UseWalletProvider({
         connector.web3ReactConnector &&
         connector.web3ReactConnector({
           chainId,
-          providedEthereum,
           ...(connector.config || {}),
         })
 
@@ -282,7 +280,7 @@ function UseWalletProvider({
         throw err
       }
     },
-    [chainId, connectors, deactivate, providedEthereum, web3ReactContext]
+    [chainId, connectors, deactivate, web3ReactContext]
   )
 
   useEffect(() => {
