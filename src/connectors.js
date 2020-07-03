@@ -60,7 +60,7 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
         }
         if (err.message.startsWith('JSON.parse')) {
           throw new Error(
-            'There seem to be an issue when trying to connect to Frame.'
+            'There seems to be an issue when trying to connect to Frame.'
           )
         }
       },
