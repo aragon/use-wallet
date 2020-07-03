@@ -2,6 +2,15 @@
 # yarn lockfile v1
 
 
+"@aragon/provided-connector@^6.0.7":
+  version "6.0.7"
+  resolved "https://registry.yarnpkg.com/@aragon/provided-connector/-/provided-connector-6.0.7.tgz#dbe368ed8c097017719d37afc4f718591b16fd3f"
+  integrity sha512-DheBuw+mSs/3VGoQqa8BlVpYRR0jW3sydhKKiqsEC17KRLOhISZYslrD3it93ZPtd3B9ap0qGbfZxaseP0O3uQ==
+  dependencies:
+    "@web3-react/abstract-connector" "^6.0.7"
+    "@web3-react/types" "^6.0.7"
+    tiny-warning "^1.0.3"
+
 "@babel/cli@^7.8.3":
   version "7.8.4"
   resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.8.4.tgz#505fb053721a98777b2b175323ea4f090b7d3c1c"
