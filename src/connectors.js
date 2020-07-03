@@ -13,7 +13,7 @@ import { PortisConnector } from '@web3-react/portis-connector'
 import {
   ProvidedConnector,
   UserRejectedRequestError as ProvidedUserRejectedRequestError,
-} from '@web3-react/provided-connector'
+} from '@aragon/provided-connector'
 import { SquarelinkConnector } from '@web3-react/squarelink-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { RejectedActivationError, ConnectorConfigError } from './errors'
