@@ -113,11 +113,6 @@ Configuration for the different connectors. If you use a connector that requires
 
 See the [web3-react documentation](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs) for more details.
 
-#### ethereum
-
-An [EIP-1193](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1193.md) compatible provider
-object. This prop is optional.
-
 ### useWallet()
 
 This is the hook to be used throughout the app.
