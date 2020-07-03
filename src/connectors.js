@@ -5,15 +5,15 @@ import {
   UserRejectedRequestError as FrameUserRejectedRequestError,
 } from '@web3-react/frame-connector'
 import {
-  ProvidedConnector,
-  UserRejectedRequestError as ProvidedUserRejectedRequestError,
-} from '@web3-react/provided-connector'
-import {
   InjectedConnector,
   // NoEthereumProviderError as InjectedNoEthereumProviderError,
   UserRejectedRequestError as InjectedUserRejectedRequestError,
 } from '@web3-react/injected-connector'
 import { PortisConnector } from '@web3-react/portis-connector'
+import {
+  ProvidedConnector,
+  UserRejectedRequestError as ProvidedUserRejectedRequestError,
+} from '@web3-react/provided-connector'
 import { SquarelinkConnector } from '@web3-react/squarelink-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { RejectedActivationError, ConnectorConfigError } from './errors'
@@ -92,6 +92,11 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
           provider,
           supportedChainIds: [chainId],
         })
+      },
+      handleActivationError(err) {
+        if (err instanceof ProvidedUserRejectedRequestError) {
+          throw new RejectedActivationError()
+        }
       },
     },
     authereum: {
