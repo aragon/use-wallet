@@ -1,3 +1,7 @@
+import {
+  ProvidedConnector,
+  UserRejectedRequestError as ProvidedUserRejectedRequestError,
+} from '@aragon/provided-connector'
 import { AuthereumConnector } from '@web3-react/authereum-connector'
 import { FortmaticConnector } from '@web3-react/fortmatic-connector'
 import {
@@ -57,7 +61,7 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
         }
         if (err.message.startsWith('JSON.parse')) {
           throw new Error(
-            'There seem to be an issue when trying to connect to Frame.'
+            'There seems to be an issue when trying to connect to Frame.'
           )
         }
       },
@@ -80,6 +84,19 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
           )
         }
         return new PortisConnector({ dAppId, networks: [chainId] })
+      },
+    },
+    provided: {
+      web3ReactConnector({ chainId, provider }) {
+        return new ProvidedConnector({
+          provider,
+          supportedChainIds: [chainId],
+        })
+      },
+      handleActivationError(err) {
+        if (err instanceof ProvidedUserRejectedRequestError) {
+          throw new RejectedActivationError()
+        }
       },
     },
     authereum: {

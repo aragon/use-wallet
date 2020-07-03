@@ -205,7 +205,6 @@ function UseWalletProvider({
   const web3ReactContext = useWeb3React()
   const activationId = useRef(0)
   const { account, library: ethereum } = web3ReactContext
-
   const balance = useWalletBalance({ account, ethereum, pollBalanceInterval })
   const {
     addBlockNumberListener,
@@ -247,7 +246,10 @@ function UseWalletProvider({
       const web3ReactConnector =
         connector &&
         connector.web3ReactConnector &&
-        connector.web3ReactConnector({ chainId, ...(connector.config || {}) })
+        connector.web3ReactConnector({
+          chainId,
+          ...(connector.config || {}),
+        })
 
       if (!web3ReactConnector) {
         throw new UnsupportedConnectorError(connectorId)
@@ -278,7 +280,7 @@ function UseWalletProvider({
         throw err
       }
     },
-    [chainId, connectors, web3ReactContext, deactivate]
+    [chainId, connectors, deactivate, web3ReactContext]
   )
 
   useEffect(() => {
@@ -337,19 +339,17 @@ function UseWalletProvider({
   )
 
   return (
-    <Web3ReactProvider getLibrary={ethereum => ethereum}>
-      <UseWalletContext.Provider
-        value={{
-          addBlockNumberListener,
-          pollBalanceInterval,
-          pollBlockNumberInterval,
-          removeBlockNumberListener,
-          wallet,
-        }}
-      >
-        {children}
-      </UseWalletContext.Provider>
-    </Web3ReactProvider>
+    <UseWalletContext.Provider
+      value={{
+        addBlockNumberListener,
+        pollBalanceInterval,
+        pollBlockNumberInterval,
+        removeBlockNumberListener,
+        wallet,
+      }}
+    >
+      {children}
+    </UseWalletContext.Provider>
   )
 }
 
