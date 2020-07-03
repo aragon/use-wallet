@@ -370,14 +370,10 @@ UseWalletProvider.defaultProps = {
   pollBlockNumberInterval: 5000,
 }
 
-function UseWalletProviderWrapper({ ethereum: providedEthereum, ...props }) {
-  const getLibrary = useCallback(ethereum => providedEthereum || ethereum, [
-    providedEthereum,
-  ])
-
+function UseWalletProviderWrapper({ ...props }) {
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <UseWalletProvider providedEthereum={providedEthereum} {...props} />
+    <Web3ReactProvider getLibrary={ethereum => ethereum}>
+      <UseWalletProvider {...props} />
     </Web3ReactProvider>
   )
 }

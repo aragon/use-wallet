@@ -5,6 +5,10 @@ import {
   UserRejectedRequestError as FrameUserRejectedRequestError,
 } from '@web3-react/frame-connector'
 import {
+  ProvidedConnector,
+  UserRejectedRequestError as ProvidedUserRejectedRequestError,
+} from '@web3-react/provided-connector'
+import {
   InjectedConnector,
   // NoEthereumProviderError as InjectedNoEthereumProviderError,
   UserRejectedRequestError as InjectedUserRejectedRequestError,
@@ -38,11 +42,8 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
 
   const connectors = {
     injected: {
-      web3ReactConnector({ chainId, providedEthereum }) {
-        return new InjectedConnector({
-          provider: providedEthereum,
-          supportedChainIds: [chainId],
-        })
+      web3ReactConnector({ chainId }) {
+        return new InjectedConnector({ supportedChainIds: [chainId] })
       },
       handleActivationError(err) {
         if (err instanceof InjectedUserRejectedRequestError) {
@@ -83,6 +84,14 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
           )
         }
         return new PortisConnector({ dAppId, networks: [chainId] })
+      },
+    },
+    provided: {
+      web3ReactConnector({ chainId, provider }) {
+        return new ProvidedConnector({
+          provider,
+          supportedChainIds: [chainId],
+        })
       },
     },
     authereum: {
