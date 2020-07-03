@@ -92,7 +92,7 @@ export default () => (
 
 ### &lt;UseWalletProvider />
 
-This is the provider component. It should be placed above any component using `useWallet()`. Apart from `children`, it accepts three other props:
+This is the provider component. It should be placed above any component using `useWallet()`. Apart from `children`, it accepts two other props:
 
 #### chainId
 
