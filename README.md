@@ -106,6 +106,7 @@ Configuration for the different connectors. If you use a connector that requires
 - `frame`: no configuration needed.
 - `fortmatic`: `{ apiKey }`
 - `portis`: `{ dAppId }`
+- `provided`: `{ provider }`
 - `authereum`: no configuration needed.
 - `squarelink`: `{ clientId, options }`
 - `walletconnect`: `{ rpcUrl }`
