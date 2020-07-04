@@ -5,7 +5,7 @@ const KNOWN_CHAINS = new Map([
   ['5', 'Goerli'],
   ['100', 'xDai'],
   // This chainId is arbitrary and can be changed,
-  // but by convetion this is the number used
+  // but by convention this is the number used
   // for local chains (ganache, buidler, etc) by default.
   ['1337', 'Local'],
 ])
