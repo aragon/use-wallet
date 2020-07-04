@@ -1,11 +1,19 @@
+const KNOWN_CHAINS = new Map([
+  ['1', 'Mainnet'],
+  ['3', 'Ropsten'],
+  ['4', 'Rinkeby'],
+  ['5', 'Goerli'],
+  ['100', 'xDai'],
+  // This chainId is arbitrary and can be changed,
+  // but by convention this is the number used
+  // for local chains (ganache, buidler, etc) by default.
+  ['1337', 'Local'],
+])
+
 export function getNetworkName(chainId) {
   chainId = String(chainId)
 
-  if (chainId === '1') return 'Mainnet'
-  if (chainId === '3') return 'Ropsten'
-  if (chainId === '4') return 'Rinkeby'
-
-  return 'Unknown'
+  return KNOWN_CHAINS.get(chainId) || 'Unknown'
 }
 
 export function rpcResult(response) {
