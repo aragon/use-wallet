@@ -30,9 +30,7 @@
     "@web3-react/torus-connector": "^6.1.1",
     "@web3-react/walletconnect-connector": "^6.1.4",
     "@web3-react/walletlink-connector": "^6.1.1",
-    "jsbi": "^3.1.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1"
+    "jsbi": "^3.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.3",
