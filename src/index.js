@@ -198,6 +198,7 @@ function UseWalletProvider({
     throw new Error('<UseWalletProvider /> has already been declared.')
   }
 
+  const [connector, setConnector] = useState(null)
   const [error, setError] = useState(null)
   const [isContract, setIsContract] = useState(false)
   const [status, setStatus] = useState('disconnected')
@@ -220,6 +221,7 @@ function UseWalletProvider({
     if (web3ReactContext.active) {
       web3ReactContext.deactivate()
     }
+    setConnector(null)
     setError(null)
     setStatus('disconnected')
   }, [web3ReactContext])
@@ -231,11 +233,14 @@ function UseWalletProvider({
 
       reset()
 
-      setStatus('connecting')
       // Check if another connection has happened right after deactivate().
       if (id !== activationId.current) {
         return
       }
+
+      // If no connection happene, we're in the right context, and we can safely update
+      // the connection stage status
+      setStatus('connecting')
 
       if (!connectors[connectorId]) {
         setStatus('error')
@@ -262,15 +267,19 @@ function UseWalletProvider({
       try {
         // TODO: there is no way to prevent an activation to complete, but we
         // could reconnect to the last provider the user tried to connect to.
+        setConnector(connectorId)
         await web3ReactContext.activate(web3ReactConnector, null, true)
         setStatus('connected')
       } catch (err) {
-        setStatus('error')
-
         // Don’t throw if another connection has happened in the meantime.
         if (id !== activationId.current) {
           return
         }
+
+        // If not, the error has been thrown during the current connection attempt,
+        // so it's correct to indicate that there has been an error
+        setConnector(null)
+        setStatus('error')
 
         if (err instanceof UnsupportedChainIdError) {
           setError(UnsupportedChainError(-1, chainId))
@@ -280,8 +289,11 @@ function UseWalletProvider({
         if (connector.handleActivationError) {
           const thrownError = connector.handleActivationError(err)
           setError(thrownError)
+          return
         }
-        // Otherwise, throw the received error
+
+        // Otherwise, set to state the received error
+        setError(err)
       }
     },
     [chainId, connectors, reset, web3ReactContext]
@@ -317,6 +329,7 @@ function UseWalletProvider({
       balance,
       chainId,
       connect,
+      connector,
       connectors,
       error,
       ethereum,
@@ -330,6 +343,7 @@ function UseWalletProvider({
       balance,
       chainId,
       connect,
+      connector,
       connectors,
       error,
       ethereum,
