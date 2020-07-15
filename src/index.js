@@ -198,11 +198,9 @@ function UseWalletProvider({
     throw new Error('<UseWalletProvider /> has already been declared.')
   }
 
-  const [activating, setActivating] = useState(null)
-  const [activated, setActivated] = useState(null)
-  const [status, setStatus] = useState('disconnected')
+  const [error, setError] = useState(null)
   const [isContract, setIsContract] = useState(false)
-  const [connected, setConnected] = useState(false)
+  const [status, setStatus] = useState('disconnected')
   const web3ReactContext = useWeb3React()
   const activationId = useRef(0)
   const { account, library: ethereum } = web3ReactContext
@@ -218,22 +216,22 @@ function UseWalletProvider({
     [chainId, connectorsInitsOrConfigs]
   )
 
-  const disconnect = useCallback(async () => {
+  const reset = useCallback(async () => {
     if (web3ReactContext.active) {
       await web3ReactContext.deactivate()
     }
-    setActivating(null)
-    setActivated(null)
+    setError(null)
+    setStatus('disconnected')
   }, [web3ReactContext])
 
   const connect = useCallback(
     async (connectorId = 'injected') => {
-      setStatus('connecting')
       // Prevent race conditions between connections by using an external ID.
       const id = ++activationId.current
 
-      disconnect()
+      reset()
 
+      setStatus('connecting')
       // Check if another connection has happened right after deactivate().
       if (id !== activationId.current) {
         return
@@ -241,7 +239,8 @@ function UseWalletProvider({
 
       if (!connectors[connectorId]) {
         setStatus('error')
-        throw new UnsupportedConnectorError(connectorId)
+        setError(UnsupportedConnectorError(connectorId))
+        return
       }
 
       const connector = connectors[connectorId]
@@ -256,7 +255,8 @@ function UseWalletProvider({
 
       if (!web3ReactConnector) {
         setStatus('error')
-        throw new UnsupportedConnectorError(connectorId)
+        setError(UnsupportedConnectorError(connectorId))
+        return
       }
 
       try {
@@ -264,18 +264,17 @@ function UseWalletProvider({
         // could reconnect to the last provider the user tried to connect to.
         await web3ReactContext.activate(web3ReactConnector, null, true)
         setStatus('connected')
-        setActivated(connectorId)
-        setActivating(null)
       } catch (err) {
         setStatus('error')
-        setActivating(null)
 
         // Don’t throw if another connection has happened in the meantime.
         if (id !== activationId.current) {
           return
         }
+
         if (err instanceof UnsupportedChainIdError) {
-          throw new UnsupportedChainError(-1, chainId)
+          setError(UnsupportedChainError(-1, chainId))
+          return
         }
         // It might have thrown with an error known by the connector
         if (connector.handleActivationError) {
@@ -285,7 +284,7 @@ function UseWalletProvider({
         throw err
       }
     },
-    [chainId, connectors, disconnect, web3ReactContext]
+    [chainId, connectors, reset, web3ReactContext]
   )
 
   useEffect(() => {
@@ -295,7 +294,6 @@ function UseWalletProvider({
 
     let cancel = false
 
-    setConnected(true)
     setIsContract(false)
 
     getAccountIsContract(ethereum, account).then(isContract => {
@@ -306,7 +304,6 @@ function UseWalletProvider({
 
     return () => {
       cancel = true
-      setConnected(false)
       setIsContract(false)
     }
   }, [account, ethereum])
@@ -315,31 +312,27 @@ function UseWalletProvider({
     () => ({
       _web3ReactContext: web3ReactContext,
       account: account || null,
-      activated,
-      activating,
       balance,
       chainId,
       connect,
-      connected,
       connectors,
-      disconnect,
+      error,
       ethereum,
       isContract,
       networkName: getNetworkName(chainId),
+      reset,
       status,
     }),
     [
       account,
-      activated,
-      activating,
       balance,
       chainId,
       connect,
-      connected,
       connectors,
-      disconnect,
+      error,
       ethereum,
       isContract,
+      reset,
       status,
       web3ReactContext,
     ]
