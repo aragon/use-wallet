@@ -218,7 +218,7 @@ function UseWalletProvider({
     [chainId, connectorsInitsOrConfigs]
   )
 
-  const deactivate = useCallback(async () => {
+  const disconnect = useCallback(async () => {
     if (web3ReactContext.active) {
       await web3ReactContext.deactivate()
     }
@@ -226,13 +226,13 @@ function UseWalletProvider({
     setActivated(null)
   }, [web3ReactContext])
 
-  const activate = useCallback(
+  const connect = useCallback(
     async (connectorId = 'injected') => {
       setStatus('connecting')
       // Prevent race conditions between connections by using an external ID.
       const id = ++activationId.current
 
-      deactivate()
+      disconnect()
 
       // Check if another connection has happened right after deactivate().
       if (id !== activationId.current) {
@@ -285,7 +285,7 @@ function UseWalletProvider({
         throw err
       }
     },
-    [chainId, connectors, deactivate, web3ReactContext]
+    [chainId, connectors, disconnect, web3ReactContext]
   )
 
   useEffect(() => {
@@ -315,14 +315,14 @@ function UseWalletProvider({
     () => ({
       _web3ReactContext: web3ReactContext,
       account: account || null,
-      activate,
       activated,
       activating,
       balance,
       chainId,
+      connect,
       connected,
       connectors,
-      deactivate,
+      disconnect,
       ethereum,
       isContract,
       networkName: getNetworkName(chainId),
@@ -330,14 +330,14 @@ function UseWalletProvider({
     }),
     [
       account,
-      activate,
       activated,
       activating,
       balance,
       chainId,
+      connect,
       connected,
       connectors,
-      deactivate,
+      disconnect,
       ethereum,
       isContract,
       status,
