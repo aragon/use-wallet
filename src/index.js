@@ -216,9 +216,9 @@ function UseWalletProvider({
     [chainId, connectorsInitsOrConfigs]
   )
 
-  const reset = useCallback(async () => {
+  const reset = useCallback(() => {
     if (web3ReactContext.active) {
-      await web3ReactContext.deactivate()
+      web3ReactContext.deactivate()
     }
     setError(null)
     setStatus('disconnected')
