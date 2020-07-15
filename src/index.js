@@ -200,6 +200,7 @@ function UseWalletProvider({
 
   const [activating, setActivating] = useState(null)
   const [activated, setActivated] = useState(null)
+  const [status, setStatus] = useState('disconnected')
   const [isContract, setIsContract] = useState(false)
   const [connected, setConnected] = useState(false)
   const web3ReactContext = useWeb3React()
@@ -227,6 +228,7 @@ function UseWalletProvider({
 
   const activate = useCallback(
     async (connectorId = 'injected') => {
+      setStatus('connecting')
       // Prevent race conditions between connections by using an external ID.
       const id = ++activationId.current
 
@@ -238,6 +240,7 @@ function UseWalletProvider({
       }
 
       if (!connectors[connectorId]) {
+        setStatus('error')
         throw new UnsupportedConnectorError(connectorId)
       }
 
@@ -252,17 +255,19 @@ function UseWalletProvider({
         })
 
       if (!web3ReactConnector) {
+        setStatus('error')
         throw new UnsupportedConnectorError(connectorId)
       }
 
       try {
         // TODO: there is no way to prevent an activation to complete, but we
         // could reconnect to the last provider the user tried to connect to.
-        setActivating(connectorId)
         await web3ReactContext.activate(web3ReactConnector, null, true)
+        setStatus('connected')
         setActivated(connectorId)
         setActivating(null)
       } catch (err) {
+        setStatus('error')
         setActivating(null)
 
         // Don’t throw if another connection has happened in the meantime.
