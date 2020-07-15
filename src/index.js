@@ -326,6 +326,7 @@ function UseWalletProvider({
       ethereum,
       isContract,
       networkName: getNetworkName(chainId),
+      status,
     }),
     [
       account,
@@ -339,6 +340,7 @@ function UseWalletProvider({
       deactivate,
       ethereum,
       isContract,
+      status,
       web3ReactContext,
     ]
   )
