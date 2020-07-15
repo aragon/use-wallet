@@ -1,12 +1,8 @@
 import 'babel-polyfill'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import Web3 from 'web3'
-import {
-  RejectedActivationError,
-  UseWalletProvider,
-  useWallet,
-} from 'use-wallet'
+import { UseWalletProvider, useWallet } from 'use-wallet'
 
 function App() {
   const [lastError, setLastError] = useState('')
@@ -17,15 +13,10 @@ function App() {
   const activate = async connector => {
     setLastError('')
 
-    try {
-      await wallet.activate(connector)
-    } catch (err) {
-      if (err instanceof RejectedActivationError) {
-        setLastError('Connection error: the user rejected the activation')
-      }
-      setLastError(err.message)
-    }
+    await wallet.connect(connector)
   }
+
+  useEffect(() => setLastError(wallet.error?.name ?? ''), [wallet])
 
   return (
     <>
@@ -41,20 +32,20 @@ function App() {
           )
         }
 
-        if (wallet.activating) {
+        if (wallet.status === 'connecting') {
           return (
             <p>
-              <span>Connecting to {wallet.activating}…</span>
-              <button onClick={() => wallet.deactivate()}>cancel</button>
+              <span>Connecting to {wallet.connector}…</span>
+              <button onClick={() => wallet.reset()}>cancel</button>
             </p>
           )
         }
 
-        if (wallet.connected) {
+        if (wallet.status === 'connected') {
           return (
             <p>
               <span>Connected.</span>
-              <button onClick={() => wallet.deactivate()}>disconnect</button>
+              <button onClick={() => wallet.reset()}>disconnect</button>
             </p>
           )
         }
