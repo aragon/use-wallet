@@ -278,10 +278,10 @@ function UseWalletProvider({
         }
         // It might have thrown with an error known by the connector
         if (connector.handleActivationError) {
-          connector.handleActivationError(err)
+          const thrownError = connector.handleActivationError(err)
+          setError(thrownError)
         }
         // Otherwise, throw the received error
-        throw err
       }
     },
     [chainId, connectors, reset, web3ReactContext]
@@ -289,6 +289,7 @@ function UseWalletProvider({
 
   useEffect(() => {
     if (!account || !ethereum) {
+      setStatus('disconnected')
       return
     }
 
@@ -298,6 +299,7 @@ function UseWalletProvider({
 
     getAccountIsContract(ethereum, account).then(isContract => {
       if (!cancel) {
+        setStatus('connected')
         setIsContract(isContract)
       }
     })

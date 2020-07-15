@@ -47,7 +47,7 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
       },
       handleActivationError(err) {
         if (err instanceof InjectedUserRejectedRequestError) {
-          throw new RejectedActivationError()
+          return new RejectedActivationError()
         }
       },
     },
@@ -57,10 +57,10 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
       },
       handleActivationError(err) {
         if (err instanceof FrameUserRejectedRequestError) {
-          throw new RejectedActivationError()
+          return new RejectedActivationError()
         }
         if (err.message.startsWith('JSON.parse')) {
-          throw new Error(
+          return new Error(
             'There seems to be an issue when trying to connect to Frame.'
           )
         }
@@ -95,7 +95,7 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
       },
       handleActivationError(err) {
         if (err instanceof ProvidedUserRejectedRequestError) {
-          throw new RejectedActivationError()
+          return new RejectedActivationError()
         }
       },
     },
@@ -143,7 +143,7 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
       },
       handleActivationError(err) {
         if (err instanceof WalletConnectUserRejectedRequestError) {
-          throw new RejectedActivationError()
+          return new RejectedActivationError()
         }
       },
     },
