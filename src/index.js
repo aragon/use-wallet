@@ -244,7 +244,7 @@ function UseWalletProvider({
 
       if (!connectors[connectorId]) {
         setStatus('error')
-        setError(UnsupportedConnectorError(connectorId))
+        setError(new UnsupportedConnectorError(connectorId))
         return
       }
 
@@ -260,7 +260,7 @@ function UseWalletProvider({
 
       if (!web3ReactConnector) {
         setStatus('error')
-        setError(UnsupportedConnectorError(connectorId))
+        setError(new UnsupportedConnectorError(connectorId))
         return
       }
 
@@ -282,7 +282,7 @@ function UseWalletProvider({
         setStatus('error')
 
         if (err instanceof UnsupportedChainIdError) {
-          setError(UnsupportedChainError(-1, chainId))
+          setError(new UnsupportedChainError(-1, chainId))
           return
         }
         // It might have thrown with an error known by the connector
