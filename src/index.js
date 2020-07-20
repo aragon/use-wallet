@@ -238,7 +238,7 @@ function UseWalletProvider({
         return
       }
 
-      // If no connection happene, we're in the right context, and we can safely update
+      // If no connection happens, we're in the right context and can safely update
       // the connection stage status
       setStatus('connecting')
 
