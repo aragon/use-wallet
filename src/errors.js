@@ -1,6 +1,6 @@
 import { getNetworkName } from './utils'
 
-export class UnsupportedChainError extends Error {
+export class ChainUnsupportedError extends Error {
   constructor(chainId, expectedChainId, ...params) {
     super(...params)
     this.name = 'UnsupportedChainError'
@@ -14,7 +14,7 @@ export class UnsupportedChainError extends Error {
   }
 }
 
-export class UnsupportedConnectorError extends Error {
+export class ConnectorUnsupportedError extends Error {
   constructor(connectorId, ...params) {
     super(...params)
     this.name = 'UnsupportedConnectorError'
@@ -22,7 +22,7 @@ export class UnsupportedConnectorError extends Error {
   }
 }
 
-export class RejectedActivationError extends Error {
+export class ConnectionRejectedError extends Error {
   constructor(...params) {
     super(...params)
     this.name = 'RejectedActivationError'

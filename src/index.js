@@ -15,9 +15,9 @@ import {
 import JSBI from 'jsbi'
 import { getConnectors } from './connectors'
 import {
-  RejectedActivationError,
-  UnsupportedChainError,
-  UnsupportedConnectorError,
+  ConnectionRejectedError,
+  ChainUnsupportedError,
+  ConnectorUnsupportedError,
 } from './errors'
 import {
   getAccountBalance,
@@ -240,7 +240,7 @@ function UseWalletProvider({
 
       if (!connectors[connectorId]) {
         setStatus('error')
-        setError(new UnsupportedConnectorError(connectorId))
+        setError(new ConnectorUnsupportedError(connectorId))
         return
       }
 
@@ -260,7 +260,7 @@ function UseWalletProvider({
 
       if (!web3ReactConnector) {
         setStatus('error')
-        setError(new UnsupportedConnectorError(connectorId))
+        setError(new ConnectorUnsupportedError(connectorId))
         return
       }
 
@@ -282,7 +282,7 @@ function UseWalletProvider({
         setStatus('error')
 
         if (err instanceof UnsupportedChainIdError) {
-          setError(new UnsupportedChainError(-1, chainId))
+          setError(new ChainUnsupportedError(-1, chainId))
           return
         }
         // It might have thrown with an error known by the connector
@@ -398,9 +398,9 @@ UseWalletProviderWrapper.propTypes = UseWalletProvider.propTypes
 UseWalletProviderWrapper.defaultProps = UseWalletProvider.defaultProps
 
 export {
-  RejectedActivationError,
-  UnsupportedChainError,
-  UnsupportedConnectorError,
+  ConnectionRejectedError,
+  ChainUnsupportedError,
+  ConnectorUnsupportedError,
   UseWalletProviderWrapper as UseWalletProvider,
   useWallet,
 }
