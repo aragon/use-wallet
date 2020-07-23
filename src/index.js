@@ -200,7 +200,7 @@ function UseWalletProvider({
 
   const [connector, setConnector] = useState(null)
   const [error, setError] = useState(null)
-  const [isContract, setIsContract] = useState(false)
+  const [isContract, setIsContract] = useState(null)
   const [status, setStatus] = useState('disconnected')
   const web3ReactContext = useWeb3React()
   const activationId = useRef(0)
@@ -309,7 +309,7 @@ function UseWalletProvider({
 
     let cancel = false
 
-    setIsContract(false)
+    setIsContract(null)
 
     getAccountIsContract(ethereum, account).then(isContract => {
       if (!cancel) {
@@ -320,7 +320,7 @@ function UseWalletProvider({
 
     return () => {
       cancel = true
-      setIsContract(false)
+      setIsContract(null)
     }
   }, [account, ethereum])
 
