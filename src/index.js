@@ -303,7 +303,6 @@ function UseWalletProvider({
 
   useEffect(() => {
     if (!account || !ethereum) {
-      setStatus('disconnected')
       return
     }
 
@@ -320,6 +319,7 @@ function UseWalletProvider({
 
     return () => {
       cancel = true
+      setStatus('disconnected')
       setIsContract(null)
     }
   }, [account, ethereum])
