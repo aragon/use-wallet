@@ -1,33 +1,26 @@
 import 'babel-polyfill'
-import React, { useRef, useState, useEffect } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import Web3 from 'web3'
 import { UseWalletProvider, useWallet } from 'use-wallet'
 
 function App() {
-  const [lastError, setLastError] = useState('')
   const wallet = useWallet()
   const blockNumber = wallet.getBlockNumber()
   const { current: web3 } = useRef(new Web3(window.ethereum))
 
-  const activate = async connector => {
-    setLastError('')
-
-    await wallet.connect(connector)
-  }
-
-  useEffect(() => setLastError(wallet.error?.name ?? ''), [wallet])
+  const activate = async connector => await wallet.connect(connector)
 
   return (
     <>
       <h1>use-wallet</h1>
 
       {(() => {
-        if (lastError) {
+        if (wallet.error?.name) {
           return (
             <p>
-              <span>{lastError}</span>
-              <button onClick={() => setLastError('')}>retry</button>
+              <span>{wallet.error.name}</span>
+              <button onClick={wallet.reset()}>retry</button>
             </p>
           )
         }

@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import * as ethers from 'ethers'
 import { UseWalletProvider, useWallet } from 'use-wallet'
@@ -7,28 +7,21 @@ import { UseWalletProvider, useWallet } from 'use-wallet'
 const { providers: EthersProviders, utils, EtherSymbol } = ethers
 
 function App() {
-  const [lastError, setLastError] = useState('')
   const wallet = useWallet()
   const blockNumber = wallet.getBlockNumber()
 
-  const activate = async connector => {
-    setLastError('')
-
-    await wallet.connect(connector)
-  }
-
-  useEffect(() => setLastError(wallet.error?.name ?? ''), [wallet])
+  const activate = async connector => await wallet.connect(connector)
 
   return (
     <>
       <h1>use-wallet</h1>
 
       {(() => {
-        if (lastError) {
+        if (wallet.error?.name) {
           return (
             <p>
-              <span>{lastError}</span>
-              <button onClick={() => setLastError('')}>retry</button>
+              <span>{wallet.error.name}</span>
+              <button onClick={wallet.reset()}>retry</button>
             </p>
           )
         }
