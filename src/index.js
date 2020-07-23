@@ -238,15 +238,15 @@ function UseWalletProvider({
         return
       }
 
-      // If no connection happens, we're in the right context and can safely update
-      // the connection stage status
-      setStatus('connecting')
-
       if (!connectors[connectorId]) {
         setStatus('error')
         setError(new UnsupportedConnectorError(connectorId))
         return
       }
+
+      // If no connection happens, we're in the right context and can safely update
+      // the connection stage status
+      setStatus('connecting')
 
       const connector = connectors[connectorId]
 
