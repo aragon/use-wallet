@@ -287,9 +287,11 @@ function UseWalletProvider({
         }
         // It might have thrown with an error known by the connector
         if (connector.handleActivationError) {
-          const thrownError = connector.handleActivationError(err)
-          setError(thrownError)
-          return
+          const handledError = connector.handleActivationError(err)
+          if (handledError) {
+            setError(handledError)
+            return
+          }
         }
 
         // Otherwise, set to state the received error
