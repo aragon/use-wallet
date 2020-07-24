@@ -337,10 +337,10 @@ function UseWalletProvider({
       connectors,
       error,
       ethereum,
-      type,
       networkName: getNetworkName(chainId),
       reset,
       status,
+      type,
     }),
     [
       account,
