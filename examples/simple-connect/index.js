@@ -14,10 +14,8 @@ function App() {
   const wallet = useWallet()
   const blockNumber = wallet.getBlockNumber()
 
-  const activate = async connector => await wallet.connect(connector)
-  React.useEffect(() => console.log(wallet.error?.name, wallet, 'name'), [
-    wallet,
-  ])
+  const activate = connector => wallet.connect(connector)
+
   return (
     <>
       <h1>use-wallet</h1>

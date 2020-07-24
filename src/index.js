@@ -289,12 +289,10 @@ function UseWalletProvider({
         if (connector.handleActivationError) {
           const handledError = connector.handleActivationError(err)
           if (handledError) {
-            console.log('setting handled error', handledError)
             setError(handledError)
             return
           }
         }
-        console.log('hey!', err)
         // Otherwise, set to state the received error
         setError(err)
       }
@@ -320,7 +318,6 @@ function UseWalletProvider({
 
     return () => {
       cancel = true
-      console.log('getting called')
       setStatus('disconnected')
       setType(null)
     }
