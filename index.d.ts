@@ -19,18 +19,18 @@ declare module 'use-wallet' {
 
   export interface Wallet<T> {
     account: string | null
-    activate(connectorId: keyof Connectors): Promise<void>
-    activated: keyof Connectors
-    activating: boolean
     balance: string
-    connected: boolean
-    connectors: Connectors
-    deactivate(): void
     chainId: number | null
+    connect(connectorId: keyof Connectors): Promise<void>
+    connector: keyof Connectors
+    connectors: Connectors
+    error: UnsupportedChainError | UnsupportedChainError | RejectedActivationError | ConnectorConfigError
     ethereum: T
-    getBlockNumber(): number
-    isContract: boolean
     networkName: string
+    getBlockNumber(): number
+    reset(): void
+    status: string
+    type: string | null
   }
 
   interface UseWalletProviderProps {

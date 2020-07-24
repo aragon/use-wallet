@@ -1,57 +1,49 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { utils as ethersUtils } from 'ethers'
 import {
-  RejectedActivationError,
+  ConnectionRejectedError,
   UseWalletProvider,
   useWallet,
 } from 'use-wallet'
 
 function App() {
-  const [lastError, setLastError] = useState('')
   const wallet = useWallet()
   const blockNumber = wallet.getBlockNumber()
 
-  const activate = async connector => {
-    setLastError('')
-
-    try {
-      await wallet.activate(connector)
-    } catch (err) {
-      if (err instanceof RejectedActivationError) {
-        setLastError('Connection error: the user rejected the activation')
-      }
-      setLastError(err.message)
-    }
-  }
+  const activate = connector => wallet.connect(connector)
 
   return (
     <>
       <h1>use-wallet</h1>
 
       {(() => {
-        if (lastError) {
+        if (wallet.error?.name) {
           return (
             <p>
-              <span>{lastError}</span>
-              <button onClick={() => setLastError('')}>retry</button>
+              <span>
+                {wallet.error instanceof ConnectionRejectedError
+                  ? 'Connection error: the user rejected the activation'
+                  : wallet.error.name}
+              </span>
+              <button onClick={wallet.reset()}>retry</button>
             </p>
           )
         }
 
-        if (wallet.activating) {
+        if (wallet.status === 'connecting') {
           return (
             <p>
-              <span>Connecting to {wallet.activating}…</span>
-              <button onClick={() => wallet.deactivate()}>cancel</button>
+              <span>Connecting to {wallet.connector}…</span>
+              <button onClick={() => wallet.reset()}>cancel</button>
             </p>
           )
         }
 
-        if (wallet.connected) {
+        if (wallet.status === 'connected') {
           return (
             <p>
               <span>Connected.</span>
-              <button onClick={() => wallet.deactivate()}>disconnect</button>
+              <button onClick={() => wallet.reset()}>disconnect</button>
             </p>
           )
         }
