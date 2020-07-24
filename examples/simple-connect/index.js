@@ -2,7 +2,11 @@ import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import * as ethers from 'ethers'
-import { UseWalletProvider, useWallet } from 'use-wallet'
+import {
+  ConnectionRejectedError,
+  UseWalletProvider,
+  useWallet,
+} from 'use-wallet'
 
 const { providers: EthersProviders, utils, EtherSymbol } = ethers
 
@@ -11,7 +15,9 @@ function App() {
   const blockNumber = wallet.getBlockNumber()
 
   const activate = async connector => await wallet.connect(connector)
-
+  React.useEffect(() => console.log(wallet.error?.name, wallet, 'name'), [
+    wallet,
+  ])
   return (
     <>
       <h1>use-wallet</h1>
@@ -20,8 +26,12 @@ function App() {
         if (wallet.error?.name) {
           return (
             <p>
-              <span>{wallet.error.name}</span>
-              <button onClick={wallet.reset()}>retry</button>
+              <span>
+                {wallet.error instanceof ConnectionRejectedError
+                  ? 'Connection error: the user rejected the activation'
+                  : wallet.error.name}
+              </span>
+              <button onClick={() => wallet.reset()}>retry</button>
             </p>
           )
         }

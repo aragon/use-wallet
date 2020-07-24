@@ -1,12 +1,16 @@
 import React from 'react'
 import { utils as ethersUtils } from 'ethers'
-import { UseWalletProvider, useWallet } from 'use-wallet'
+import {
+  ConnectionRejectedError,
+  UseWalletProvider,
+  useWallet,
+} from 'use-wallet'
 
 function App() {
   const wallet = useWallet()
   const blockNumber = wallet.getBlockNumber()
 
-  const activate = async connector => await wallet.connect(connector)
+  const activate = connector => wallet.connect(connector)
 
   return (
     <>
@@ -16,7 +20,11 @@ function App() {
         if (wallet.error?.name) {
           return (
             <p>
-              <span>{wallet.error.name}</span>
+              <span>
+                {wallet.error instanceof ConnectionRejectedError
+                  ? 'Connection error: the user rejected the activation'
+                  : wallet.error.name}
+              </span>
               <button onClick={wallet.reset()}>retry</button>
             </p>
           )

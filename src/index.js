@@ -200,7 +200,7 @@ function UseWalletProvider({
 
   const [connector, setConnector] = useState(null)
   const [error, setError] = useState(null)
-  const [isContract, setIsContract] = useState(null)
+  const [type, setType] = useState(null)
   const [status, setStatus] = useState('disconnected')
   const web3ReactContext = useWeb3React()
   const activationId = useRef(0)
@@ -289,11 +289,12 @@ function UseWalletProvider({
         if (connector.handleActivationError) {
           const handledError = connector.handleActivationError(err)
           if (handledError) {
+            console.log('setting handled error', handledError)
             setError(handledError)
             return
           }
         }
-
+        console.log('hey!', err)
         // Otherwise, set to state the received error
         setError(err)
       }
@@ -308,19 +309,20 @@ function UseWalletProvider({
 
     let cancel = false
 
-    setIsContract(null)
+    setType(null)
 
     getAccountIsContract(ethereum, account).then(isContract => {
       if (!cancel) {
         setStatus('connected')
-        setIsContract(isContract)
+        setType(isContract ? 'contract' : 'normal')
       }
     })
 
     return () => {
       cancel = true
+      console.log('getting called')
       setStatus('disconnected')
-      setIsContract(null)
+      setType(null)
     }
   }, [account, ethereum])
 
@@ -335,7 +337,7 @@ function UseWalletProvider({
       connectors,
       error,
       ethereum,
-      isContract,
+      type,
       networkName: getNetworkName(chainId),
       reset,
       status,
@@ -349,7 +351,7 @@ function UseWalletProvider({
       connectors,
       error,
       ethereum,
-      isContract,
+      type,
       reset,
       status,
       web3ReactContext,
