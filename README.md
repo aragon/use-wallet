@@ -126,17 +126,22 @@ It takes an optional object as a single param, containing the following:
 It returns an object representing the connected account (“wallet”), containing:
 
 - `account`: the address of the account, or `null` when disconnected.
-- `activate(connectorId)`: call this function with a connector ID to “connect” to a provider (see above for the connectors provided by default).
-- `activated`: which provider is currently activated. `null` otherwise.
-- `activating`: which provider is currently waiting to be activated. `null` otherwise.
 - `balance`: the balance of the account, in wei.
-- `getBlockNumber()`: this function returns the current block number. This is a function because the block number updates often, which could triggers as many extra renders. Making an explicit call for the block number allows users of `useWallet()` to avoid extra renders when the block number is not needed.
-- `connected`: whether the account is connected or not (same as testing `account !== null`).
+- `chainId`: The specified Chain ID of the network you're connected to.
+- `connect(connectorId)`: call this function with a connector ID to “connect” to a provider (see above for the connectors provided by default).
+- `connector`: The "key" of the wallet you're connected to (e.g "metamask", "portis").
 - `connectors`: the full list of connectors.
-- `deactivate()`: call this function to “disconnect” from the current provider.
+- `error`: contains an error object with the corresponding name and message if `status` is set to `error`.
 - `ethereum`: the connected [Ethereum provider](https://eips.ethereum.org/EIPS/eip-1193).
-- `isContract`: whether or not the account is a contract.
+- `getBlockNumber()`: this function returns the current block number. This is a function because the block number updates often, which could triggers as many extra renders. Making an explicit call for the block number allows users of `useWallet()` to avoid extra renders when the block number is not needed.
 - `networkName`: a human-readable name corresponding to the Chain ID.
+- `reset()`: call this function to “disconnect” from the current provider. This will also clean the latest error value stored in `use-wallet`'s state.
+- `status`: contains the current status of the wallet connection. The possible values are:
+  - "disconnected": no wallet connected (default state).
+  - "connecting": trying to connect to the wallet.
+  - "connected": connected to the wallet (i.e. the account is available).
+  - "error": a connection error happened.
+- `type`: whether or not the account is a contract. Can be `null` when you're disconnected, or either `"contract"` or `"normal"`.
 
 ## Special thanks
 

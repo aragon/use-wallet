@@ -16,7 +16,7 @@ import {
 import { PortisConnector } from '@web3-react/portis-connector'
 import { SquarelinkConnector } from '@web3-react/squarelink-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
-import { RejectedActivationError, ConnectorConfigError } from './errors'
+import { ConnectionRejectedError, ConnectorConfigError } from './errors'
 
 import {
   UserRejectedRequestError as WalletConnectUserRejectedRequestError,
@@ -47,7 +47,7 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
       },
       handleActivationError(err) {
         if (err instanceof InjectedUserRejectedRequestError) {
-          throw new RejectedActivationError()
+          return new ConnectionRejectedError()
         }
       },
     },
@@ -57,10 +57,10 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
       },
       handleActivationError(err) {
         if (err instanceof FrameUserRejectedRequestError) {
-          throw new RejectedActivationError()
+          return new ConnectionRejectedError()
         }
         if (err.message.startsWith('JSON.parse')) {
-          throw new Error(
+          return new Error(
             'There seems to be an issue when trying to connect to Frame.'
           )
         }
@@ -95,7 +95,7 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
       },
       handleActivationError(err) {
         if (err instanceof ProvidedUserRejectedRequestError) {
-          throw new RejectedActivationError()
+          return new ConnectionRejectedError()
         }
       },
     },
@@ -143,7 +143,7 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
       },
       handleActivationError(err) {
         if (err instanceof WalletConnectUserRejectedRequestError) {
-          throw new RejectedActivationError()
+          return new ConnectionRejectedError()
         }
       },
     },
