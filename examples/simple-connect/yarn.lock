@@ -990,6 +990,7 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
 
+<<<<<<< HEAD
 "@walletconnect/client@^1.0.15":
   version "1.0.15"
   resolved "https://registry.yarnpkg.com/@walletconnect/client/-/client-1.0.15.tgz#1b0e5e727091925fbf6e3dd04a6e01d42e1a5b10"
@@ -1062,11 +1063,86 @@
   integrity sha512-V/ak5PhowcLDYfcWXia8etSiPPvqKlukkEJiZe2CCyYosGXh9/PnGHSMk5Ym1+/txt9VetqmzPVaPRXaLNrslg==
   dependencies:
     "@walletconnect/types" "^1.0.15"
+=======
+"@walletconnect/client@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@walletconnect/client/-/client-1.0.16.tgz#dd5aaa8ce2e460fac90838c8cded85551da8f345"
+  integrity sha512-F58UB/Jm8CIH6wVUwsdGBwCpxvzrd8AHJ3AoACyprTpa1rd8WubP9TWeKE9fwdEnJRpSizPzD10FJbuFxKx74g==
+  dependencies:
+    "@walletconnect/core" "^1.0.16"
+    "@walletconnect/iso-crypto" "^1.0.16"
+    "@walletconnect/types" "^1.0.16"
+    "@walletconnect/utils" "^1.0.16"
+
+"@walletconnect/core@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@walletconnect/core/-/core-1.0.16.tgz#e8a003166d24991d4c713d0f0c36935ed82c3870"
+  integrity sha512-EbxqxWsg28pDulWFGj6Ua0I2HHDb1XVTxQ3iG9yVPt+iHIA8FIEOGLXFOXRSFCIIDSdWx7wpT4nYWLwgMQleQw==
+  dependencies:
+    "@walletconnect/socket-transport" "^1.0.16"
+    "@walletconnect/types" "^1.0.16"
+    "@walletconnect/utils" "^1.0.16"
+
+"@walletconnect/http-connection@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@walletconnect/http-connection/-/http-connection-1.0.16.tgz#edbe0c86366d1d98b50f3bc741c8d411f9c3f598"
+  integrity sha512-ymQPT+rGjaC50AEfi4eR+mAFxtt0GLlE7vzMdgIq8Lv1uc6hblqCz1TuXSn2DUcsThJvyMqLfjGLrZ187Iyfxw==
+  dependencies:
+    "@walletconnect/types" "^1.0.16"
+    "@walletconnect/utils" "^1.0.16"
+    xhr2-cookies "1.1.0"
+
+"@walletconnect/iso-crypto@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@walletconnect/iso-crypto/-/iso-crypto-1.0.16.tgz#3ac3604ff556274df6ecba525a9171723267df0b"
+  integrity sha512-g06JRRCuhYeBAOykx3hp3Vt3aVRd/N7rBIoWa5dixmT+5iAHL4ygoy/eY54+b5YQogny0XpG2jY4HemnvSKbFg==
+  dependencies:
+    "@walletconnect/types" "^1.0.16"
+    "@walletconnect/utils" "^1.0.16"
+    eccrypto-js "5.2.0"
+
+"@walletconnect/mobile-registry@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@walletconnect/mobile-registry/-/mobile-registry-1.0.16.tgz#dfab5b747d7000d2471ebd09a43de9f265cb4e58"
+  integrity sha512-DtwIwFCKuIPAoO+Dk4RCFL+9fnLI/C9UcQZAZUJq5iHniySs9XCLr3o6qPS6pp9nYAJNjFpruAzTBEnGAFO2RA==
+
+"@walletconnect/qrcode-modal@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@walletconnect/qrcode-modal/-/qrcode-modal-1.0.16.tgz#11b3cffcd8ac954db2fe401c1ae2a1b649325848"
+  integrity sha512-bCOFsCsuxt3fp64dksSsPt6WHWJGk0qPk0CKEF2uYDBdEnX1hn4LXwFwG5JNd45AwE6ygPs1MkyCvF4nQxE8zw==
+  dependencies:
+    "@walletconnect/mobile-registry" "^1.0.16"
+    "@walletconnect/types" "^1.0.16"
+    "@walletconnect/utils" "^1.0.16"
+    preact "10.4.1"
+    qrcode "1.4.4"
+
+"@walletconnect/socket-transport@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@walletconnect/socket-transport/-/socket-transport-1.0.16.tgz#af720bd2de3f00ffbff67afc005602be29bebdbc"
+  integrity sha512-a6eRAIe5srkcvjKUyHDiqnlH5NYqIvKyWcfCEV2Uxx0IrQ+9MFrlKyuX0JZx3M/fiBEaECYlOrpujWte1zJRAQ==
+  dependencies:
+    "@walletconnect/types" "^1.0.16"
+    ws "7.3.0"
+
+"@walletconnect/types@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@walletconnect/types/-/types-1.0.16.tgz#871bd688f00c32ed0c0d3ba121cea5bff8f1a8d2"
+  integrity sha512-0ICpZqCPfOcS56Ek76fIb7Z1j6znJfW5rW3H3aLebNbohD8kV3Mhb4PTDQvB15QDi1KeNiNZV1l6o8PAwOWM5Q==
+
+"@walletconnect/utils@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@walletconnect/utils/-/utils-1.0.16.tgz#49ad64e7508e344b07a9b48cc2fd5b01819ed1ea"
+  integrity sha512-ILiho/9U10Lu13vWKoRJFRCZFuQ0dWqh1PpEVnVqlPNEWZjZEu/t09bcnIyKhJ9Qtje2mG2kUNkuL1Utu6FyJw==
+  dependencies:
+    "@walletconnect/types" "^1.0.16"
+>>>>>>> master
     detect-browser "5.1.0"
     enc-utils "2.1.0"
     js-sha3 "0.8.0"
 
 "@walletconnect/web3-provider@^1.0.11":
+<<<<<<< HEAD
   version "1.0.15"
   resolved "https://registry.yarnpkg.com/@walletconnect/web3-provider/-/web3-provider-1.0.15.tgz#2a85b6ceea2447a7218b876125e93c5d9f4ab1e7"
   integrity sha512-1auGniI2kzeDokFuZsofnFaBhIMag8T8XwkVdujYi+mb+olI9a9pq4V4xsH+ZvB1LBtiCowN30CBD5+vJwTAnA==
@@ -1076,6 +1152,17 @@
     "@walletconnect/qrcode-modal" "^1.0.15"
     "@walletconnect/types" "^1.0.15"
     "@walletconnect/utils" "^1.0.15"
+=======
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/@walletconnect/web3-provider/-/web3-provider-1.0.16.tgz#f4eb4c1df5580a60080f8f6bc82d6d524db74aec"
+  integrity sha512-QB19s9LWfWdg9DjxsFJe8J5eqD3bOU7H0OoyX8pCMYiZ08JwUOVFo9DsW7/J8ihSqabBLLFt9TYMA01tMBv5Ug==
+  dependencies:
+    "@walletconnect/client" "^1.0.16"
+    "@walletconnect/http-connection" "^1.0.16"
+    "@walletconnect/qrcode-modal" "^1.0.16"
+    "@walletconnect/types" "^1.0.16"
+    "@walletconnect/utils" "^1.0.16"
+>>>>>>> master
     web3-provider-engine "15.0.12"
 
 "@web3-js/websocket@^1.0.29":
@@ -5132,9 +5219,9 @@ lodash.uniq@^4.5.0:
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
 lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 log-symbols@^2.2.0:
   version "2.2.0"
@@ -7894,8 +7981,20 @@ url@^0.11.0:
     querystring "0.2.0"
 
 "use-wallet@link:../..":
-  version "0.0.0"
-  uid ""
+  version "0.7.1"
+  dependencies:
+    "@aragon/provided-connector" "^6.0.7"
+    "@web3-react/authereum-connector" "^6.1.1"
+    "@web3-react/core" "^6.1.1"
+    "@web3-react/fortmatic-connector" "^6.0.9"
+    "@web3-react/frame-connector" "^6.0.9"
+    "@web3-react/injected-connector" "^6.0.7"
+    "@web3-react/portis-connector" "^6.1.1"
+    "@web3-react/squarelink-connector" "^6.1.1"
+    "@web3-react/torus-connector" "^6.1.1"
+    "@web3-react/walletconnect-connector" "^6.1.4"
+    "@web3-react/walletlink-connector" "^6.1.1"
+    jsbi "^3.1.1"
 
 use@^3.1.0:
   version "3.1.1"
