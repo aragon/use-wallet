@@ -46,16 +46,16 @@ declare module 'use-wallet' {
     pollBlockNumberInterval?: number
   }
 
-  export class UnsupportedChainError extends Error {
-    name: 'UnsupportedChainError'
+  export class ChainUnsupportedError extends Error {
+    name: 'ChainUnsupportedError'
   }
 
-  export class UnsupportedConnectorError extends Error {
-    name: 'UnsupportedConnectorError'
+  export class ConnectorUnsupportedError extends Error {
+    name: 'ConnectorUnsupportedError'
   }
 
-  export class RejectedActivationError extends Error {
-    name: 'RejectedActivationError'
+  export class ConnectionRejectedError extends Error {
+    name: 'ConnectionRejectedError'
   }
 
   export class ConnectorConfigError extends Error {
