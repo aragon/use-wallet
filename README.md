@@ -133,7 +133,7 @@ It returns an object representing the connected account (“wallet”), containi
 - `connectors`: the full list of connectors.
 - `error`: contains an error object with the corresponding name and message if `status` is set to `error`.
 - `ethereum`: the connected [Ethereum provider](https://eips.ethereum.org/EIPS/eip-1193).
-- `getBlockNumber()`: this function returns the current block number. This is a function because the block number updates often, which could triggers as many extra renders. Making an explicit call for the block number allows users of `useWallet()` to avoid extra renders when the block number is not needed.
+- `getBlockNumber()`: this function returns the current block number. This is a function because the block number updates often, which could trigger as many extra renders. Making an explicit call for the block number allows users of `useWallet()` to avoid extra renders when the block number is not needed.
 - `networkName`: a human-readable name corresponding to the Chain ID.
 - `reset()`: call this function to “disconnect” from the current provider. This will also clean the latest error value stored in `use-wallet`'s state.
 - `status`: contains the current status of the wallet connection. The possible values are:
