@@ -60,14 +60,14 @@ function App() {
         <div>
           <div>Account: {wallet.account}</div>
           <div>Balance: {wallet.balance}</div>
-          <button onClick={() => wallet.deactivate()}>disconnect</button>
+          <button onClick={() => wallet.reset()}>disconnect</button>
         </div>
       ) : (
         <div>
           Connect:
-          <button onClick={() => wallet.activate()}>MetaMask</button>
-          <button onClick={() => wallet.activate('frame')}>Frame</button>
-          <button onClick={() => wallet.activate('portis')}>Portis</button>
+          <button onClick={() => wallet.connect()}>MetaMask</button>
+          <button onClick={() => wallet.connect('frame')}>Frame</button>
+          <button onClick={() => wallet.connect('portis')}>Portis</button>
         </div>
       )}
     </>
