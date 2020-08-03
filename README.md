@@ -56,7 +56,7 @@ function App() {
   return (
     <>
       <h1>Wallet</h1>
-      {wallet.connected ? (
+      {wallet.status === 'connected' ? (
         <div>
           <div>Account: {wallet.account}</div>
           <div>Balance: {wallet.balance}</div>
