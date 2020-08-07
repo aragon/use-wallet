@@ -4,7 +4,7 @@
   "author": "Aragon Association <legal@aragon.org>",
   "license": "MIT",
   "main": "dist/cjs/index.js",
-  "module": "dist/index.js",
+  "module": "dist/esm/src/index.js",
   "sideEffects": false,
   "types": "types/index.d.ts",
   "files": [
@@ -12,15 +12,14 @@
     "types/index.d.ts"
   ],
   "scripts": {
-    "build": "yarn rollup --config",
-    "dev": "yarn rollup --config --watch",
-    "lint": "yarn eslint ./src",
+    "build": "./scripts/build.sh",
+    "lint": "eslint ./src",
     "test": "yarn lint",
     "prepare": "rm -rf ./dist && yarn build",
     "prepublishOnly": "git push && git push --tags"
   },
   "dependencies": {
-    "@aragon/provided-connector": "^6.0.7",
+    "@aragon/provided-connector": "^6.0.8",
     "@web3-react/authereum-connector": "^6.1.1",
     "@web3-react/core": "^6.1.1",
     "@web3-react/fortmatic-connector": "^6.0.9",
@@ -34,15 +33,7 @@
     "jsbi": "^3.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
-    "@babel/preset-react": "^7.8.3",
-    "@rollup/plugin-commonjs": "^11.0.1",
-    "@rollup/plugin-json": "^4.0.1",
-    "@rollup/plugin-node-resolve": "^7.0.0",
-    "babel-eslint": "^10.0.3",
-    "builtin-modules": "^3.1.0",
+    "esbuild": "^0.6.17",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-config-standard": "^14.1.0",
@@ -52,12 +43,9 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.18.0",
-    "eslint-plugin-react-hooks": "^2.3.0",
+    "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-standard": "^4.0.1",
-    "prettier": "^1.19.1",
-    "rollup": "^1.29.1",
-    "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-terser": "^5.2.0"
+    "prettier": "^2.0.5"
   },
   "peerDependencies": {
     "react": "^16.12.0"
