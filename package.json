@@ -32,6 +32,7 @@
     "jsbi": "^3.1.1"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "esbuild": "^0.6.17",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",

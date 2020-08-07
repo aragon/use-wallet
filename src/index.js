@@ -91,7 +91,9 @@ function useWalletBalance({ account, ethereum, pollBalanceInterval }) {
       return {
         async request() {
           return getAccountBalance(ethereum, account)
-            .then(value => (value ? JSBI.BigInt(value).toString() : NO_BALANCE))
+            .then((value) =>
+              value ? JSBI.BigInt(value).toString() : NO_BALANCE
+            )
             .catch(() => NO_BALANCE)
         },
         onResult(balance) {
@@ -124,7 +126,7 @@ function useWatchBlockNumber({ ethereum, pollBlockNumberInterval }) {
   // number, which implies to re-render whenever the block number updates.
   const blockNumberListeners = useRef(new Set())
 
-  const addBlockNumberListener = useCallback(cb => {
+  const addBlockNumberListener = useCallback((cb) => {
     if (blockNumberListeners.current.has(cb)) {
       return
     }
@@ -136,18 +138,18 @@ function useWatchBlockNumber({ ethereum, pollBlockNumberInterval }) {
     blockNumberListeners.current.add(cb)
   }, [])
 
-  const removeBlockNumberListener = useCallback(cb => {
+  const removeBlockNumberListener = useCallback((cb) => {
     blockNumberListeners.current.delete(cb)
   }, [])
 
   // Update the block number and broadcast it to the listeners
-  const updateBlockNumber = useCallback(blockNumber => {
+  const updateBlockNumber = useCallback((blockNumber) => {
     if (lastBlockNumber.current === blockNumber) {
       return
     }
 
     lastBlockNumber.current = blockNumber
-    blockNumberListeners.current.forEach(cb => cb(blockNumber))
+    blockNumberListeners.current.forEach((cb) => cb(blockNumber))
   }, [])
 
   useEffect(() => {
@@ -161,7 +163,7 @@ function useWatchBlockNumber({ ethereum, pollBlockNumberInterval }) {
     const pollBlockNumber = pollEvery(() => {
       return {
         request: () => getBlockNumber(ethereum),
-        onResult: latestBlockNumber => {
+        onResult: (latestBlockNumber) => {
           if (!cancel) {
             updateBlockNumber(
               latestBlockNumber === null
@@ -309,7 +311,7 @@ function UseWalletProvider({
 
     setType(null)
 
-    getAccountIsContract(ethereum, account).then(isContract => {
+    getAccountIsContract(ethereum, account).then((isContract) => {
       if (!cancel) {
         setStatus('connected')
         setType(isContract ? 'contract' : 'normal')
@@ -387,7 +389,7 @@ UseWalletProvider.defaultProps = {
 
 function UseWalletProviderWrapper(props) {
   return (
-    <Web3ReactProvider getLibrary={ethereum => ethereum}>
+    <Web3ReactProvider getLibrary={(ethereum) => ethereum}>
       <UseWalletProvider {...props} />
     </Web3ReactProvider>
   )
