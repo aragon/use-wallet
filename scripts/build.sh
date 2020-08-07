@@ -42,6 +42,7 @@ esbuild_cmd() {
 }
 
 fix_esm_default() {
+
   # This is an awful solution to a problem that couldn’t get solved in any
   # other way (as of 2020-08-07). WalletConnect uses CommonJS with
   # the `__esModule: true` property, indicating that the CJS module can be
@@ -54,11 +55,18 @@ fix_esm_default() {
   # - Remove SquareLink.
   # - Fix the WalletConnect module using a search & replace.
 
-  # Here is a detail of the different solutions I tried:
+  # Here is a detail of the different things I tried:
 
   # Rollup
-  # Fails to convert the __esModule format, and is having trouble with
-  # libraries expecting a Node.js environment.
+  # Rollup seems to have the same troubles to convert the __esModule format,
+  # and is having another issue that prevents to use it for the CJS-to-ESM
+  # conversion.
+  # See https://github.com/rollup/plugins/issues/532
+
+  # Rollup with a CJS-to-ESM plugin for Babel
+  # The babel plugin was erroring when trying to convert modules using `import`
+  # in other places than at the top, which some of our dependencies are doing.
+  # Plugin: https://github.com/tbranyen/babel-plugin-transform-commonjs
 
   # Webpack 4
   # Doesn’t export in ESM, so we can’t use it for a modern library.
@@ -71,7 +79,7 @@ fix_esm_default() {
   # Builds and exports properly, but fails to convert the __esModule
   # format in for WalletConnect. It also fails to build the SquareLink module.
 
-  # esbuild, then webpack
+  # esbuild, then webpack or rollup
   # Too much added complexity, and was introducing other issues, like keeping
   # track of the sourcemaps.
 
