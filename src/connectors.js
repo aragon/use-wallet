@@ -10,11 +10,9 @@ import {
 } from '@web3-react/frame-connector'
 import {
   InjectedConnector,
-  // NoEthereumProviderError as InjectedNoEthereumProviderError,
   UserRejectedRequestError as InjectedUserRejectedRequestError,
 } from '@web3-react/injected-connector'
 import { PortisConnector } from '@web3-react/portis-connector'
-import { SquarelinkConnector } from '@web3-react/squarelink-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { ConnectionRejectedError, ConnectorConfigError } from './errors'
 
@@ -22,8 +20,6 @@ import {
   UserRejectedRequestError as WalletConnectUserRejectedRequestError,
   WalletConnectConnector,
 } from '@web3-react/walletconnect-connector'
-
-// TODO: fix babel-runtime issue with torus-connector
 import { TorusConnector } from '@web3-react/torus-connector'
 
 export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
@@ -102,15 +98,6 @@ export function getConnectors(chainId, connectorsInitsOrConfigs = {}) {
     authereum: {
       web3ReactConnector({ chainId }) {
         return new AuthereumConnector({ chainId })
-      },
-    },
-    squarelink: {
-      web3ReactConnector({ chainId, clientId, options }) {
-        return new SquarelinkConnector({
-          clientId,
-          networks: [chainId],
-          options,
-        })
       },
     },
     torus: {
