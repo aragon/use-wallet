@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "token-amount": "^0.1.0",
+    "use-wallet": "file:../.."
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "@snowpack/app-scripts-react": "^1.8.3",
+    "snowpack": "^2.7.6"
+  }
+}
