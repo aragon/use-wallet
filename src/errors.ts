@@ -1,7 +1,7 @@
 import { getNetworkName } from './utils'
 
 export class ChainUnsupportedError extends Error {
-  constructor(chainId, expectedChainId, ...params) {
+  constructor(chainId: number, expectedChainId: number, ...params: any[]) {
     super(...params)
     this.name = 'ChainUnsupportedError'
     this.message =
@@ -15,7 +15,7 @@ export class ChainUnsupportedError extends Error {
 }
 
 export class ConnectorUnsupportedError extends Error {
-  constructor(connectorId, ...params) {
+  constructor(connectorId: string, ...params: any[]) {
     super(...params)
     this.name = 'ConnectorUnsupportedError'
     this.message = `Unsupported connector: ${connectorId}.`
@@ -23,7 +23,7 @@ export class ConnectorUnsupportedError extends Error {
 }
 
 export class ConnectionRejectedError extends Error {
-  constructor(...params) {
+  constructor(...params: any[]) {
     super(...params)
     this.name = 'ConnectionRejectedError'
     this.message = `The activation has been rejected by the provider.`
@@ -31,7 +31,7 @@ export class ConnectionRejectedError extends Error {
 }
 
 export class ConnectorConfigError extends Error {
-  constructor(...params) {
+  constructor(...params: any[]) {
     super(...params)
     this.name = 'ConnectorConfigError'
   }

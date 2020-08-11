@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types'
-import React, {
+import * as PropTypes from 'prop-types'
+import * as React from 'react'
+import {
   useCallback,
   useContext,
   useEffect,
@@ -13,6 +14,14 @@ import {
   useWeb3React,
 } from '@web3-react/core'
 import JSBI from 'jsbi'
+import {
+  Account,
+  AccountType,
+  Balance,
+  EthereumProvider,
+  Status,
+  Wallet,
+} from './types'
 import { getConnectors } from './connectors'
 import {
   ConnectionRejectedError,
@@ -29,9 +38,25 @@ import {
 
 const NO_BALANCE = '-1'
 
-const UseWalletContext = React.createContext(null)
+const UseWalletContext = React.createContext<WalletContext>(null)
 
-function useWallet() {
+type WalletContext = {
+  addBlockNumberListener: (callback: (blockNumber: number) => void) => void
+  pollBalanceInterval: number
+  pollBlockNumberInterval: number
+  removeBlockNumberListener: (callback: (blockNumber: number) => void) => void
+  wallet: Wallet
+} | null
+
+type UseWalletProviderProps = {
+  chainId: number
+  children: React.ReactNode
+  connectors: object
+  pollBalanceInterval: number
+  pollBlockNumberInterval: number
+}
+
+function useWallet(): Wallet {
   const walletContext = useContext(UseWalletContext)
 
   if (walletContext === null) {
@@ -44,25 +69,29 @@ function useWallet() {
   const getBlockNumber = useGetBlockNumber()
   const { wallet } = walletContext
 
-  return useMemo(() => ({ ...wallet, getBlockNumber }), [
-    getBlockNumber,
-    wallet,
-  ])
+  return useMemo(() => {
+    return { ...wallet, getBlockNumber }
+  }, [getBlockNumber, wallet])
 }
 
-function useGetBlockNumber() {
+function useGetBlockNumber(): () => number | null {
   const walletContext = useContext(UseWalletContext)
-  const [blockNumber, setBlockNumber] = useState(null)
-  const requestedBlockNumber = useRef(false)
+  const [blockNumber, setBlockNumber] = useState<number | null>(null)
+  const requestedBlockNumber = useRef<boolean>(false)
 
-  const getBlockNumber = useCallback(() => {
+  const getBlockNumber = useCallback<() => number | null>(() => {
+    if (walletContext === null) {
+      return null
+    }
+
     requestedBlockNumber.current = true
     walletContext.addBlockNumberListener(setBlockNumber)
+
     return blockNumber
   }, [walletContext, blockNumber])
 
   useEffect(() => {
-    if (!requestedBlockNumber.current) {
+    if (!requestedBlockNumber.current || walletContext === null) {
       return
     }
 
@@ -75,8 +104,16 @@ function useGetBlockNumber() {
   return getBlockNumber
 }
 
-function useWalletBalance({ account, ethereum, pollBalanceInterval }) {
-  const [balance, setBalance] = useState(NO_BALANCE)
+function useWalletBalance({
+  account,
+  ethereum,
+  pollBalanceInterval,
+}: {
+  account?: Account | null
+  ethereum?: EthereumProvider
+  pollBalanceInterval: number
+}) {
+  const [balance, setBalance] = useState<Balance>(NO_BALANCE)
 
   useEffect(() => {
     if (!account || !ethereum) {
@@ -86,24 +123,31 @@ function useWalletBalance({ account, ethereum, pollBalanceInterval }) {
     let cancel = false
 
     // Poll wallet balance
-    const pollBalance = pollEvery((account, ethereum, onUpdate) => {
-      let lastBalance = '-1'
-      return {
-        async request() {
-          return getAccountBalance(ethereum, account)
-            .then((value) =>
-              value ? JSBI.BigInt(value).toString() : NO_BALANCE
-            )
-            .catch(() => NO_BALANCE)
-        },
-        onResult(balance) {
-          if (!cancel && balance !== lastBalance) {
-            lastBalance = balance
-            onUpdate(balance)
-          }
-        },
-      }
-    }, pollBalanceInterval)
+    const pollBalance = pollEvery<Balance, any>(
+      (
+        account: Account,
+        ethereum: EthereumProvider,
+        onUpdate: (balance: Balance) => void
+      ) => {
+        let lastBalance = '-1'
+        return {
+          async request() {
+            return getAccountBalance(ethereum, account)
+              .then((value) =>
+                value ? JSBI.BigInt(value).toString() : NO_BALANCE
+              )
+              .catch(() => NO_BALANCE)
+          },
+          onResult(balance: Balance) {
+            if (!cancel && balance !== lastBalance) {
+              lastBalance = balance
+              onUpdate(balance)
+            }
+          },
+        }
+      },
+      pollBalanceInterval
+    )
 
     // start polling balance every x time
     const stopPollingBalance = pollBalance(account, ethereum, setBalance)
@@ -119,12 +163,20 @@ function useWalletBalance({ account, ethereum, pollBalanceInterval }) {
 }
 
 // Only watch block numbers, and return functions allowing to subscribe to it.
-function useWatchBlockNumber({ ethereum, pollBlockNumberInterval }) {
-  const lastBlockNumber = useRef(null)
+function useWatchBlockNumber({
+  ethereum,
+  pollBlockNumberInterval,
+}: {
+  ethereum: EthereumProvider
+  pollBlockNumberInterval: number
+}) {
+  const lastBlockNumber = useRef<number | null>(null)
 
   // Using listeners lets useWallet() decide if it wants to expose the block
   // number, which implies to re-render whenever the block number updates.
-  const blockNumberListeners = useRef(new Set())
+  const blockNumberListeners = useRef<Set<(blockNumber: number) => void>>(
+    new Set()
+  )
 
   const addBlockNumberListener = useCallback((cb) => {
     if (blockNumberListeners.current.has(cb)) {
@@ -163,7 +215,7 @@ function useWatchBlockNumber({ ethereum, pollBlockNumberInterval }) {
     const pollBlockNumber = pollEvery(() => {
       return {
         request: () => getBlockNumber(ethereum),
-        onResult: (latestBlockNumber) => {
+        onResult: (latestBlockNumber: number) => {
           if (!cancel) {
             updateBlockNumber(
               latestBlockNumber === null
@@ -193,19 +245,19 @@ function UseWalletProvider({
   connectors: connectorsInitsOrConfigs,
   pollBalanceInterval,
   pollBlockNumberInterval,
-}) {
+}: UseWalletProviderProps) {
   const walletContext = useContext(UseWalletContext)
 
   if (walletContext !== null) {
     throw new Error('<UseWalletProvider /> has already been declared.')
   }
 
-  const [connector, setConnector] = useState(null)
-  const [error, setError] = useState(null)
-  const [type, setType] = useState(null)
-  const [status, setStatus] = useState('disconnected')
+  const [connector, setConnector] = useState<string | null>(null)
+  const [error, setError] = useState<Error | null>(null)
+  const [type, setType] = useState<AccountType | null>(null)
+  const [status, setStatus] = useState<Status>('disconnected')
   const web3ReactContext = useWeb3React()
-  const activationId = useRef(0)
+  const activationId = useRef<number>(0)
   const { account, library: ethereum } = web3ReactContext
   const balance = useWalletBalance({ account, ethereum, pollBalanceInterval })
   const {
@@ -214,10 +266,10 @@ function UseWalletProvider({
   } = useWatchBlockNumber({ ethereum, pollBlockNumberInterval })
 
   // Combine the user-provided connectors with the default ones (see connectors.js).
-  const connectors = useMemo(
-    () => getConnectors(chainId, connectorsInitsOrConfigs),
-    [chainId, connectorsInitsOrConfigs]
-  )
+  const connectors = useMemo(() => getConnectors(connectorsInitsOrConfigs), [
+    chainId,
+    connectorsInitsOrConfigs,
+  ])
 
   const reset = useCallback(() => {
     if (web3ReactContext.active) {
@@ -257,7 +309,7 @@ function UseWalletProvider({
         connector.web3ReactConnector &&
         connector.web3ReactConnector({
           chainId,
-          ...(connector.config || {}),
+          ...(connector._config || {}),
         })
 
       if (!web3ReactConnector) {
@@ -270,13 +322,15 @@ function UseWalletProvider({
         // TODO: there is no way to prevent an activation to complete, but we
         // could reconnect to the last provider the user tried to connect to.
         setConnector(connectorId)
-        await web3ReactContext.activate(web3ReactConnector, null, true)
+        await web3ReactContext.activate(web3ReactConnector, undefined, true)
         setStatus('connected')
       } catch (err) {
         // Don’t throw if another connection has happened in the meantime.
         if (id !== activationId.current) {
           return
         }
+
+        // console.log('test');
 
         // If not, the error has been thrown during the current connection attempt,
         // so it's correct to indicate that there has been an error
@@ -387,7 +441,7 @@ UseWalletProvider.defaultProps = {
   pollBlockNumberInterval: 5000,
 }
 
-function UseWalletProviderWrapper(props) {
+function UseWalletProviderWrapper(props: UseWalletProviderProps) {
   return (
     <Web3ReactProvider getLibrary={(ethereum) => ethereum}>
       <UseWalletProvider {...props} />

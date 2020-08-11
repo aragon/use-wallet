@@ -4,18 +4,17 @@
   "author": "Aragon Association <legal@aragon.org>",
   "license": "MIT",
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/src/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "sideEffects": false,
-  "types": "types/index.d.ts",
   "files": [
-    "dist",
-    "types/index.d.ts"
+    "dist"
   ],
   "scripts": {
-    "build": "./scripts/build.sh",
-    "lint": "eslint ./src",
-    "test": "yarn lint",
-    "prepare": "rm -rf ./dist && yarn build",
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
     "prepublishOnly": "git push && git push --tags"
   },
   "dependencies": {
@@ -29,11 +28,19 @@
     "@web3-react/torus-connector": "^6.1.1",
     "@web3-react/walletconnect-connector": "^6.1.4",
     "@web3-react/walletlink-connector": "^6.1.1",
-    "jsbi": "^3.1.1"
+    "jsbi": "^3.1.1",
+    "regenerator-runtime": "^0.13.7"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
   },
   "devDependencies": {
+    "@types/react": "^16.9.45",
+    "@types/react-dom": "^16.9.8",
+    "@web3-react/abstract-connector": "^6.0.7",
     "babel-eslint": "^10.1.0",
-    "esbuild": "^0.6.17",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-config-standard": "^14.1.0",
@@ -45,7 +52,14 @@
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^4.0.8",
     "eslint-plugin-standard": "^4.0.1",
-    "prettier": "^2.0.5"
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rollup-plugin-resolve": "^0.0.1-predev.1",
+    "tsdx": "^0.13.2",
+    "tslib": "^2.0.1",
+    "typescript": "^3.9.7"
   },
   "peerDependencies": {
     "react": "^16.12.0"

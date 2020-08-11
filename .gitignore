@@ -2,4 +2,4 @@ dist/
 node_modules/
 yarn-error.log
 .yarn/cache
-examples/**/.cache/
+.cache/

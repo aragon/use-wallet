@@ -30,7 +30,7 @@ Oh yes:
 ### Used by
 
 - [Aragon client](https://github.com/aragon/aragon)
-- [Aragon's Court Dashboard](https://github.com/aragon/court-dashboard)
+- [Aragon’s Court Dashboard](https://github.com/aragon/court-dashboard)
 - _(Your project!)_
 
 ## Usage
