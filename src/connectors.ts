@@ -1,5 +1,5 @@
 import { Connector } from './types'
-// import ConnectorAuthereum from './connectors/ConnectorAuthereum'
+import ConnectorAuthereum from './connectors/ConnectorAuthereum'
 import ConnectorFortmatic from './connectors/ConnectorFortmatic'
 import ConnectorFrame from './connectors/ConnectorFrame'
 import ConnectorInjected from './connectors/ConnectorInjected'
@@ -37,12 +37,12 @@ export function getConnectors(
   const connectors: {
     [key: string]: Connector & { _config?: object }
   } = {
-    injected: new ConnectorInjected(),
-    frame: new ConnectorFrame(),
+    authereum: new ConnectorAuthereum(),
     fortmatic: new ConnectorFortmatic(),
+    frame: new ConnectorFrame(),
+    injected: new ConnectorInjected(),
     portis: new ConnectorPortis(),
     provided: new ConnectorProvided(),
-    // authereum: new ConnectorAuthereum(),
     torus: new ConnectorTorus(),
     walletconnect: new ConnectorWalletConnect(),
     walletlink: new ConnectorWalletLink(),
