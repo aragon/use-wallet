@@ -5,6 +5,7 @@ import ConnectorFrame from './connectors/ConnectorFrame'
 import ConnectorInjected from './connectors/ConnectorInjected'
 import ConnectorPortis from './connectors/ConnectorPortis'
 import ConnectorProvided from './connectors/ConnectorProvided'
+import ConnectorSquareLink from './connectors/ConnectorSquareLink'
 import ConnectorTorus from './connectors/ConnectorTorus'
 import ConnectorWalletConnect from './connectors/ConnectorWalletConnect'
 import ConnectorWalletLink from './connectors/ConnectorWalletLink'
@@ -43,6 +44,7 @@ export function getConnectors(
     injected: new ConnectorInjected(),
     portis: new ConnectorPortis(),
     provided: new ConnectorProvided(),
+    squarelink: new ConnectorSquareLink(),
     torus: new ConnectorTorus(),
     walletconnect: new ConnectorWalletConnect(),
     walletlink: new ConnectorWalletLink(),
