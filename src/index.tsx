@@ -267,7 +267,6 @@ function UseWalletProvider({
 
   // Combine the user-provided connectors with the default ones (see connectors.js).
   const connectors = useMemo(() => getConnectors(connectorsInitsOrConfigs), [
-    chainId,
     connectorsInitsOrConfigs,
   ])
 
