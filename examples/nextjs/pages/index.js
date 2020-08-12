@@ -10,7 +10,7 @@ function App() {
   const wallet = useWallet()
   const blockNumber = wallet.getBlockNumber()
 
-  const activate = connector => wallet.connect(connector)
+  const activate = (connector) => wallet.connect(connector)
 
   return (
     <>
