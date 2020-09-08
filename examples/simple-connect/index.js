@@ -67,7 +67,7 @@ function App() {
         )
       })()}
 
-      {wallet.connected && (
+      {wallet.status === 'connected' && (
         <>
           <p>
             <span>Account:</span>
@@ -87,7 +87,7 @@ function App() {
         </p>
       )}
 
-      {wallet.connected && (
+      {wallet.status === 'connected' && (
         <p>
           <span>Block:</span> <span>{blockNumber || '…'}</span>
         </p>
