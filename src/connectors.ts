@@ -1,60 +1,35 @@
-import { Connector } from './types'
-import ConnectorAuthereum from './connectors/ConnectorAuthereum'
-import ConnectorFortmatic from './connectors/ConnectorFortmatic'
-import ConnectorFrame from './connectors/ConnectorFrame'
-import ConnectorInjected from './connectors/ConnectorInjected'
-import ConnectorPortis from './connectors/ConnectorPortis'
-import ConnectorProvided from './connectors/ConnectorProvided'
-import ConnectorSquareLink from './connectors/ConnectorSquareLink'
-import ConnectorTorus from './connectors/ConnectorTorus'
-import ConnectorWalletConnect from './connectors/ConnectorWalletConnect'
-import ConnectorWalletLink from './connectors/ConnectorWalletLink'
-
-interface ConnectorsInitsOrConfigs {
-  [key: string]: Connector | any
-}
+import { ConnectorConfig, ConnectorInit } from './types'
+import initFortmatic from './connectors/ConnectorFortmatic'
+import initFrame from './connectors/ConnectorFrame'
+import initInjected from './connectors/ConnectorInjected'
+import initProvided from './connectors/ConnectorProvided'
+import initWalletConnect from './connectors/ConnectorWalletConnect'
+import initWalletLink from './connectors/ConnectorWalletLink'
 
 export function getConnectors(
-  connectorsInitsOrConfigs: ConnectorsInitsOrConfigs = {}
+  initsOrConfigs: { [key: string]: ConnectorInit | ConnectorConfig } = {}
 ) {
-  // Split the connector initializers from the confs.
-  const inits: {
-    [key: string]: any
-  } = {}
+  const connectors: {
+    [key: string]: [ConnectorInit, ConnectorConfig | null]
+  } = {
+    fortmatic: [initFortmatic, null],
+    frame: [initFrame, null],
+    injected: [initInjected, null],
+    provided: [initProvided, null],
+    walletconnect: [initWalletConnect, null],
+    walletlink: [initWalletLink, null],
+  }
 
-  const configs: [string, any][] = []
-
-  for (const [id, initOrConfig] of Object.entries(connectorsInitsOrConfigs)) {
-    // Having a web3ReactConnector function is
-    // the only prerequisite for an initializer.
-    if (typeof initOrConfig.web3ReactConnector === 'function') {
-      inits[id] = initOrConfig
+  for (const [id, initOrConfig] of Object.entries(initsOrConfigs)) {
+    // If initOrConfig is a function, it is an initializer.
+    if (typeof initOrConfig === 'function') {
+      connectors[id] = [initOrConfig as ConnectorInit, null]
       continue
     }
 
-    configs.push([id, initOrConfig])
-  }
-
-  const connectors: {
-    [key: string]: Connector & { _config?: object }
-  } = {
-    authereum: new ConnectorAuthereum(),
-    fortmatic: new ConnectorFortmatic(),
-    frame: new ConnectorFrame(),
-    injected: new ConnectorInjected(),
-    portis: new ConnectorPortis(),
-    provided: new ConnectorProvided(),
-    squarelink: new ConnectorSquareLink(),
-    torus: new ConnectorTorus(),
-    walletconnect: new ConnectorWalletConnect(),
-    walletlink: new ConnectorWalletLink(),
-    ...inits,
-  }
-
-  // Attach the configs to their connectors.
-  for (const [id, config] of configs) {
+    // Otherwise it is a config
     if (connectors[id]) {
-      connectors[id]._config = config
+      connectors[id][1] = initOrConfig as ConnectorConfig
     }
   }
 

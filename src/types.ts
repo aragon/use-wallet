@@ -43,6 +43,8 @@ type EthereumProviderSendAsync = {
 
 export type EthereumProvider = EthereumProviderSend & EthereumProviderSendAsync
 
+export type ConnectorInit = () => Promise<Connector>
+
 export type Connector = {
   // Using `params: any` rather than `params: { chainId: number; [key: string]: any }`:
   // TS 3.9 doesn’t seem to accept `[key: string]: any` as valid to add extra
@@ -51,3 +53,5 @@ export type Connector = {
   web3ReactConnector: (params: any) => AbstractConnector
   handleActivationError?: (error: Error) => Error | null
 }
+
+export type ConnectorConfig = {}

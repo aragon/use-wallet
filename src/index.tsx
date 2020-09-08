@@ -18,6 +18,8 @@ import {
   Account,
   AccountType,
   Balance,
+  Connector,
+  ConnectorConfig,
   EthereumProvider,
   Status,
   Wallet,
@@ -51,7 +53,7 @@ type WalletContext = {
 type UseWalletProviderProps = {
   chainId: number
   children: React.ReactNode
-  connectors: object
+  connectors: { [key: string]: Connector | ConnectorConfig }
   pollBalanceInterval: number
   pollBlockNumberInterval: number
 }
@@ -129,13 +131,13 @@ function useWalletBalance({
         ethereum: EthereumProvider,
         onUpdate: (balance: Balance) => void
       ) => {
-        let lastBalance = '-1'
+        let lastBalance = NO_BALANCE
         return {
           async request() {
             return getAccountBalance(ethereum, account)
-              .then((value) =>
-                value ? JSBI.BigInt(value).toString() : NO_BALANCE
-              )
+              .then((value) => {
+                return value ? JSBI.BigInt(value).toString() : NO_BALANCE
+              })
               .catch(() => NO_BALANCE)
           },
           onResult(balance: Balance) {
@@ -301,15 +303,16 @@ function UseWalletProvider({
       // the connection stage status
       setStatus('connecting')
 
-      const connector = connectors[connectorId]
+      const [connectorInit, connectorConfig] = connectors[connectorId] || []
 
-      const web3ReactConnector =
-        connector &&
-        connector.web3ReactConnector &&
-        connector.web3ReactConnector({
-          chainId,
-          ...(connector._config || {}),
-        })
+      // Initialize the (useWallet) connector if it exists.
+      const connector = await connectorInit?.()
+
+      // Initialize the web3-react connector if it exists.
+      const web3ReactConnector = connector?.web3ReactConnector?.({
+        chainId,
+        ...(connectorConfig || {}),
+      })
 
       if (!web3ReactConnector) {
         setStatus('error')
