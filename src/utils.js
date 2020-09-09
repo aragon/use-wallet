@@ -80,6 +80,10 @@ export async function getBlockNumber(ethereum) {
 }
 
 export function pollEvery(fn, delay) {
+  if delay < 0 {
+    return () => ()
+  }
+  
   let timer = -1
   let stop = false
   const poll = async (request, onResult) => {

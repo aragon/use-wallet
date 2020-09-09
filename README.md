@@ -116,11 +116,11 @@ See the [web3-react documentation](https://github.com/NoahZinsmeister/web3-react
 
 #### pollBalanceInterval
 
-The interval used to poll the wallet balance. Defaults to 2000.
+The interval used to poll the wallet balance. Defaults to 2000. Setting this to a negative number will disable polling.
 
-#### pollBalanceInterval
+#### pollBlockNumberInterval
 
-The interval used to poll the wallet balance. Defaults to 2000.
+The interval used to poll the block number. Defaults to 5000. Setting this to a negative number will disable polling.
 
 #### getCustomEtheriumProvider
 
