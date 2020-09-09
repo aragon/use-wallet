@@ -92,7 +92,7 @@ export default () => (
 
 ### &lt;UseWalletProvider />
 
-This is the provider component. It should be placed above any component using `useWallet()`. Apart from `children`, it accepts two other props:
+This is the provider component. It should be placed above any component using `useWallet()`. Apart from `children`, it accepts three other props:
 
 #### chainId
 
@@ -114,14 +114,26 @@ Configuration for the different connectors. If you use a connector that requires
 
 See the [web3-react documentation](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs) for more details.
 
+#### pollBalanceInterval
+
+The interval used to poll the wallet balance. Defaults to 2000.
+
+#### pollBalanceInterval
+
+The interval used to poll the wallet balance. Defaults to 2000.
+
+#### getCustomEtheriumProvider
+
+Useful for mocking the underlying etherium provider in unit tests. Otherwise don't change this.
+
 ### useWallet()
 
 This is the hook to be used throughout the app.
 
 It takes an optional object as a single param, containing the following:
 
-- `pollBalanceInterval`: the interval used to poll the wallet balance. Defaults to 2000.
-- `pollBlockNumberInterval`: the interval used to poll the block number. Defaults to 5000.
+- `pollBalanceInterval`: the interval used to poll the wallet balance. Defaults to 2000. Overrides the setting in UseWalletProvider.
+- `pollBlockNumberInterval`: the interval used to poll the block number. Defaults to 5000. Overrides the setting in UseWalletProvider.
 
 It returns an object representing the connected account (“wallet”), containing:
 
