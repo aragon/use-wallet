@@ -1,5 +1,6 @@
 const KNOWN_CHAINS = new Map([
   ['1', 'Mainnet'],
+  ['2', 'Expanse'],
   ['3', 'Ropsten'],
   ['4', 'Rinkeby'],
   ['5', 'Goerli'],
@@ -8,6 +9,7 @@ const KNOWN_CHAINS = new Map([
   // but by convention this is the number used
   // for local chains (ganache, buidler, etc) by default.
   ['1337', 'Local'],
+  ['5777', 'Ganache'],
 ])
 
 export function getNetworkName(chainId) {
