@@ -8,6 +8,7 @@ declare module 'use-wallet' {
     injected: {}
     portis: { dAppId: string }
     squarelink: { clientId: string; options: object }
+    provided: {}
     torus: {
       chainId?: number;
       initOptions: object;
