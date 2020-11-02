@@ -16,6 +16,7 @@ declare module 'use-wallet' {
     }
     walletconnect: { rpcUrl: string }
     walletlink: { url: string; appName: string; appLogoUrl: string }
+    bsc: {}
   }>
 
   export interface Wallet<T> {

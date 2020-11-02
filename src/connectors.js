@@ -16,7 +16,7 @@ import {
 import { PortisConnector } from '@web3-react/portis-connector'
 import { SquarelinkConnector } from '@web3-react/squarelink-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
-import { BscConnector } from '@web3-react/bsc-connector'
+import { BscConnector } from '@binance-chain/bsc-connector'
 import { ConnectionRejectedError, ConnectorConfigError } from './errors'
 
 import {

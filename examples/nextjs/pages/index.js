@@ -53,6 +53,7 @@ function App() {
             <div className="connect-label">Connect:</div>
             <div className="connect-buttons">
               <button onClick={() => activate('injected')}>injected</button>
+              <button onClick={() => activate('bsc')}>bsc</button>
               <button onClick={() => activate('frame')}>frame</button>
               <button onClick={() => activate('portis')}>portis</button>
               <button onClick={() => activate('fortmatic')}>fortmatic</button>

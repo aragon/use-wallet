@@ -16,7 +16,7 @@ useWallet() allows dapp users to connect to the provider of their choice in a wa
 Oh yes:
 
 - React only.
-- Ethereum only (for now).
+- Ethereum and Binance Smart Chain only (for now).
 - Supports one network at a time.
 - Embeds as many providers as possible.
 - Every prop and parameter is optional.
@@ -111,6 +111,7 @@ Configuration for the different connectors. If you use a connector that requires
 - `squarelink`: `{ clientId, options }`
 - `walletconnect`: `{ rpcUrl }`
 - `walletlink`: `{ url, appName, appLogoUrl }`
+- `bsc`: no configuration needed.
 
 See the [web3-react documentation](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs) for more details.
 
