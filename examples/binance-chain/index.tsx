@@ -11,17 +11,16 @@ import {
 } from 'use-wallet'
 
 function App() {
-  const wallet = useWallet()
-  const [address, setAddress] = useState('')
-
-  useEffect(() => {
-    console.log(address)
-  }, [address])
-
+  const { account, connect, reset, status } = useWallet()
   return (
     <div>
       <h1>Binance Chain Connector</h1>
-      <button onClick={() => { wallet.connect('injected'); setAddress(wallet.account)}}>Connect</button>
+      {status === 'disconnected' ? (
+        <button onClick={() => connect('bsc')}>Connect</button>
+      ) : (
+        <button onClick={() => reset()}>Disconnect</button>
+      )}
+      {account && <p>Connected as {account}</p>}
     </div>
   )
 }
@@ -29,7 +28,7 @@ function App() {
 render(
   <UseWalletProvider
     connectors={{
-      injected: {
+      bsc: {
         web3ReactConnector() {
           return new BscConnector({ supportedChainIds: [56, 97] })
         },
