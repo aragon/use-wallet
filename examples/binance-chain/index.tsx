@@ -1,16 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { render } from 'react-dom'
 import {
-  BinanceBscConnector,
+  BscConnector,
   UserRejectedRequestError,
 } from '@binance-chain/bsc-connector'
-import { ConnectionRejectedError, UseWalletProvider } from 'use-wallet'
+import {
+  ConnectionRejectedError,
+  useWallet,
+  UseWalletProvider,
+} from 'use-wallet'
 
 function App() {
+  const wallet = useWallet()
+  const [address, setAddress] = useState('')
+
+  useEffect(() => {
+    console.log(address)
+  }, [address])
+
   return (
     <div>
       <h1>Binance Chain Connector</h1>
-      <button>Connect</button>
+      <button onClick={() => { wallet.connect('injected'); setAddress(wallet.account)}}>Connect</button>
     </div>
   )
 }
@@ -18,9 +29,9 @@ function App() {
 render(
   <UseWalletProvider
     connectors={{
-      bsc: {
+      injected: {
         web3ReactConnector() {
-          return new BinanceBscConnector({ supportedChainIds: [56, 97] })
+          return new BscConnector({ supportedChainIds: [56, 97] })
         },
         handleActivationError(err) {
           if (err instanceof UserRejectedRequestError) {
