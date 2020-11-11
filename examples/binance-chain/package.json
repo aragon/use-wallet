@@ -7,7 +7,7 @@
     "start": "parcel serve ./index.html"
   },
   "dependencies": {
-    "@binance-chain/bsc-connector": "^1.0.0",
+    "@binance-chain/bsc-connector": "^1.0.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "use-wallet": "^0.8.0"
