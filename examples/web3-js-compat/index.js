@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import React from 'react'
+import React, { useRef } from 'react'
 import ReactDOM from 'react-dom'
 import Web3 from 'web3'
 import {
@@ -13,7 +13,7 @@ function App() {
   const blockNumber = wallet.getBlockNumber()
   const { current: web3 } = useRef(new Web3(window.ethereum))
 
-  const activate = connector => wallet.connect(connector)
+  const activate = (connector) => wallet.connect(connector)
 
   return (
     <>
