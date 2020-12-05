@@ -1,5 +1,5 @@
 import React from 'react'
-import { utils as ethersUtils } from 'ethers'
+import TokenAmount from 'token-amount'
 import {
   ConnectionRejectedError,
   UseWalletProvider,
@@ -9,9 +9,7 @@ import {
 function App() {
   const wallet = useWallet()
   const blockNumber = wallet.getBlockNumber()
-
   const activate = (connector) => wallet.connect(connector)
-
   return (
     <>
       <h1>use-wallet</h1>
@@ -81,7 +79,7 @@ function App() {
           <span>
             {wallet.balance === '-1'
               ? '…'
-              : `${ethersUtils.formatEther(wallet.balance)} ETH`}
+              : TokenAmount.format(wallet.balance, 18, { symbol: 'ETH' })}
           </span>
         </p>
       )}
