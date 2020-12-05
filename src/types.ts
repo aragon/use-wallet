@@ -23,8 +23,15 @@ export type Wallet = {
   type: AccountType | null
 }
 
+type EthereumProviderEip1193 = {
+  request: (arguments: {
+    method: string
+    params?: unknown[] | object
+  }) => Promise<unknown>
+}
+
 type EthereumProviderSend = {
-  send: (method: string, params: string[]) => Promise<any>
+  send: (method: string, params: string[]) => Promise<unknown>
 }
 
 type EthereumProviderSendAsync = {
@@ -36,12 +43,14 @@ type EthereumProviderSendAsync = {
       jsonrpc: '2.0'
       id: number
     },
-    callback: (err: Error, result: any) => void
+    callback: (err: Error, result: unknown) => void
   ) => void
   selectedAddress: string
 }
 
-export type EthereumProvider = EthereumProviderSend & EthereumProviderSendAsync
+export type EthereumProvider = EthereumProviderEip1193 &
+  EthereumProviderSend &
+  EthereumProviderSendAsync
 
 export type ConnectorInit = () => Promise<Connector>
 

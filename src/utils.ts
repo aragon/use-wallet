@@ -16,32 +16,40 @@ export function getNetworkName(chainId: number) {
   return KNOWN_CHAINS.get(chainId) || 'Unknown'
 }
 
-export function rpcResult(response: any): object | null {
+function isUnwrappedRpcResult(
+  response: unknown
+): response is {
+  error?: string
+  result?: unknown
+} {
+  return (
+    typeof response === 'object' && response !== null && 'jsonrpc' in response
+  )
+}
+
+export function rpcResult(response: unknown): unknown | null {
   // Some providers don’t wrap the response
-  if (typeof response === 'object' && 'jsonrpc' in response) {
+  if (isUnwrappedRpcResult(response)) {
     if (response.error) {
       throw new Error(response.error)
     }
     return response.result || null
   }
+
   return response || null
 }
 
-async function sendCompat(
+async function ethereumRequest(
   ethereum: EthereumProvider,
   method: string,
   params: string[]
 ): Promise<any> {
-  // As of today (2020-02-17), MetaMask defines a send() method that correspond
-  // to the one defined in EIP 1193. This is a breaking change since MetaMask
-  // used to define a send() method that was an alias of the sendAsync()
-  // method, and has a different signature than the send() defined by EIP 1193.
-  // The latest version of Web3.js (1.2.6) is overwriting the ethereum.send()
-  // provided by MetaMask, to replace it with ethereum.sendAsync(), making it
-  // incompatible with EIP 1193 again.
-  // This  means there is no way to detect that the ethereum.send() provided
-  // corresponds to EIP 1193 or not. This is why we use sendAsync() when
-  // available and send() otherwise, rather than the other way around.
+  // If ethereum.request() exists, the provider is probably EIP-1193 compliant.
+  if (ethereum.request) {
+    return ethereum.request({ method, params }).then(rpcResult)
+  }
+
+  // This is specific to some older versions of MetaMask combined with Web3.js.
   if (ethereum.sendAsync && ethereum.selectedAddress) {
     return new Promise((resolve, reject) => {
       ethereum.sendAsync(
@@ -63,7 +71,15 @@ async function sendCompat(
     }).then(rpcResult)
   }
 
-  return ethereum.send(method, params).then(rpcResult)
+  // If none of the previous two exist, we assume the provider is pre EIP-1193,
+  // using .send() rather than .request().
+  if (ethereum.send) {
+    return ethereum.send(method, params).then(rpcResult)
+  }
+
+  throw new Error(
+    'The Ethereum provider doesn’t seem to provide a request method.'
+  )
 }
 
 export async function getAccountIsContract(
@@ -71,7 +87,7 @@ export async function getAccountIsContract(
   account: Account
 ): Promise<boolean> {
   try {
-    const code = await sendCompat(ethereum, 'eth_getCode', [account])
+    const code = await ethereumRequest(ethereum, 'eth_getCode', [account])
     return code !== '0x'
   } catch (err) {
     return false
@@ -82,11 +98,11 @@ export async function getAccountBalance(
   ethereum: EthereumProvider,
   account: Account
 ) {
-  return sendCompat(ethereum, 'eth_getBalance', [account, 'latest'])
+  return ethereumRequest(ethereum, 'eth_getBalance', [account, 'latest'])
 }
 
 export async function getBlockNumber(ethereum: EthereumProvider) {
-  return sendCompat(ethereum, 'eth_blockNumber', [])
+  return ethereumRequest(ethereum, 'eth_blockNumber', [])
 }
 
 export function pollEvery<R, T>(

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import * as PropTypes from 'prop-types'
 import * as React from 'react'
 import {
@@ -52,7 +53,7 @@ type WalletContext = {
 
 type UseWalletProviderProps = {
   chainId: number
-  children: React.ReactNode
+  children: ReactNode
   connectors: { [key: string]: Connector | ConnectorConfig }
   pollBalanceInterval: number
   pollBlockNumberInterval: number
