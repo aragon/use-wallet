@@ -2,14 +2,17 @@ import { Account, EthereumProvider } from './types'
 
 const KNOWN_CHAINS = new Map<number, string>([
   [1, 'Mainnet'],
+  [2, 'Expanse'],
   [3, 'Ropsten'],
   [4, 'Rinkeby'],
   [5, 'Goerli'],
+  [42, 'Kovan'],
   [100, 'xDai'],
   // This chainId is arbitrary and can be changed,
   // but by convention this is the number used
   // for local chains (ganache, buidler, etc) by default.
   [1337, 'Local'],
+  [5777, 'Ganache'],
 ])
 
 export function getNetworkName(chainId: number) {
