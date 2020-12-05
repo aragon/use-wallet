@@ -99,8 +99,8 @@ ReactDOM.render(
   <UseWalletProvider
     chainId={1}
     connectors={{
-      fortmatic: { apiKey: 'pk_live_5F2A21A4D194D310' },
-      portis: { dAppId: '1229d48b-55c8-4107-a8fc-5038055a86de' },
+      fortmatic: { apiKey: '' },
+      portis: { dAppId: '' },
       walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
       walletlink: { url: 'https://mainnet.eth.aragon.network/' },
     }}
