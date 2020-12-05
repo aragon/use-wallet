@@ -2,9 +2,10 @@
   "name": "nextjs",
   "dependencies": {
     "next": "^9.3.2",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "use-wallet": "file:../.."
+    "react": "link:../../node_modules/react",
+    "react-dom": "link:../../node_modules/react-dom",
+    "token-amount": "^0.2.0",
+    "use-wallet": "link:../.."
   },
   "scripts": {
     "dev": "next",

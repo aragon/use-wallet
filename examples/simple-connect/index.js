@@ -1,20 +1,16 @@
-import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import * as ethers from 'ethers'
 import {
   ConnectionRejectedError,
   UseWalletProvider,
   useWallet,
 } from 'use-wallet'
-
-const { providers: EthersProviders, utils, EtherSymbol } = ethers
+import TokenAmount from 'token-amount'
 
 function App() {
   const wallet = useWallet()
   const blockNumber = wallet.getBlockNumber()
-
-  const activate = connector => wallet.connect(connector)
+  const activate = (connector) => wallet.connect(connector)
 
   return (
     <>
@@ -70,7 +66,7 @@ function App() {
         )
       })()}
 
-      {wallet.connected && (
+      {wallet.status === 'connected' && (
         <>
           <p>
             <span>Account:</span>
@@ -85,12 +81,12 @@ function App() {
           <span>
             {wallet.balance === '-1'
               ? '…'
-              : `${utils.formatEther(wallet.balance)} ETH`}
+              : TokenAmount.format(wallet.balance, 18, { symbol: 'ETH' })}
           </span>
         </p>
       )}
 
-      {wallet.connected && (
+      {wallet.status === 'connected' && (
         <p>
           <span>Block:</span> <span>{blockNumber || '…'}</span>
         </p>
