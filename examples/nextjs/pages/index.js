@@ -23,7 +23,7 @@ function App() {
                   ? 'Connection error: the user rejected the activation'
                   : wallet.error.name}
               </span>
-              <button onClick={wallet.reset()}>retry</button>
+              <button onClick={() => wallet.reset()}>retry</button>
             </p>
           )
         }
