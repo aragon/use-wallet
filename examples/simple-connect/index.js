@@ -61,7 +61,6 @@ function App() {
                 walletconnect
               </button>
               <button onClick={() => activate('walletlink')}>walletlink</button>
-              <button onClick={() => activate('squarelink')}>squarelink</button>
             </div>
           </div>
         )

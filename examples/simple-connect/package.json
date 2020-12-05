@@ -4,11 +4,9 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "ethers": "^4.0.43",
-    "jsbi": "^3.1.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "jsbi": "^3.1.4",
+    "react": "link:../../node_modules/react",
+    "react-dom": "link:../../node_modules/react-dom",
     "token-amount": "^0.1.0",
     "use-wallet": "link:../.."
   },
@@ -17,7 +15,7 @@
     "react-dom": "../../node_modules/react-dom"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.1",
+    "@babel/core": "^7.12.9",
     "@babel/preset-react": "^7.10.4",
     "parcel": "^1.12.4"
   }
