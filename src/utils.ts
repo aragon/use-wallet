@@ -6,6 +6,7 @@ const KNOWN_CHAINS = new Map<number, string>([
   [3, 'Ropsten'],
   [4, 'Rinkeby'],
   [5, 'Goerli'],
+  [8, 'Ubiq'],
   [42, 'Kovan'],
   [100, 'xDai'],
   // This chainId is arbitrary and can be changed,
