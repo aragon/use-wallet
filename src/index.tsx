@@ -295,6 +295,8 @@ function UseWalletProvider({
       }
 
       if (!connectors[connectorId]) {
+        console.log("Connector ")
+        console.log(connectors)
         setStatus('error')
         setError(new ConnectorUnsupportedError(connectorId))
         return
@@ -316,6 +318,7 @@ function UseWalletProvider({
       })
 
       if (!web3ReactConnector) {
+        console.log("No web3ReactConnector")
         setStatus('error')
         setError(new ConnectorUnsupportedError(connectorId))
         return
