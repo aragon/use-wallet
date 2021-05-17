@@ -141,7 +141,13 @@ It returns an object representing the connected account (“wallet”), containi
   - "connecting": trying to connect to the wallet.
   - "connected": connected to the wallet (i.e. the account is available).
   - "error": a connection error happened.
-- `type`: whether or not the account is a contract. Can be `null` when you're disconnected, or either `"contract"` or `"normal"`.
+- `type`: whether or not the account is a contract. Can be `null` when you're
+  disconnected, or either `"contract"` or `"normal"`.
+
+## Examples
+
+To run the examples, switch to the respective directories. Then, simply run `yarn install`
+to install, and `yarn start` to run the examples on `localhost:1234`.
 
 ## Special thanks
 
