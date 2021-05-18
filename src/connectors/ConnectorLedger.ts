@@ -1,8 +1,10 @@
 import { Connector } from '../types'
 import { ConnectorConfigError } from '../errors'
 
-const POLLING_INTERVAL = 12000
+// NOTE: The ledger live path specify which chain and which account is used
+// on the hardware wallet. This should eventually be made dynamic.
 const LEDGER_LIVE_PATH = "m/44'/60'/0'/0"
+const POLLING_INTERVAL = 12000
 
 export default async function init(): Promise<Connector> {
   const { LedgerConnector } = await import('@web3-react/ledger-connector')
