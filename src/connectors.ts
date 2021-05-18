@@ -7,6 +7,7 @@ import initProvided from './connectors/ConnectorProvided'
 import initTorus from './connectors/ConnectorTorus'
 import initWalletConnect from './connectors/ConnectorWalletConnect'
 import initWalletLink from './connectors/ConnectorWalletLink'
+import initLedger from './connectors/ConnectorLedger'
 
 export function getConnectors(
   initsOrConfigs: { [key: string]: ConnectorInit | ConnectorConfig } = {}
@@ -22,6 +23,7 @@ export function getConnectors(
     torus: [initTorus, null],
     walletconnect: [initWalletConnect, null],
     walletlink: [initWalletLink, null],
+    ledger: [initLedger, null],
   }
 
   for (const [id, initOrConfig] of Object.entries(initsOrConfigs)) {
