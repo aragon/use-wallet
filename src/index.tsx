@@ -263,15 +263,14 @@ function UseWalletProvider({
   const activationId = useRef<number>(0)
   const { account, library: ethereum } = web3ReactContext
   const balance = useWalletBalance({ account, ethereum, pollBalanceInterval })
-  const {
-    addBlockNumberListener,
-    removeBlockNumberListener,
-  } = useWatchBlockNumber({ ethereum, pollBlockNumberInterval })
+  const { addBlockNumberListener, removeBlockNumberListener } =
+    useWatchBlockNumber({ ethereum, pollBlockNumberInterval })
 
   // Combine the user-provided connectors with the default ones (see connectors.js).
-  const connectors = useMemo(() => getConnectors(connectorsInitsOrConfigs), [
-    connectorsInitsOrConfigs,
-  ])
+  const connectors = useMemo(
+    () => getConnectors(connectorsInitsOrConfigs),
+    [connectorsInitsOrConfigs]
+  )
 
   const reset = useCallback(() => {
     if (web3ReactContext.active) {
