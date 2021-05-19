@@ -20,9 +20,7 @@ export function getNetworkName(chainId: number) {
   return KNOWN_CHAINS.get(chainId) || 'Unknown'
 }
 
-function isUnwrappedRpcResult(
-  response: unknown
-): response is {
+function isUnwrappedRpcResult(response: unknown): response is {
   error?: string
   result?: unknown
 } {
