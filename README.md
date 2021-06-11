@@ -32,6 +32,8 @@ Oh yes:
 - [Aragon client](https://github.com/aragon/aragon)
 - [Aragon’s Court Dashboard](https://github.com/aragon/court-dashboard)
 - [Aragon Voice](https://github.com/vocdoni/bridge-ui/)
+- [Wallets Chat](https://app.wallets.chat/)
+
 - _(Your project!)_
 
 ## Usage
