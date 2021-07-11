@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/esm/index.d.ts",
+  "types": "dist/cjs/index.d.ts",
   "sideEffects": false,
   "files": [
     "dist"
