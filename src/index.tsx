@@ -52,7 +52,7 @@ type WalletContext = {
 } | null
 
 type UseWalletProviderProps = {
-  chainId: number
+  supportedChainIds: number[]
   children: ReactNode
   connectors: { [key: string]: Connector | ConnectorConfig }
   pollBalanceInterval: number
@@ -242,7 +242,7 @@ function useWatchBlockNumber({
 }
 
 function UseWalletProvider({
-  chainId,
+  supportedChainIds,
   children,
   // connectors contains init functions and/or connector configs.
   connectors: connectorsInitsOrConfigs,
@@ -261,7 +261,7 @@ function UseWalletProvider({
   const [status, setStatus] = useState<Status>('disconnected')
   const web3ReactContext = useWeb3React()
   const activationId = useRef<number>(0)
-  const { account, library: ethereum } = web3ReactContext
+  const { account, chainId, library: ethereum } = web3ReactContext
   const balance = useWalletBalance({ account, ethereum, pollBalanceInterval })
   const { addBlockNumberListener, removeBlockNumberListener } =
     useWatchBlockNumber({ ethereum, pollBlockNumberInterval })
@@ -310,7 +310,7 @@ function UseWalletProvider({
 
       // Initialize the web3-react connector if it exists.
       const web3ReactConnector = connector?.web3ReactConnector?.({
-        chainId,
+        supportedChainIds,
         ...(connectorConfig || {}),
       })
 
@@ -337,7 +337,7 @@ function UseWalletProvider({
         setConnector(null)
         setStatus('error')
 
-        if (err instanceof UnsupportedChainIdError) {
+        if (err instanceof UnsupportedChainIdError && chainId) {
           setError(new ChainUnsupportedError(-1, chainId))
           return
         }
@@ -353,7 +353,7 @@ function UseWalletProvider({
         setError(err)
       }
     },
-    [chainId, connectors, reset, web3ReactContext]
+    [chainId, supportedChainIds, connectors, reset, web3ReactContext]
   )
 
   useEffect(() => {
@@ -390,7 +390,7 @@ function UseWalletProvider({
       connectors,
       error,
       ethereum,
-      networkName: getNetworkName(chainId),
+      networkName: chainId ? getNetworkName(chainId) : null,
       reset,
       status,
       type,
@@ -427,7 +427,7 @@ function UseWalletProvider({
 }
 
 UseWalletProvider.propTypes = {
-  chainId: PropTypes.number,
+  supportedChainIds: PropTypes.arrayOf(PropTypes.number),
   children: PropTypes.node,
   connectors: PropTypes.objectOf(PropTypes.object),
   pollBalanceInterval: PropTypes.number,
@@ -435,7 +435,7 @@ UseWalletProvider.propTypes = {
 }
 
 UseWalletProvider.defaultProps = {
-  chainId: 1,
+  supportedChainIds: [1, 4],
   connectors: {},
   pollBalanceInterval: 2000,
   pollBlockNumberInterval: 5000,

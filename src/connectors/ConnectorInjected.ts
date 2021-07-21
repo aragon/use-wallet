@@ -6,8 +6,8 @@ export default async function init(): Promise<Connector> {
     '@web3-react/injected-connector'
   )
   return {
-    web3ReactConnector({ chainId }: { chainId: number }) {
-      return new InjectedConnector({ supportedChainIds: [chainId] })
+    web3ReactConnector({ supportedChainIds }: { supportedChainIds: [] }) {
+      return new InjectedConnector({ supportedChainIds })
     },
     handleActivationError(err: Error) {
       return err instanceof UserRejectedRequestError
