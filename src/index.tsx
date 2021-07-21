@@ -52,7 +52,6 @@ type WalletContext = {
 } | null
 
 type UseWalletProviderProps = {
-  supportedChainIds: number[]
   children: ReactNode
   connectors: { [key: string]: Connector | ConnectorConfig }
   pollBalanceInterval: number
@@ -242,7 +241,6 @@ function useWatchBlockNumber({
 }
 
 function UseWalletProvider({
-  supportedChainIds,
   children,
   // connectors contains init functions and/or connector configs.
   connectors: connectorsInitsOrConfigs,
@@ -310,7 +308,6 @@ function UseWalletProvider({
 
       // Initialize the web3-react connector if it exists.
       const web3ReactConnector = connector?.web3ReactConnector?.({
-        supportedChainIds,
         ...(connectorConfig || {}),
       })
 
@@ -353,7 +350,7 @@ function UseWalletProvider({
         setError(err)
       }
     },
-    [chainId, supportedChainIds, connectors, reset, web3ReactContext]
+    [chainId, connectors, reset, web3ReactContext]
   )
 
   useEffect(() => {
@@ -427,7 +424,6 @@ function UseWalletProvider({
 }
 
 UseWalletProvider.propTypes = {
-  supportedChainIds: PropTypes.arrayOf(PropTypes.number),
   children: PropTypes.node,
   connectors: PropTypes.objectOf(PropTypes.object),
   pollBalanceInterval: PropTypes.number,
@@ -435,7 +431,6 @@ UseWalletProvider.propTypes = {
 }
 
 UseWalletProvider.defaultProps = {
-  supportedChainIds: [1, 4],
   connectors: {},
   pollBalanceInterval: 2000,
   pollBlockNumberInterval: 5000,
