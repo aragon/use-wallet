@@ -291,7 +291,7 @@ function UseWalletProvider({
       setStatus('error')
       setError(new ChainUnsupportedError(-1, chainId))
     }
-  }, [web3Error])
+  }, [web3Error, chainId])
 
   const connect = useCallback(
     async (connectorId = 'injected') => {
