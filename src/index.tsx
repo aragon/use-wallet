@@ -287,11 +287,11 @@ function UseWalletProvider({
   // if the user switched networks on the wallet itself
   // return unsupported error.
   useMemo(() => {
-    if (web3Error instanceof UnsupportedChainIdError && chainId) {
+    if (web3Error instanceof UnsupportedChainIdError) {
       setStatus('error')
-      setError(new ChainUnsupportedError(-1, chainId))
+      setError(new ChainUnsupportedError(web3Error.message))
     }
-  }, [web3Error, chainId])
+  }, [web3Error])
 
   const connect = useCallback(
     async (connectorId = 'injected') => {
@@ -348,8 +348,8 @@ function UseWalletProvider({
         setConnector(null)
         setStatus('error')
 
-        if (err instanceof UnsupportedChainIdError && chainId) {
-          setError(new ChainUnsupportedError(-1, chainId))
+        if (err instanceof UnsupportedChainIdError) {
+          setError(new ChainUnsupportedError(err.message))
           return
         }
         // It might have thrown with an error known by the connector
@@ -364,7 +364,7 @@ function UseWalletProvider({
         setError(err)
       }
     },
-    [chainId, connectors, reset, web3ReactContext]
+    [connectors, reset, web3ReactContext]
   )
 
   useEffect(() => {
