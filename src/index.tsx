@@ -259,7 +259,12 @@ function UseWalletProvider({
   const [status, setStatus] = useState<Status>('disconnected')
   const web3ReactContext = useWeb3React()
   const activationId = useRef<number>(0)
-  const { account, chainId, library: ethereum } = web3ReactContext
+  const {
+    account,
+    chainId,
+    library: ethereum,
+    error: web3Error,
+  } = web3ReactContext
   const balance = useWalletBalance({ account, ethereum, pollBalanceInterval })
   const { addBlockNumberListener, removeBlockNumberListener } =
     useWatchBlockNumber({ ethereum, pollBlockNumberInterval })
@@ -278,6 +283,15 @@ function UseWalletProvider({
     setError(null)
     setStatus('disconnected')
   }, [web3ReactContext])
+
+  // if the user switched networks on the wallet itself
+  // return unsupported error.
+  useMemo(() => {
+    if (web3Error instanceof UnsupportedChainIdError && chainId) {
+      setStatus('error')
+      setError(new ChainUnsupportedError(-1, chainId))
+    }
+  }, [web3Error])
 
   const connect = useCallback(
     async (connectorId = 'injected') => {
