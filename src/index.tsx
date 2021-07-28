@@ -39,6 +39,11 @@ import {
   pollEvery,
 } from './utils'
 
+import {
+  getProviderFromUseWalletId,
+  getProviderString,
+} from './providers/index'
+
 const NO_BALANCE = '-1'
 
 const UseWalletContext = React.createContext<WalletContext>(null)
@@ -390,6 +395,8 @@ function UseWalletProvider({
     }
   }, [account, ethereum])
 
+  console.log('oeeeeee ==== ')
+
   const wallet = useMemo(
     () => ({
       _web3ReactContext: web3ReactContext,
@@ -402,6 +409,9 @@ function UseWalletProvider({
       error,
       ethereum,
       networkName: chainId ? getNetworkName(chainId) : null,
+      providerInfo: connector
+        ? getProviderFromUseWalletId(connector)
+        : getProviderFromUseWalletId('unknown'),
       reset,
       status,
       type,
@@ -467,6 +477,8 @@ export {
   ConnectorUnsupportedError,
   UseWalletProviderWrapper as UseWalletProvider,
   useWallet,
+  getProviderString,
+  getProviderFromUseWalletId,
 }
 
 export default useWallet

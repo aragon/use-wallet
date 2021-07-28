@@ -7,6 +7,14 @@ export type Status = 'connected' | 'disconnected' | 'connecting' | 'error'
 export type Account = string
 export type Balance = string
 
+export type Provider = {
+  id: string
+  name: string
+  type: string
+  image: string
+  strings: any
+}
+
 export type Wallet = {
   account: Account | null
   balance: string
