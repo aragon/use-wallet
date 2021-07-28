@@ -1,10 +1,12 @@
-// import frame from "./icons/Frame.png"
-// import cipher from './icons/Cipher.png'
-// import metamask from './icons/Metamask.png'
-// import status from './icons/Status.png'
-// import wallet from './icons/wallet.svg'
-// import fortmatic from './icons/Fortmatic.svg'
-// import portis from './icons/Portis.svg'
+import frame from './icons/Frame.png'
+import cipher from './icons/Cipher.png'
+import metamask from './icons/Metamask.png'
+import status from './icons/Status.png'
+import wallet from './icons/wallet.svg'
+import fortmatic from './icons/Fortmatic.svg'
+import portis from './icons/Portis.svg'
+
+import { Provider } from '../types'
 
 declare global {
   interface Window {
@@ -21,14 +23,6 @@ function isElectron() {
   )
 }
 
-type Provider = {
-  id: string
-  name: string
-  type: string
-  // image: string,
-  strings: any
-}
-
 // See the corresponding prop type, EthereumProviderType, in prop-types.js.
 const PROVIDERS = new Map<string, Provider>(
   [
@@ -36,7 +30,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'frame',
       name: 'Frame',
       type: 'Desktop',
-      // image: frame,
+      image: frame,
       strings: {
         'your Ethereum wallet': 'Frame',
       },
@@ -45,7 +39,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'metamask',
       name: 'Metamask',
       type: 'Desktop',
-      // image: metamask,
+      image: metamask,
       strings: {
         'your Ethereum wallet': 'Metamask',
       },
@@ -54,7 +48,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'status',
       name: 'Status',
       type: 'Mobile',
-      // image: status,
+      image: status,
       strings: {
         'your Ethereum wallet': 'Status',
       },
@@ -63,7 +57,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'cipher',
       name: 'Cipher',
       type: 'Mobile',
-      // image: cipher,
+      image: cipher,
       strings: {
         'your Ethereum wallet': 'Cipher',
       },
@@ -72,7 +66,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'fortmatic',
       name: 'Fortmatic',
       type: 'Any',
-      // image: fortmatic,
+      image: fortmatic,
       strings: {
         'your Ethereum wallet': 'Fortmatic',
       },
@@ -81,7 +75,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'portis',
       name: 'Portis',
       type: 'Any',
-      // image: portis,
+      image: portis,
       strings: {
         'your Ethereum wallet': 'Portis',
       },
@@ -90,7 +84,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'unknown',
       name: 'Unknown',
       type: 'Desktop',
-      // image: wallet,
+      image: wallet,
       strings: {
         'your Ethereum wallet': 'your wallet',
       },
@@ -100,7 +94,6 @@ const PROVIDERS = new Map<string, Provider>(
 
 // Get a providers object for a given ID.
 function getProvider(providerId: string): Provider | undefined {
-  console.log('aqac movida ', providerId)
   return PROVIDERS.get(providerId)
 }
 
@@ -124,8 +117,8 @@ function identifyProvider(provider: any) {
 
 // Get a provider from its useWallet() identifier.
 function getProviderFromUseWalletId(id: string) {
-  console.log(id, ' id here checking')
-  if (id === 'injected') {
+  console.log(id, ' id here')
+  if (id === 'injected' || id === 'provided') {
     return (
       getProvider(identifyProvider(window.ethereum)) || getProvider('unknown')
     )
