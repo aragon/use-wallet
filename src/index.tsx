@@ -39,6 +39,8 @@ import {
   pollEvery,
 } from './utils'
 
+import { getProviderFromUseWalletId } from './providers/index'
+
 const NO_BALANCE = '-1'
 
 const UseWalletContext = React.createContext<WalletContext>(null)
@@ -264,6 +266,7 @@ function UseWalletProvider({
     chainId,
     library: ethereum,
     error: web3Error,
+    // connector: web3Connector
   } = web3ReactContext
   const balance = useWalletBalance({ account, ethereum, pollBalanceInterval })
   const { addBlockNumberListener, removeBlockNumberListener } =
@@ -402,6 +405,7 @@ function UseWalletProvider({
       error,
       ethereum,
       networkName: chainId ? getNetworkName(chainId) : null,
+      providerInfo: connector ? getProviderFromUseWalletId(connector) : null,
       reset,
       status,
       type,
