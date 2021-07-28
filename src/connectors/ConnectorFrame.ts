@@ -6,8 +6,8 @@ export default async function init(): Promise<Connector> {
     '@web3-react/frame-connector'
   )
   return {
-    web3ReactConnector({ chainId }: { chainId: number[] }) {
-      return new FrameConnector({ supportedChainIds: chainId })
+    web3ReactConnector({ chainId }: { chainId: number }) {
+      return new FrameConnector({ supportedChainIds: [chainId] })
     },
     handleActivationError(err: Error) {
       if (err instanceof UserRejectedRequestError) {
