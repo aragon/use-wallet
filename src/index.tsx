@@ -392,6 +392,8 @@ function UseWalletProvider({
     }
   }, [account, ethereum])
 
+  console.log('oeeeeee ==== ')
+
   const wallet = useMemo(
     () => ({
       _web3ReactContext: web3ReactContext,

@@ -94,6 +94,7 @@ const PROVIDERS = new Map<string, Provider>(
 
 // Get a providers object for a given ID.
 function getProvider(providerId: string): Provider | undefined {
+  console.log('providers')
   return PROVIDERS.get(providerId)
 }
 
