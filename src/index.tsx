@@ -39,7 +39,10 @@ import {
   pollEvery,
 } from './utils'
 
-import { getProviderFromUseWalletId } from './providers/index'
+import {
+  getProviderFromUseWalletId,
+  getProviderString,
+} from './providers/index'
 
 const NO_BALANCE = '-1'
 
@@ -474,6 +477,8 @@ export {
   ConnectorUnsupportedError,
   UseWalletProviderWrapper as UseWalletProvider,
   useWallet,
+  getProviderString,
+  getProviderFromUseWalletId,
 }
 
 export default useWallet
