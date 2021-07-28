@@ -266,7 +266,6 @@ function UseWalletProvider({
     chainId,
     library: ethereum,
     error: web3Error,
-    // connector: web3Connector
   } = web3ReactContext
   const balance = useWalletBalance({ account, ethereum, pollBalanceInterval })
   const { addBlockNumberListener, removeBlockNumberListener } =
