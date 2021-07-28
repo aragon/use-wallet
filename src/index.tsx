@@ -406,7 +406,9 @@ function UseWalletProvider({
       error,
       ethereum,
       networkName: chainId ? getNetworkName(chainId) : null,
-      providerInfo: connector ? getProviderFromUseWalletId(connector) : null,
+      providerInfo: connector
+        ? getProviderFromUseWalletId(connector)
+        : getProviderFromUseWalletId('unknown'),
       reset,
       status,
       type,
