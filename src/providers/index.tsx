@@ -1,11 +1,3 @@
-import frame from './icons/Frame.png'
-import cipher from './icons/Cipher.png'
-import metamask from './icons/Metamask.png'
-import status from './icons/Status.png'
-import wallet from './icons/wallet.svg'
-import fortmatic from './icons/Fortmatic.svg'
-import portis from './icons/Portis.svg'
-
 import { Provider } from '../types'
 
 declare global {
@@ -23,6 +15,9 @@ function isElectron() {
   )
 }
 
+const BASE_URL =
+  'https://storageapi.fleek.co/aragonone-team-bucket/wallet-icons'
+
 // See the corresponding prop type, EthereumProviderType, in prop-types.js.
 const PROVIDERS = new Map<string, Provider>(
   [
@@ -30,7 +25,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'frame',
       name: 'Frame',
       type: 'Desktop',
-      image: frame,
+      image: `${BASE_URL}/Frame.png`,
       strings: {
         'your Ethereum wallet': 'Frame',
       },
@@ -39,7 +34,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'metamask',
       name: 'Metamask',
       type: 'Desktop',
-      image: metamask,
+      image: `${BASE_URL}/Metamask.png`,
       strings: {
         'your Ethereum wallet': 'Metamask',
       },
@@ -48,7 +43,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'status',
       name: 'Status',
       type: 'Mobile',
-      image: status,
+      image: `${BASE_URL}/Status.png`,
       strings: {
         'your Ethereum wallet': 'Status',
       },
@@ -57,7 +52,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'cipher',
       name: 'Cipher',
       type: 'Mobile',
-      image: cipher,
+      image: `${BASE_URL}/Cipher.png`,
       strings: {
         'your Ethereum wallet': 'Cipher',
       },
@@ -66,7 +61,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'fortmatic',
       name: 'Fortmatic',
       type: 'Any',
-      image: fortmatic,
+      image: `${BASE_URL}/Fortmatic.svg`,
       strings: {
         'your Ethereum wallet': 'Fortmatic',
       },
@@ -75,7 +70,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'portis',
       name: 'Portis',
       type: 'Any',
-      image: portis,
+      image: `${BASE_URL}/Portis.svg`,
       strings: {
         'your Ethereum wallet': 'Portis',
       },
@@ -84,7 +79,7 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'unknown',
       name: 'Unknown',
       type: 'Desktop',
-      image: wallet,
+      image: `${BASE_URL}/wallet.svg`,
       strings: {
         'your Ethereum wallet': 'your wallet',
       },
