@@ -1,7 +1,7 @@
 {
   "name": "nextjs",
   "dependencies": {
-    "next": "^9.3.2",
+    "next": "^11.1.0",
     "react": "link:../../node_modules/react",
     "react-dom": "link:../../node_modules/react-dom",
     "token-amount": "^0.2.0",
