@@ -1,7 +1,7 @@
 import { Account, EthereumProvider } from './types'
 
 export const KNOWN_CHAINS = new Map<number, string>([
-  [1, 'mainnet'],
+  [1, 'main'],
   [2, 'expanse'],
   [3, 'ropsten'],
   [4, 'rinkeby'],
