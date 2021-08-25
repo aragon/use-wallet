@@ -17,7 +17,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
     1,
     {
       ...ETH,
-      chainName: 'main',
+      type: 'main',
       fullName: 'Ethereum Mainnet',
       shortName: 'Mainnet',
       url: `https://etherscan.io`,
@@ -26,14 +26,14 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     2,
     {
-      chainName: 'expanse',
+      type: 'expanse',
     },
   ],
   [
     3,
     {
       ...ETH,
-      chainName: 'ropsten',
+      type: 'ropsten',
       fullName: 'Ethereum Ropsten',
       shortName: 'Ropsten',
       url: `https://ropsten.etherscan.io`,
@@ -43,7 +43,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
     4,
     {
       ...ETH,
-      chainName: 'rinkeby',
+      type: 'rinkeby',
       fullName: 'Ethereum Rinkeby',
       shortName: 'Rinkeby',
       url: `https://rinkeby.etherscan.io`,
@@ -53,7 +53,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
     5,
     {
       ...ETH,
-      chainName: 'goerli',
+      type: 'goerli',
       fullName: 'Ethereum Goerli',
       shortName: 'Goerli',
       url: `https://goerli.etherscan.io`,
@@ -62,14 +62,14 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     8,
     {
-      chainName: 'ubiq',
+      type: 'ubiq',
     },
   ],
   [
     42,
     {
       ...ETH,
-      chainName: 'kovan',
+      type: 'kovan',
       fullName: 'Ethereum Kovan',
       shortName: 'Kovan',
       url: `https://kovan.etherscan.io`,
@@ -78,14 +78,14 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     100,
     {
-      chainName: 'xdai',
+      type: 'xdai',
     },
   ],
   [
     137,
     {
       ...ETH,
-      chainName: 'matic',
+      type: 'matic',
       fullName: 'Polygon Mainnet',
       shortName: 'Matic',
       url: `https://polygonscan.com`,
@@ -95,7 +95,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
     80001,
     {
       ...MATIC,
-      chainName: 'mumbai',
+      type: 'mumbai',
       fullName: 'Polygon Testnet',
       shortName: 'Mumbai',
       url: `https://mumbai.polygonscan.com`,
@@ -104,13 +104,13 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     1337,
     {
-      chainName: 'local',
+      type: 'local',
     },
   ],
   [
     5777,
     {
-      chainName: 'ganache',
+      type: 'ganache',
     },
   ],
 ])

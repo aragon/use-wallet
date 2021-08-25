@@ -4,14 +4,14 @@ export type ChainInformation = {
   tokenName: string
   tokenSymbol: string
   tokenDecimals: number
-  chainName: string
+  type: string
   fullName: string
   shortName: string
   url?: string
 }
 
 export type chainNameOnly = {
-  chainName: string
+  type: string
 }
 
 export type AccountType = 'contract' | 'normal'
