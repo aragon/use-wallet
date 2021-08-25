@@ -89,7 +89,6 @@ const PROVIDERS = new Map<string, Provider>(
 
 // Get a providers object for a given ID.
 function getProvider(providerId: string): Provider | undefined {
-  console.log('providers')
   return PROVIDERS.get(providerId)
 }
 
@@ -113,7 +112,6 @@ function identifyProvider(provider: any) {
 
 // Get a provider from its useWallet() identifier.
 function getProviderFromUseWalletId(id: string) {
-  console.log(id, ' id here')
   if (id === 'injected' || id === 'provided') {
     return (
       getProvider(identifyProvider(window.ethereum)) || getProvider('unknown')
