@@ -15,18 +15,18 @@ const CHAINS = new Map<number, string>([
   [5777, 'ganache'],
 ])
 
-let KNOWN_CHAINS = new Map<number, ChainInformation>([])
+const CHAIN_DATA = new Map<number, ChainInformation>([])
 
 CHAINS.forEach((value, key, _) => {
   if (value === 'matic' || value === 'mumbai') {
-    KNOWN_CHAINS.set(key, {
+    CHAIN_DATA.set(key, {
       tokenName: 'Matic Token',
       tokenSymbol: 'MATIC',
       tokenDecimals: 18,
       chainName: value,
     })
   } else {
-    KNOWN_CHAINS.set(key, {
+    CHAIN_DATA.set(key, {
       tokenName: 'Ether',
       tokenSymbol: 'ETH',
       tokenDecimals: 18,
@@ -34,6 +34,8 @@ CHAINS.forEach((value, key, _) => {
     })
   }
 })
+
+export const KNOWN_CHAINS = CHAIN_DATA
 
 export function getNetworkName(chainId: number) {
   return KNOWN_CHAINS.get(chainId)?.chainName || 'unknown'
