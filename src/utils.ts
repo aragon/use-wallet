@@ -18,7 +18,7 @@ const CHAINS = new Map<number, string>([
 let KNOWN_CHAINS = new Map<number, ChainInformation>([])
 
 CHAINS.forEach((value, key, _) => {
-  if (value == 'matic' || value == 'mumbai') {
+  if (value === 'matic' || value === 'mumbai') {
     KNOWN_CHAINS.set(key, {
       tokenName: 'Matic Token',
       tokenSymbol: 'MATIC',
