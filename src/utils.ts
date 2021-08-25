@@ -1,41 +1,5 @@
-import { Account, EthereumProvider, ChainInformation } from './types'
-
-const CHAINS = new Map<number, string>([
-  [1, 'main'],
-  [2, 'expanse'],
-  [3, 'ropsten'],
-  [4, 'rinkeby'],
-  [5, 'goerli'],
-  [8, 'ubiq'],
-  [42, 'kovan'],
-  [100, 'xdai'],
-  [137, 'matic'],
-  [80001, 'mumbai'],
-  [1337, 'local'],
-  [5777, 'ganache'],
-])
-
-const CHAIN_DATA = new Map<number, ChainInformation>([])
-
-CHAINS.forEach((value, key, _) => {
-  if (value === 'matic' || value === 'mumbai') {
-    CHAIN_DATA.set(key, {
-      tokenName: 'Matic Token',
-      tokenSymbol: 'MATIC',
-      tokenDecimals: 18,
-      chainName: value,
-    })
-  } else {
-    CHAIN_DATA.set(key, {
-      tokenName: 'Ether',
-      tokenSymbol: 'ETH',
-      tokenDecimals: 18,
-      chainName: value,
-    })
-  }
-})
-
-export const KNOWN_CHAINS = CHAIN_DATA
+import { Account, EthereumProvider } from './types'
+import { KNOWN_CHAINS } from './chains'
 
 export function getNetworkName(chainId: number) {
   return KNOWN_CHAINS.get(chainId)?.chainName || 'unknown'

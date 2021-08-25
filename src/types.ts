@@ -5,6 +5,12 @@ export type ChainInformation = {
   tokenSymbol: string
   tokenDecimals: number
   chainName: string
+  fullName: string
+  shortName: string
+}
+
+export type chainNameOnly = {
+  chainName: string
 }
 
 export type AccountType = 'contract' | 'normal'

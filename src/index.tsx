@@ -36,9 +36,10 @@ import {
   getAccountIsContract,
   getBlockNumber,
   getNetworkName,
-  KNOWN_CHAINS,
   pollEvery,
 } from './utils'
+
+import { KNOWN_CHAINS } from './chains'
 
 import {
   getProviderFromUseWalletId,
