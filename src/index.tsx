@@ -35,7 +35,6 @@ import {
   getAccountBalance,
   getAccountIsContract,
   getBlockNumber,
-  getNetworkName,
   pollEvery,
 } from './utils'
 
@@ -408,7 +407,9 @@ function UseWalletProvider({
       connectors,
       error,
       ethereum,
-      networkName: chainId ? getNetworkName(chainId) : null,
+      networkName: chainId
+        ? KNOWN_CHAINS.get(chainId)?.type || 'unknown'
+        : null,
       providerInfo: connector
         ? getProviderFromUseWalletId(connector)
         : getProviderFromUseWalletId('unknown'),

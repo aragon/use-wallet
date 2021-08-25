@@ -1,9 +1,4 @@
 import { Account, EthereumProvider } from './types'
-import { KNOWN_CHAINS } from './chains'
-
-export function getNetworkName(chainId: number) {
-  return KNOWN_CHAINS.get(chainId)?.chainName || 'unknown'
-}
 
 function isUnwrappedRpcResult(response: unknown): response is {
   error?: string
