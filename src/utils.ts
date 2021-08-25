@@ -1,6 +1,6 @@
-import { Account, EthereumProvider } from './types'
+import { Account, EthereumProvider, ChainInformation } from './types'
 
-export const KNOWN_CHAINS = new Map<number, string>([
+const CHAINS = new Map<number, string>([
   [1, 'main'],
   [2, 'expanse'],
   [3, 'ropsten'],
@@ -11,15 +11,32 @@ export const KNOWN_CHAINS = new Map<number, string>([
   [100, 'xdai'],
   [137, 'matic'],
   [80001, 'mumbai'],
-  // This chainId is arbitrary and can be changed,
-  // but by convention this is the number used
-  // for local chains (ganache, buidler, etc) by default.
   [1337, 'local'],
   [5777, 'ganache'],
 ])
 
+let KNOWN_CHAINS = new Map<number, ChainInformation>([])
+
+CHAINS.forEach((value, key, _) => {
+  if (value == 'matic' || value == 'mumbai') {
+    KNOWN_CHAINS.set(key, {
+      tokenName: 'Matic Token',
+      tokenSymbol: 'MATIC',
+      tokenDecimals: 18,
+      chainName: value,
+    })
+  } else {
+    KNOWN_CHAINS.set(key, {
+      tokenName: 'Ether',
+      tokenSymbol: 'ETH',
+      tokenDecimals: 18,
+      chainName: value,
+    })
+  }
+})
+
 export function getNetworkName(chainId: number) {
-  return KNOWN_CHAINS.get(chainId) || 'unknown'
+  return KNOWN_CHAINS.get(chainId)?.chainName || 'unknown'
 }
 
 function isUnwrappedRpcResult(response: unknown): response is {

@@ -1,5 +1,12 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
+export type ChainInformation = {
+  tokenName: string
+  tokenSymbol: string
+  tokenDecimals: number
+  chainName: string
+}
+
 export type AccountType = 'contract' | 'normal'
 
 export type Status = 'connected' | 'disconnected' | 'connecting' | 'error'
