@@ -7,6 +7,7 @@ export type ChainInformation = {
   chainName: string
   fullName: string
   shortName: string
+  url?: string
 }
 
 export type chainNameOnly = {

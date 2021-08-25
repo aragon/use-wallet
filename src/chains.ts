@@ -20,6 +20,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       chainName: 'main',
       fullName: 'Ethereum Mainnet',
       shortName: 'Mainnet',
+      url: `https://etherscan.io`,
     },
   ],
   [
@@ -35,6 +36,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       chainName: 'ropsten',
       fullName: 'Ethereum Ropsten',
       shortName: 'Ropsten',
+      url: `https://ropsten.etherscan.io`,
     },
   ],
   [
@@ -44,6 +46,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       chainName: 'rinkeby',
       fullName: 'Ethereum Rinkeby',
       shortName: 'Rinkeby',
+      url: `https://rinkeby.etherscan.io`,
     },
   ],
   [
@@ -53,6 +56,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       chainName: 'goerli',
       fullName: 'Ethereum Goerli',
       shortName: 'Goerli',
+      url: `https://goerli.etherscan.io`,
     },
   ],
   [
@@ -68,6 +72,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       chainName: 'kovan',
       fullName: 'Ethereum Kovan',
       shortName: 'Kovan',
+      url: `https://kovan.etherscan.io`,
     },
   ],
   [
@@ -83,6 +88,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       chainName: 'matic',
       fullName: 'Polygon Mainnet',
       shortName: 'Matic',
+      url: `https://polygonscan.com`,
     },
   ],
   [
@@ -92,6 +98,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       chainName: 'mumbai',
       fullName: 'Polygon Testnet',
       shortName: 'Mumbai',
+      url: `https://mumbai.polygonscan.com`,
     },
   ],
   [
