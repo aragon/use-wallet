@@ -1,116 +1,116 @@
 import { ChainInformation, chainNameOnly } from './types'
 
 const ETH = {
-  tokenName: 'Ether',
-  tokenSymbol: 'ETH',
-  tokenDecimals: 18,
+  name: 'Ether',
+  symbol: 'ETH',
+  decimals: 18,
 }
 
 const MATIC = {
-  tokenName: 'Matic Token',
-  tokenSymbol: 'MATIC',
-  tokenDecimals: 18,
+  name: 'Matic Token',
+  symbol: 'MATIC',
+  decimals: 18,
 }
 
 export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     1,
     {
-      ...ETH,
-      type: 'main',
+      nativeCurrency: ETH,
+      network: 'main',
       fullName: 'Ethereum Mainnet',
       shortName: 'Mainnet',
-      url: `https://etherscan.io`,
+      explorerUrl: `https://etherscan.io`,
     },
   ],
   [
     2,
     {
-      type: 'expanse',
+      network: 'expanse',
     },
   ],
   [
     3,
     {
-      ...ETH,
-      type: 'ropsten',
+      nativeCurrency: ETH,
+      network: 'ropsten',
       fullName: 'Ethereum Ropsten',
       shortName: 'Ropsten',
-      url: `https://ropsten.etherscan.io`,
+      explorerUrl: `https://ropsten.etherscan.io`,
     },
   ],
   [
     4,
     {
-      ...ETH,
-      type: 'rinkeby',
+      nativeCurrency: ETH,
+      network: 'rinkeby',
       fullName: 'Ethereum Rinkeby',
       shortName: 'Rinkeby',
-      url: `https://rinkeby.etherscan.io`,
+      explorerUrl: `https://rinkeby.etherscan.io`,
     },
   ],
   [
     5,
     {
-      ...ETH,
-      type: 'goerli',
+      nativeCurrency: ETH,
+      network: 'goerli',
       fullName: 'Ethereum Goerli',
       shortName: 'Goerli',
-      url: `https://goerli.etherscan.io`,
+      explorerUrl: `https://goerli.etherscan.io`,
     },
   ],
   [
     8,
     {
-      type: 'ubiq',
+      network: 'ubiq',
     },
   ],
   [
     42,
     {
-      ...ETH,
-      type: 'kovan',
+      nativeCurrency: ETH,
+      network: 'kovan',
       fullName: 'Ethereum Kovan',
       shortName: 'Kovan',
-      url: `https://kovan.etherscan.io`,
+      explorerUrl: `https://kovan.etherscan.io`,
     },
   ],
   [
     100,
     {
-      type: 'xdai',
+      network: 'xdai',
     },
   ],
   [
     137,
     {
-      ...ETH,
-      type: 'matic',
+      nativeCurrency: MATIC,
+      network: 'matic',
       fullName: 'Polygon Mainnet',
       shortName: 'Matic',
-      url: `https://polygonscan.com`,
+      explorerUrl: `https://polygonscan.com`,
     },
   ],
   [
     80001,
     {
-      ...MATIC,
-      type: 'mumbai',
+      nativeCurrency: MATIC,
+      network: 'mumbai',
       fullName: 'Polygon Testnet',
       shortName: 'Mumbai',
-      url: `https://mumbai.polygonscan.com`,
+      explorerUrl: `https://mumbai.polygonscan.com`,
     },
   ],
   [
     1337,
     {
-      type: 'local',
+      network: 'local',
     },
   ],
   [
     5777,
     {
-      type: 'ganache',
+      network: 'ganache',
     },
   ],
 ])

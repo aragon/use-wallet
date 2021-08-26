@@ -1,17 +1,21 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
+type Currency = {
+  name: string
+  symbol: string
+  decimals: number
+}
+
 export type ChainInformation = {
-  tokenName: string
-  tokenSymbol: string
-  tokenDecimals: number
-  type: string
+  nativeCurrency: Currency
+  network: string
   fullName: string
   shortName: string
-  url?: string
+  explorerUrl?: string
 }
 
 export type chainNameOnly = {
-  type: string
+  network: string
 }
 
 export type AccountType = 'contract' | 'normal'
