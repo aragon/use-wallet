@@ -10,12 +10,12 @@ export default async function init(): Promise<Connector> {
       chainId,
       provider,
     }: {
-      chainId: number
+      chainId: number[]
       provider: EthereumProvider
     }) {
       return new ProvidedConnector({
         provider,
-        supportedChainIds: [chainId],
+        supportedChainIds: chainId,
       })
     },
     handleActivationError(err: Error) {

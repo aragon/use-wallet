@@ -8,7 +8,7 @@ export default async function init(): Promise<Connector> {
       chainId,
       dAppId,
     }: {
-      chainId: number
+      chainId: number[]
       dAppId: string
     }) {
       if (!dAppId) {
@@ -16,7 +16,7 @@ export default async function init(): Promise<Connector> {
           'The Portis connector requires dAppId to be set.'
         )
       }
-      return new PortisConnector({ dAppId, networks: [chainId] })
+      return new PortisConnector({ dAppId, networks: chainId })
     },
   }
 }
