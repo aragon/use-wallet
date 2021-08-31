@@ -16,8 +16,9 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     1,
     {
+      id: 1,
       nativeCurrency: ETH,
-      network: 'main',
+      type: 'main',
       fullName: 'Ethereum Mainnet',
       shortName: 'Mainnet',
       explorerUrl: `https://etherscan.io`,
@@ -26,14 +27,16 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     2,
     {
-      network: 'expanse',
+      id: 2,
+      type: 'expanse',
     },
   ],
   [
     3,
     {
+      id: 3,
       nativeCurrency: ETH,
-      network: 'ropsten',
+      type: 'ropsten',
       fullName: 'Ethereum Ropsten',
       shortName: 'Ropsten',
       explorerUrl: `https://ropsten.etherscan.io`,
@@ -42,8 +45,9 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     4,
     {
+      id: 4,
       nativeCurrency: ETH,
-      network: 'rinkeby',
+      type: 'rinkeby',
       fullName: 'Ethereum Rinkeby',
       shortName: 'Rinkeby',
       explorerUrl: `https://rinkeby.etherscan.io`,
@@ -52,8 +56,9 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     5,
     {
+      id: 5,
       nativeCurrency: ETH,
-      network: 'goerli',
+      type: 'goerli',
       fullName: 'Ethereum Goerli',
       shortName: 'Goerli',
       explorerUrl: `https://goerli.etherscan.io`,
@@ -62,14 +67,16 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     8,
     {
-      network: 'ubiq',
+      id: 8,
+      type: 'ubiq',
     },
   ],
   [
     42,
     {
+      id: 42,
       nativeCurrency: ETH,
-      network: 'kovan',
+      type: 'kovan',
       fullName: 'Ethereum Kovan',
       shortName: 'Kovan',
       explorerUrl: `https://kovan.etherscan.io`,
@@ -78,14 +85,16 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     100,
     {
-      network: 'xdai',
+      id: 100,
+      type: 'xdai',
     },
   ],
   [
     137,
     {
+      id: 137,
       nativeCurrency: MATIC,
-      network: 'matic',
+      type: 'matic',
       fullName: 'Polygon Mainnet',
       shortName: 'Matic',
       explorerUrl: `https://polygonscan.com`,
@@ -94,8 +103,9 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     80001,
     {
+      id: 80001,
       nativeCurrency: MATIC,
-      network: 'mumbai',
+      type: 'mumbai',
       fullName: 'Polygon Testnet',
       shortName: 'Mumbai',
       explorerUrl: `https://mumbai.polygonscan.com`,
@@ -104,13 +114,15 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     1337,
     {
-      network: 'local',
+      id: 1337,
+      type: 'local',
     },
   ],
   [
     5777,
     {
-      network: 'ganache',
+      id: 5777,
+      type: 'ganache',
     },
   ],
 ])

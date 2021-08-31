@@ -7,15 +7,17 @@ type Currency = {
 }
 
 export type ChainInformation = {
+  id: number
   nativeCurrency: Currency
-  network: string
+  type: string
   fullName: string
   shortName: string
   explorerUrl?: string
 }
 
 export type chainNameOnly = {
-  network: string
+  id: number
+  type: string
 }
 
 export type AccountType = 'contract' | 'normal'
