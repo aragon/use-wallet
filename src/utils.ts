@@ -1,25 +1,5 @@
 import { Account, EthereumProvider } from './types'
 
-const KNOWN_CHAINS = new Map<number, string>([
-  [1, 'Mainnet'],
-  [2, 'Expanse'],
-  [3, 'Ropsten'],
-  [4, 'Rinkeby'],
-  [5, 'Goerli'],
-  [8, 'Ubiq'],
-  [42, 'Kovan'],
-  [100, 'xDai'],
-  // This chainId is arbitrary and can be changed,
-  // but by convention this is the number used
-  // for local chains (ganache, buidler, etc) by default.
-  [1337, 'Local'],
-  [5777, 'Ganache'],
-])
-
-export function getNetworkName(chainId: number) {
-  return KNOWN_CHAINS.get(chainId) || 'Unknown'
-}
-
 function isUnwrappedRpcResult(response: unknown): response is {
   error?: string
   result?: unknown

@@ -15,7 +15,8 @@
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint src",
-    "prepublishOnly": "git push && git push --tags"
+    "prepublishOnly": "git push && git push --tags",
+    "prepare": "rm -rf ./dist && yarn build"
   },
   "dependencies": {
     "@aragon/provided-connector": "^6.0.8",
@@ -31,7 +32,8 @@
     "@web3-react/walletlink-connector": "^6.1.6",
     "jsbi": "^3.1.4",
     "prop-types": "^15.7.2",
-    "regenerator-runtime": "^0.13.7"
+    "regenerator-runtime": "^0.13.7",
+    "rollup-plugin-image-files": "^1.4.2"
   },
   "husky": {
     "hooks": {

@@ -1,5 +1,25 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
+type Currency = {
+  name: string
+  symbol: string
+  decimals: number
+}
+
+export type ChainInformation = {
+  id: number
+  nativeCurrency: Currency
+  type: string
+  fullName: string
+  shortName: string
+  explorerUrl?: string
+}
+
+export type chainNameOnly = {
+  id: number
+  type: string
+}
+
 export type AccountType = 'contract' | 'normal'
 
 export type Status = 'connected' | 'disconnected' | 'connecting' | 'error'
@@ -7,17 +27,25 @@ export type Status = 'connected' | 'disconnected' | 'connecting' | 'error'
 export type Account = string
 export type Balance = string
 
+export type Provider = {
+  id: string
+  name: string
+  type: string
+  image: string
+  strings: any
+}
+
 export type Wallet = {
   account: Account | null
   balance: string
-  chainId: number
-  connect: (connectorId: string) => void
+  chainId: number | undefined
+  connect: (connectorId: string) => Promise<void>
   connector: string | null
   connectors: object
   error: Error | null
   ethereum?: any
   getBlockNumber?: () => number | null
-  networkName: string
+  networkName: string | null
   reset: () => void
   status: Status
   type: AccountType | null
