@@ -96,12 +96,27 @@ function App() {
 
 ReactDOM.render(
   <UseWalletProvider
-    chainId={1}
     connectors={{
-      fortmatic: { apiKey: '' },
-      portis: { dAppId: '' },
-      walletconnect: { rpcUrl: 'https://mainnet.eth.aragon.network/' },
-      walletlink: { url: 'https://mainnet.eth.aragon.network/' },
+      injected: {
+        //allows you to connect and switch between mainnet and rinkeby within Metamask.
+        chainId: [1, 4],
+      },
+      fortmatic: {
+        chainId: [1],
+        apiKey: '',
+      },
+      portis: {
+        dAppId: '',
+        chainId: [1],
+      },
+      walletconnect: {
+        chainId: [1],
+        rpcUrl: 'https://mainnet.eth.aragon.network/',
+      },
+      walletlink: {
+        chainId: [1],
+        url: 'https://mainnet.eth.aragon.network/',
+      },
     }}
   >
     <App />

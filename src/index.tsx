@@ -35,9 +35,15 @@ import {
   getAccountBalance,
   getAccountIsContract,
   getBlockNumber,
-  getNetworkName,
   pollEvery,
 } from './utils'
+
+import { KNOWN_CHAINS } from './chains'
+
+import {
+  getProviderFromUseWalletId,
+  getProviderString,
+} from './providers/index'
 
 const NO_BALANCE = '-1'
 
@@ -52,7 +58,6 @@ type WalletContext = {
 } | null
 
 type UseWalletProviderProps = {
-  chainId: number
   children: ReactNode
   connectors: { [key: string]: Connector | ConnectorConfig }
   pollBalanceInterval: number
@@ -242,7 +247,6 @@ function useWatchBlockNumber({
 }
 
 function UseWalletProvider({
-  chainId,
   children,
   // connectors contains init functions and/or connector configs.
   connectors: connectorsInitsOrConfigs,
@@ -261,7 +265,12 @@ function UseWalletProvider({
   const [status, setStatus] = useState<Status>('disconnected')
   const web3ReactContext = useWeb3React()
   const activationId = useRef<number>(0)
-  const { account, library: ethereum } = web3ReactContext
+  const {
+    account,
+    chainId,
+    library: ethereum,
+    error: web3Error,
+  } = web3ReactContext
   const balance = useWalletBalance({ account, ethereum, pollBalanceInterval })
   const { addBlockNumberListener, removeBlockNumberListener } =
     useWatchBlockNumber({ ethereum, pollBlockNumberInterval })
@@ -280,6 +289,15 @@ function UseWalletProvider({
     setError(null)
     setStatus('disconnected')
   }, [web3ReactContext])
+
+  // if the user switched networks on the wallet itself
+  // return unsupported error.
+  useMemo(() => {
+    if (web3Error instanceof UnsupportedChainIdError) {
+      setStatus('error')
+      setError(new ChainUnsupportedError(web3Error.message))
+    }
+  }, [web3Error])
 
   const connect = useCallback(
     async (connectorId = 'injected') => {
@@ -310,7 +328,6 @@ function UseWalletProvider({
 
       // Initialize the web3-react connector if it exists.
       const web3ReactConnector = connector?.web3ReactConnector?.({
-        chainId,
         ...(connectorConfig || {}),
       })
 
@@ -338,7 +355,7 @@ function UseWalletProvider({
         setStatus('error')
 
         if (err instanceof UnsupportedChainIdError) {
-          setError(new ChainUnsupportedError(-1, chainId))
+          setError(new ChainUnsupportedError(err.message))
           return
         }
         // It might have thrown with an error known by the connector
@@ -353,7 +370,7 @@ function UseWalletProvider({
         setError(err)
       }
     },
-    [chainId, connectors, reset, web3ReactContext]
+    [connectors, reset, web3ReactContext]
   )
 
   useEffect(() => {
@@ -390,7 +407,12 @@ function UseWalletProvider({
       connectors,
       error,
       ethereum,
-      networkName: getNetworkName(chainId),
+      networkName: chainId
+        ? KNOWN_CHAINS.get(chainId)?.type || 'unknown'
+        : null,
+      providerInfo: connector
+        ? getProviderFromUseWalletId(connector)
+        : getProviderFromUseWalletId('unknown'),
       reset,
       status,
       type,
@@ -427,7 +449,6 @@ function UseWalletProvider({
 }
 
 UseWalletProvider.propTypes = {
-  chainId: PropTypes.number,
   children: PropTypes.node,
   connectors: PropTypes.objectOf(PropTypes.object),
   pollBalanceInterval: PropTypes.number,
@@ -435,7 +456,6 @@ UseWalletProvider.propTypes = {
 }
 
 UseWalletProvider.defaultProps = {
-  chainId: 1,
   connectors: {},
   pollBalanceInterval: 2000,
   pollBlockNumberInterval: 5000,
@@ -458,6 +478,9 @@ export {
   ConnectorUnsupportedError,
   UseWalletProviderWrapper as UseWalletProvider,
   useWallet,
+  getProviderString,
+  getProviderFromUseWalletId,
+  KNOWN_CHAINS,
 }
 
 export default useWallet
