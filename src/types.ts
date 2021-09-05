@@ -1,6 +1,6 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
-type Currency = {
+export type Currency = {
   name: string
   symbol: string
   decimals: number
