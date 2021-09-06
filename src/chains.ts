@@ -94,6 +94,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       id: 43112,
       nativeCurrency: AVAX,
       type: 'avalocal',
+      shortName: 'Avalanche Local',
       fullName: 'Avalanche Local',
     },
   ],
