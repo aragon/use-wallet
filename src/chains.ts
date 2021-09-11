@@ -133,7 +133,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
     {
       id: 1337,
       type: 'local',
-      nativeCurrency: ONE
+      nativeCurrency: ONE,
     },
   ],
   [
