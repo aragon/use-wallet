@@ -18,6 +18,7 @@ export type ChainInformation = {
 export type chainNameOnly = {
   id: number
   type: string
+  nativeCurrency?: Currency
 }
 
 export type AccountType = 'contract' | 'normal'

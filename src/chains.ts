@@ -12,6 +12,12 @@ const MATIC = {
   decimals: 18,
 }
 
+const ONE = {
+  name: 'ONE Token',
+  symbol: 'ONE',
+  decimals: 18,
+}
+
 export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
   [
     1,
@@ -112,10 +118,22 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
     },
   ],
   [
+    1666700000,
+    {
+      id: 1666700000,
+      nativeCurrency: ONE,
+      type: 'one test',
+      fullName: 'Harmony ONE Testnet',
+      shortName: 'Harmony Testnet',
+      explorerUrl: `https://explorer.pops.one/`,
+    },
+  ],
+  [
     1337,
     {
       id: 1337,
       type: 'local',
+      nativeCurrency: ONE
     },
   ],
   [
