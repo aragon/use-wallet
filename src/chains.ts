@@ -122,10 +122,21 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
     {
       id: 1666700000,
       nativeCurrency: ONE,
-      type: 'one test',
+      type: 'harmonytest',
       fullName: 'Harmony ONE Testnet',
       shortName: 'Harmony Testnet',
       explorerUrl: `https://explorer.pops.one/`,
+    },
+  ],
+  [
+    1666600000,
+    {
+      id: 1666600000,
+      nativeCurrency: ONE,
+      type: 'harmony',
+      fullName: 'Harmony ONE',
+      shortName: 'Harmony',
+      explorerUrl: `https://explorer.harmony.one/`,
     },
   ],
   [
