@@ -155,3 +155,6 @@ to install, and `yarn start` to run the examples on `localhost:1234`.
 ## Special thanks
 
 useWallet() is a built on [web3-react](https://github.com/NoahZinsmeister/web3-react) and its connectors, which are doing all the hard work internally.
+
+# Harmony
+Added support for Harmony One wallets
