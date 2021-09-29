@@ -31,6 +31,7 @@ export default async function init(): Promise<Connector> {
         bridge,
         pollingInterval,
         qrcode: true,
+        supportedChainIds: [chainId],
         rpc: { [chainId]: rpcUrl },
       })
     },
