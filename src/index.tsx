@@ -407,6 +407,7 @@ function UseWalletProvider({
       connectors,
       error,
       ethereum,
+      isConnected: () => status === 'connected',
       networkName: chainId
         ? KNOWN_CHAINS.get(chainId)?.type || 'unknown'
         : null,
