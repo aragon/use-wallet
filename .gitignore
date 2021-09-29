@@ -4,3 +4,4 @@ yarn-error.log
 .yarn/cache
 .cache/
 .idea/
+.vscode/
