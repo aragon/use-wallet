@@ -53,7 +53,7 @@ export type Wallet = {
 }
 
 type EthereumProviderEip1193 = {
-  request: (arguments: {
+  request: (args: {
     method: string
     params?: unknown[] | object
   }) => Promise<unknown>
