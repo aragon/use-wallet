@@ -1,18 +1,24 @@
-import { ChainInformation, chainNameOnly } from './types'
+import { ChainInformation, chainNameOnly, Currency } from 'types'
 
-const ETH = {
+const ETH: Currency = {
   name: 'Ether',
   symbol: 'ETH',
   decimals: 18,
 }
 
-const MATIC = {
+const MATIC: Currency = {
   name: 'Matic Token',
   symbol: 'MATIC',
   decimals: 18,
 }
 
-const ONE = {
+const AVAX: Currency = {
+  name: 'Avax',
+  symbol: 'AVAX',
+  decimals: 9,
+}
+
+const ONE: Currency = {
   name: 'ONE Token',
   symbol: 'ONE',
   decimals: 18,
@@ -86,6 +92,38 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       fullName: 'Ethereum Kovan',
       shortName: 'Kovan',
       explorerUrl: `https://kovan.etherscan.io`,
+    },
+  ],
+  [
+    43112,
+    {
+      id: 43112,
+      nativeCurrency: AVAX,
+      type: 'avalocal',
+      shortName: 'Avalanche Local',
+      fullName: 'Avalanche Local',
+    },
+  ],
+  [
+    43113,
+    {
+      id: 43113,
+      nativeCurrency: AVAX,
+      type: 'fuji',
+      fullName: 'Avalanche Fuji',
+      shortName: 'Fuji',
+      explorerUrl: 'https://cchain.explorer.avax-test.network/',
+    },
+  ],
+  [
+    43114,
+    {
+      id: 43114,
+      nativeCurrency: AVAX,
+      type: 'avalanche',
+      fullName: 'Avalanche Mainnet',
+      shortName: 'Avalanche',
+      explorerUrl: 'https://cchain.explorer.avax.network/',
     },
   ],
   [
