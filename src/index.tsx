@@ -363,14 +363,14 @@ function UseWalletProvider({
         }
         // It might have thrown with an error known by the connector
         if (connector.handleActivationError) {
-          const handledError = connector.handleActivationError(err)
+          const handledError = connector.handleActivationError(err as Error)
           if (handledError) {
             setError(handledError)
             return
           }
         }
         // Otherwise, set to state the received error
-        setError(err)
+        setError(err as Error)
       }
     },
     [connectors, reset, web3ReactContext]
