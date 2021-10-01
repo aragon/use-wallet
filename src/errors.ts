@@ -6,6 +6,14 @@ export class ChainUnsupportedError extends Error {
   }
 }
 
+export class ChainUnknownError extends Error {
+  constructor(message: string, ...params: any[]) {
+    super(...params)
+    this.name = 'ChainUnknownError'
+    this.message = message
+  }
+}
+
 export class ConnectorUnsupportedError extends Error {
   constructor(connectorId: string, ...params: any[]) {
     super(...params)
