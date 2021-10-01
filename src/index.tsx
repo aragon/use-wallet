@@ -38,7 +38,7 @@ import {
   pollEvery,
 } from './utils'
 
-import { KNOWN_CHAINS } from './chains'
+import { CHAIN_INFORMATION } from './chains'
 
 import {
   getProviderFromUseWalletId,
@@ -409,7 +409,7 @@ function UseWalletProvider({
       ethereum,
       isConnected: () => status === 'connected',
       networkName: chainId
-        ? KNOWN_CHAINS.get(chainId)?.type || 'unknown'
+        ? CHAIN_INFORMATION.get(chainId)?.type || 'unknown'
         : null,
       providerInfo: connector
         ? getProviderFromUseWalletId(connector)
@@ -481,7 +481,7 @@ export {
   useWallet,
   getProviderString,
   getProviderFromUseWalletId,
-  KNOWN_CHAINS,
+  CHAIN_INFORMATION,
 }
 
 export default useWallet

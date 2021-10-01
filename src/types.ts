@@ -6,18 +6,16 @@ export type Currency = {
   decimals: number
 }
 
-export type ChainInformation = {
+export type ChainType = {
   id: number
-  nativeCurrency: Currency
   type: string
+}
+
+export type ChainInformation = ChainType & {
+  nativeCurrency: Currency
   fullName: string
   shortName: string
   explorerUrl?: string
-}
-
-export type chainNameOnly = {
-  id: number
-  type: string
 }
 
 export type AccountType = 'contract' | 'normal'

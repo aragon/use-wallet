@@ -1,4 +1,4 @@
-import { ChainInformation, chainNameOnly, Currency } from 'types'
+import { ChainInformation, ChainType, Currency } from 'types'
 
 const ETH: Currency = {
   name: 'Ether',
@@ -24,7 +24,7 @@ const ONE: Currency = {
   decimals: 18,
 }
 
-export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
+export const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
     1,
     {
@@ -32,7 +32,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       nativeCurrency: ETH,
       type: 'main',
       fullName: 'Ethereum Mainnet',
-      shortName: 'Mainnet',
+      shortName: 'Ethereum',
       explorerUrl: `https://etherscan.io`,
     },
   ],
@@ -49,7 +49,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       id: 3,
       nativeCurrency: ETH,
       type: 'ropsten',
-      fullName: 'Ethereum Ropsten',
+      fullName: 'Ropsten Testnet',
       shortName: 'Ropsten',
       explorerUrl: `https://ropsten.etherscan.io`,
     },
@@ -60,7 +60,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       id: 4,
       nativeCurrency: ETH,
       type: 'rinkeby',
-      fullName: 'Ethereum Rinkeby',
+      fullName: 'Rinkeby Testnet',
       shortName: 'Rinkeby',
       explorerUrl: `https://rinkeby.etherscan.io`,
     },
@@ -71,7 +71,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       id: 5,
       nativeCurrency: ETH,
       type: 'goerli',
-      fullName: 'Ethereum Goerli',
+      fullName: 'Goerli Testnet',
       shortName: 'Goerli',
       explorerUrl: `https://goerli.etherscan.io`,
     },
@@ -89,7 +89,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       id: 42,
       nativeCurrency: ETH,
       type: 'kovan',
-      fullName: 'Ethereum Kovan',
+      fullName: 'Kovan Testnet',
       shortName: 'Kovan',
       explorerUrl: `https://kovan.etherscan.io`,
     },
@@ -140,7 +140,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       nativeCurrency: MATIC,
       type: 'matic',
       fullName: 'Polygon Mainnet',
-      shortName: 'Matic',
+      shortName: 'Polygon',
       explorerUrl: `https://polygonscan.com`,
     },
   ],
@@ -150,7 +150,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       id: 80001,
       nativeCurrency: MATIC,
       type: 'mumbai',
-      fullName: 'Polygon Testnet',
+      fullName: 'Mumbai Testnet',
       shortName: 'Mumbai',
       explorerUrl: `https://mumbai.polygonscan.com`,
     },
