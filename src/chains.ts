@@ -25,7 +25,7 @@ const ONE: Currency = {
   decimals: 18,
 }
 
-export const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
+const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
     1,
     {
@@ -235,4 +235,8 @@ export function getKnownChainsIds(): number[] {
  */
 export function getKnownChainInformation(): ChainInformation | ChainType[] {
   return Array.from(CHAIN_INFORMATION.values())
+}
+
+export function getDefaultChainId(): number {
+  return 1
 }
