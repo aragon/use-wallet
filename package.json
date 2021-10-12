@@ -28,7 +28,7 @@
     "@web3-react/ledger-connector": "^6.1.9",
     "@web3-react/portis-connector": "^6.1.6",
     "@web3-react/torus-connector": "^6.1.7",
-    "@web3-react/walletconnect-connector": "^6.1.6",
+    "@web3-react/walletconnect-connector": "^6.2.4",
     "@web3-react/walletlink-connector": "^6.1.6",
     "jsbi": "^3.1.4",
     "prop-types": "^15.7.2",
