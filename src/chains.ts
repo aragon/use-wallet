@@ -1,5 +1,5 @@
-import { ChainUnknownError } from 'errors'
-import { ChainInformation, ChainType, Currency } from 'types'
+import { ChainUnknownError } from './errors'
+import { ChainInformation, ChainType, Currency } from './types'
 
 const ETH: Currency = {
   name: 'Ether',
