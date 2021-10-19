@@ -36,7 +36,7 @@ import {
   getAccountIsContract,
   getBlockNumber,
   pollEvery,
-  blockExplorerUrl
+  blockExplorerUrl,
 } from './utils'
 
 import {

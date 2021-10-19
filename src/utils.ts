@@ -1,5 +1,5 @@
 import { Account, EthereumProvider, ChainInformation } from './types'
-import { getChainInformation, getKnownChainsIds } from './chains';
+import { getChainInformation, getKnownChainsIds } from './chains'
 
 function isUnwrappedRpcResult(response: unknown): response is {
   error?: string
@@ -17,8 +17,11 @@ const EXPLORER_URL_TYPES = new Map([
   ['token', 'token'],
 ])
 
-export const blockExplorerUrl = (type: string, value: string, chainId: number) => {
-
+export const blockExplorerUrl = (
+  type: string,
+  value: string,
+  chainId: number
+) => {
   if (!getKnownChainsIds().includes(chainId)) {
     return ''
   }
@@ -31,7 +34,6 @@ export const blockExplorerUrl = (type: string, value: string, chainId: number) =
   const typePart = EXPLORER_URL_TYPES.get(type)
   return `${domain}/${typePart}/${value}`
 }
-
 
 export function rpcResult(response: unknown): unknown | null {
   // Some providers don’t wrap the response
