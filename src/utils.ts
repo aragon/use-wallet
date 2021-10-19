@@ -1,4 +1,5 @@
-import { Account, EthereumProvider } from './types'
+import { Account, EthereumProvider, ChainInformation } from './types'
+import { getChainInformation, getKnownChainsIds } from './chains'
 
 function isUnwrappedRpcResult(response: unknown): response is {
   error?: string
@@ -7,6 +8,31 @@ function isUnwrappedRpcResult(response: unknown): response is {
   return (
     typeof response === 'object' && response !== null && 'jsonrpc' in response
   )
+}
+
+const EXPLORER_URL_TYPES = new Map([
+  ['block', 'block'],
+  ['transaction', 'tx'],
+  ['address', 'address'],
+  ['token', 'token'],
+])
+
+export const blockExplorerUrl = (
+  type: string,
+  value: string,
+  chainId: number
+) => {
+  if (!getKnownChainsIds().includes(chainId)) {
+    return ''
+  }
+
+  if (!EXPLORER_URL_TYPES.has(type)) {
+    throw new Error('type not supported.')
+  }
+
+  const domain = (getChainInformation(chainId) as ChainInformation).explorerUrl
+  const typePart = EXPLORER_URL_TYPES.get(type)
+  return `${domain}/${typePart}/${value}`
 }
 
 export function rpcResult(response: unknown): unknown | null {

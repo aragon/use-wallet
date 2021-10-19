@@ -36,13 +36,14 @@ import {
   getAccountIsContract,
   getBlockNumber,
   pollEvery,
+  blockExplorerUrl,
 } from './utils'
 
 import {
   getProviderFromUseWalletId,
   getProviderString,
 } from './providers/index'
-import { getChainInformation, getDefaultChainId } from 'chains'
+import * as chains from './chains'
 
 const NO_BALANCE = '-1'
 
@@ -280,7 +281,7 @@ function UseWalletProvider({
     [connectorsInitsOrConfigs]
   )
   const chainId = useMemo(
-    () => (web3ChainId ? web3ChainId : getDefaultChainId()),
+    () => (web3ChainId ? web3ChainId : chains.getDefaultChainId()),
     [web3ChainId]
   )
 
@@ -411,7 +412,7 @@ function UseWalletProvider({
       error,
       ethereum,
       isConnected: () => status === 'connected',
-      networkName: getChainInformation(chainId).type,
+      networkName: chains.getChainInformation(chainId).type,
       providerInfo: connector
         ? getProviderFromUseWalletId(connector)
         : getProviderFromUseWalletId('unknown'),
@@ -482,4 +483,6 @@ export {
   useWallet,
   getProviderString,
   getProviderFromUseWalletId,
+  blockExplorerUrl,
+  chains,
 }
