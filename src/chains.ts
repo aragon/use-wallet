@@ -25,6 +25,12 @@ const ONE: Currency = {
   decimals: 18,
 }
 
+const XDAI: Currency = {
+  name: 'xDAI',
+  symbol: 'xDAI',
+  decimals: 18,
+}
+
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
     1,
@@ -35,13 +41,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Ethereum Mainnet',
       shortName: 'Ethereum',
       explorerUrl: `https://etherscan.io`,
-    },
-  ],
-  [
-    2,
-    {
-      id: 2,
-      type: 'expanse',
+      testnet: false,
     },
   ],
   [
@@ -53,6 +53,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Ropsten Testnet',
       shortName: 'Ropsten',
       explorerUrl: `https://ropsten.etherscan.io`,
+      testnet: true,
     },
   ],
   [
@@ -64,6 +65,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Rinkeby Testnet',
       shortName: 'Rinkeby',
       explorerUrl: `https://rinkeby.etherscan.io`,
+      testnet: true,
     },
   ],
   [
@@ -75,13 +77,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Goerli Testnet',
       shortName: 'Goerli',
       explorerUrl: `https://goerli.etherscan.io`,
-    },
-  ],
-  [
-    8,
-    {
-      id: 8,
-      type: 'ubiq',
+      testnet: true,
     },
   ],
   [
@@ -93,6 +89,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Kovan Testnet',
       shortName: 'Kovan',
       explorerUrl: `https://kovan.etherscan.io`,
+      testnet: true,
     },
   ],
   [
@@ -103,6 +100,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       type: 'avalocal',
       shortName: 'Avalanche Local',
       fullName: 'Avalanche Local',
+      testnet: true,
     },
   ],
   [
@@ -114,6 +112,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Avalanche Fuji',
       shortName: 'Fuji',
       explorerUrl: 'https://cchain.explorer.avax-test.network/',
+      testnet: true,
     },
   ],
   [
@@ -125,13 +124,19 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Avalanche Mainnet',
       shortName: 'Avalanche',
       explorerUrl: 'https://cchain.explorer.avax.network/',
+      testnet: false,
     },
   ],
   [
     100,
     {
       id: 100,
+      nativeCurrency: XDAI,
       type: 'xdai',
+      fullName: 'xDAI',
+      shortName: 'xDAI',
+      explorerUrl: 'https://blockscout.com/xdai/mainnet/',
+      testnet: false,
     },
   ],
   [
@@ -143,6 +148,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Polygon Mainnet',
       shortName: 'Polygon',
       explorerUrl: `https://polygonscan.com`,
+      testnet: false,
     },
   ],
   [
@@ -154,6 +160,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Mumbai Testnet',
       shortName: 'Mumbai',
       explorerUrl: `https://mumbai.polygonscan.com`,
+      testnet: true,
     },
   ],
   [
@@ -165,6 +172,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Harmony ONE Testnet',
       shortName: 'Harmony Testnet',
       explorerUrl: `https://explorer.pops.one/`,
+      testnet: true,
     },
   ],
   [
@@ -176,6 +184,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Harmony ONE',
       shortName: 'Harmony',
       explorerUrl: `https://explorer.harmony.one/`,
+      testnet: false,
     },
   ],
   [
@@ -183,6 +192,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
     {
       id: 1337,
       type: 'local',
+      testnet: true,
     },
   ],
   [
@@ -190,6 +200,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
     {
       id: 5777,
       type: 'ganache',
+      testnet: true,
     },
   ],
 ])

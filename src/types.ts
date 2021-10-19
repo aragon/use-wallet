@@ -9,6 +9,7 @@ export type Currency = {
 export type ChainType = {
   id: number
   type: string
+  testnet: boolean
 }
 
 export type ChainInformation = ChainType & {
