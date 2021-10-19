@@ -38,12 +38,11 @@ import {
   pollEvery,
 } from './utils'
 
-import { KNOWN_CHAINS } from './chains'
-
 import {
   getProviderFromUseWalletId,
   getProviderString,
 } from './providers/index'
+import { getChainInformation, getDefaultChainId } from 'chains'
 
 const NO_BALANCE = '-1'
 
@@ -267,7 +266,7 @@ function UseWalletProvider({
   const activationId = useRef<number>(0)
   const {
     account,
-    chainId,
+    chainId: web3ChainId,
     library: ethereum,
     error: web3Error,
   } = web3ReactContext
@@ -279,6 +278,10 @@ function UseWalletProvider({
   const connectors = useMemo(
     () => getConnectors(connectorsInitsOrConfigs),
     [connectorsInitsOrConfigs]
+  )
+  const chainId = useMemo(
+    () => (web3ChainId ? web3ChainId : getDefaultChainId()),
+    [web3ChainId]
   )
 
   const reset = useCallback(() => {
@@ -360,14 +363,14 @@ function UseWalletProvider({
         }
         // It might have thrown with an error known by the connector
         if (connector.handleActivationError) {
-          const handledError = connector.handleActivationError(err)
+          const handledError = connector.handleActivationError(err as Error)
           if (handledError) {
             setError(handledError)
             return
           }
         }
         // Otherwise, set to state the received error
-        setError(err)
+        setError(err as Error)
       }
     },
     [connectors, reset, web3ReactContext]
@@ -408,9 +411,7 @@ function UseWalletProvider({
       error,
       ethereum,
       isConnected: () => status === 'connected',
-      networkName: chainId
-        ? KNOWN_CHAINS.get(chainId)?.type || 'unknown'
-        : null,
+      networkName: getChainInformation(chainId).type,
       providerInfo: connector
         ? getProviderFromUseWalletId(connector)
         : getProviderFromUseWalletId('unknown'),
@@ -481,7 +482,4 @@ export {
   useWallet,
   getProviderString,
   getProviderFromUseWalletId,
-  KNOWN_CHAINS,
 }
-
-export default useWallet

@@ -1,4 +1,5 @@
-import { ChainInformation, chainNameOnly, Currency } from 'types'
+import { ChainUnknownError } from 'errors'
+import { ChainInformation, ChainType, Currency } from 'types'
 
 const ETH: Currency = {
   name: 'Ether',
@@ -24,7 +25,7 @@ const ONE: Currency = {
   decimals: 18,
 }
 
-export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
+const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
     1,
     {
@@ -32,7 +33,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       nativeCurrency: ETH,
       type: 'main',
       fullName: 'Ethereum Mainnet',
-      shortName: 'Mainnet',
+      shortName: 'Ethereum',
       explorerUrl: `https://etherscan.io`,
     },
   ],
@@ -49,7 +50,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       id: 3,
       nativeCurrency: ETH,
       type: 'ropsten',
-      fullName: 'Ethereum Ropsten',
+      fullName: 'Ropsten Testnet',
       shortName: 'Ropsten',
       explorerUrl: `https://ropsten.etherscan.io`,
     },
@@ -60,7 +61,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       id: 4,
       nativeCurrency: ETH,
       type: 'rinkeby',
-      fullName: 'Ethereum Rinkeby',
+      fullName: 'Rinkeby Testnet',
       shortName: 'Rinkeby',
       explorerUrl: `https://rinkeby.etherscan.io`,
     },
@@ -71,7 +72,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       id: 5,
       nativeCurrency: ETH,
       type: 'goerli',
-      fullName: 'Ethereum Goerli',
+      fullName: 'Goerli Testnet',
       shortName: 'Goerli',
       explorerUrl: `https://goerli.etherscan.io`,
     },
@@ -89,7 +90,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       id: 42,
       nativeCurrency: ETH,
       type: 'kovan',
-      fullName: 'Ethereum Kovan',
+      fullName: 'Kovan Testnet',
       shortName: 'Kovan',
       explorerUrl: `https://kovan.etherscan.io`,
     },
@@ -140,7 +141,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       nativeCurrency: MATIC,
       type: 'matic',
       fullName: 'Polygon Mainnet',
-      shortName: 'Matic',
+      shortName: 'Polygon',
       explorerUrl: `https://polygonscan.com`,
     },
   ],
@@ -150,7 +151,7 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
       id: 80001,
       nativeCurrency: MATIC,
       type: 'mumbai',
-      fullName: 'Polygon Testnet',
+      fullName: 'Mumbai Testnet',
       shortName: 'Mumbai',
       explorerUrl: `https://mumbai.polygonscan.com`,
     },
@@ -192,3 +193,50 @@ export const KNOWN_CHAINS = new Map<number, ChainInformation | chainNameOnly>([
     },
   ],
 ])
+
+/**
+ * This method checks whether a particular chain id is known.
+ *
+ * @param {number} chainId chain id to check
+ * @returns {boolean} true if chain is known
+ */
+export function isKnownChain(chainId: number): boolean {
+  return CHAIN_INFORMATION.has(chainId)
+}
+
+/**
+ *
+ * @param {number} chainId chain id to retrieve information for
+ * @throws {ChainUnknownError} if chain is unknown
+ * @returns {boolean} information for specified chain
+ */
+export function getChainInformation(
+  chainId: number
+): ChainInformation | ChainType {
+  const chainInfo = CHAIN_INFORMATION.get(chainId)
+  if (!chainInfo) throw new ChainUnknownError(`Unknown chain id: ${chainId}`)
+  return chainInfo
+}
+
+/**
+ * This is a getter method to returns the chain ids of all known chains.
+ *
+ * @returns {number[]} array of chain Ids
+ */
+export function getKnownChainsIds(): number[] {
+  return Array.from(CHAIN_INFORMATION.keys())
+}
+
+/**
+ * This is a getter method to return all information available for each known chain.
+ *
+ * @returns {ChainInformation | ChainType[]} An array containing information for
+ * each known chain
+ */
+export function getKnownChainInformation(): ChainInformation | ChainType[] {
+  return Array.from(CHAIN_INFORMATION.values())
+}
+
+export function getDefaultChainId(): number {
+  return 1
+}
