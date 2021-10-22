@@ -31,6 +31,12 @@ const XDAI: Currency = {
   decimals: 18,
 }
 
+const BNB: Currency = {
+  name: 'Binance Token',
+  symbol: 'BNB',
+  decimals: 18,
+}
+
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
     1,
@@ -185,6 +191,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       shortName: 'Harmony',
       explorerUrl: `https://explorer.harmony.one/`,
       testnet: false,
+    },
+  ],
+  [
+    56,
+    {
+      id: 56,
+      nativeCurrency: BNB,
+      type: 'bsc',
+      fullName: 'Binance Smart Chain',
+      shortName: 'BSC',
+      explorerUrl: `https://testnet.bscscan.com/`,
+      testnet: false,
+    },
+  ],
+  [
+    97,
+    {
+      id: 97,
+      nativeCurrency: BNB,
+      type: 'bscTest',
+      fullName: 'Binance Smart Chain Testnet',
+      shortName: 'BSC Testnet',
+      explorerUrl: `https://testnet.bscscan.com/`,
+      testnet: true,
     },
   ],
   [
