@@ -170,18 +170,6 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
     },
   ],
   [
-    1666700000,
-    {
-      id: 1666700000,
-      nativeCurrency: ONE,
-      type: 'harmonyTest',
-      fullName: 'Harmony ONE Testnet',
-      shortName: 'Harmony Testnet',
-      explorerUrl: `https://explorer.pops.one/`,
-      testnet: true,
-    },
-  ],
-  [
     1666600000,
     {
       id: 1666600000,
@@ -194,6 +182,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
     },
   ],
   [
+    1666700000,
+    {
+      id: 1666700000,
+      nativeCurrency: ONE,
+      type: 'harmonyTest',
+      fullName: 'Harmony ONE Testnet',
+      shortName: 'Harmony Testnet',
+      explorerUrl: `https://explorer.testnet.harmony.one/`,
+      testnet: true,
+    },
+  ],
+  [
     56,
     {
       id: 56,
@@ -201,7 +201,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       type: 'bsc',
       fullName: 'Binance Smart Chain',
       shortName: 'BSC',
-      explorerUrl: `https://testnet.bscscan.com/`,
+      explorerUrl: `https://bscscan.com/`,
       testnet: false,
     },
   ],
