@@ -218,6 +218,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
     },
   ],
   [
+    421611,
+    {
+      id: 421611,
+      nativeCurrency: ETH,
+      type: 'arbitrumTest',
+      fullName: 'Arbitrum Testnet',
+      shortName: 'Arbitrum Testnet',
+      explorerUrl: 'https://testnet.arbiscan.io/',
+      testnet: true,
+    },
+  ],
+  [
+    42161,
+    {
+      id: 42161,
+      nativeCurrency: ETH,
+      type: 'arbitrum',
+      fullName: 'Arbitrum Mainnet',
+      shortName: 'Arbitrum',
+      explorerUrl: 'https://arbiscan.io/',
+      testnet: false,
+    },
+  ],
+  [
     1337,
     {
       id: 1337,
