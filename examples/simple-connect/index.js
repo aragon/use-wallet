@@ -77,6 +77,7 @@ function App() {
 
       {wallet.account && (
         <p>
+          {console.log('See', wallet)}
           <span>Balance:</span>
           <span>
             {wallet.balance === '-1'
@@ -112,7 +113,10 @@ ReactDOM.render(
       },
       walletconnect: {
         chainId: [1],
-        rpcUrl: 'https://mainnet.eth.aragon.network/',
+        rpcUrl: 'https://mainnet.infura.io/v3/a0d8c94ba9a946daa5ee149e52fa5ff1',
+        // infuraId: 'a0d8c94ba9a946daa5ee149e52fa5ff1',
+        bridge: 'https://bridge.walletconnect.org',
+        pollingInterval: 12000,
       },
       walletlink: {
         chainId: [1],
