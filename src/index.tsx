@@ -14,14 +14,11 @@ import {
   Web3ReactProvider,
   useWeb3React,
 } from '@web3-react/core'
-import JSBI from 'jsbi'
+
 import {
-  Account,
   AccountType,
-  Balance,
   Connector,
   ConnectorConfig,
-  EthereumProvider,
   Status,
   Wallet,
 } from './types'
@@ -31,23 +28,15 @@ import {
   ChainUnsupportedError,
   ConnectorUnsupportedError,
 } from './errors'
-import {
-  getAccountBalance,
-  getAccountIsContract,
-  getBlockNumber,
-  pollEvery,
-  blockExplorerUrl,
-} from './utils'
+import { getAccountIsContract, blockExplorerUrl } from './utils'
 
 import {
   getProviderFromUseWalletId,
   getProviderString,
 } from './providers/index'
 import * as chains from './chains'
-
-const NO_BALANCE = '-1'
-
-const UseWalletContext = React.createContext<WalletContext>(null)
+import { useWatchBlockNumber } from './hooks/watchBlockNumber'
+import { useWalletBalance } from './hooks/walletBalance'
 
 type WalletContext = {
   addBlockNumberListener: (callback: (blockNumber: number) => void) => void
@@ -57,12 +46,9 @@ type WalletContext = {
   wallet: Wallet
 } | null
 
-type UseWalletProviderProps = {
-  children: ReactNode
-  connectors: { [key: string]: Connector | ConnectorConfig }
-  pollBalanceInterval: number
-  pollBlockNumberInterval: number
-}
+const UseWalletContext = React.createContext<WalletContext>(null)
+
+// CONTEXT CONSUMER ============================================================
 
 function useWallet(): Wallet {
   const walletContext = useContext(UseWalletContext)
@@ -112,144 +98,36 @@ function useGetBlockNumber(): () => number | null {
   return getBlockNumber
 }
 
-function useWalletBalance({
-  account,
-  ethereum,
-  pollBalanceInterval,
-}: {
-  account?: Account | null
-  ethereum?: EthereumProvider
+// CONTEXT PROVIDER ============================================================
+
+type UseWalletProviderProps = {
+  children: ReactNode
+  connectors: { [key: string]: Connector | ConnectorConfig }
+  autoConnect: boolean
   pollBalanceInterval: number
-}) {
-  const [balance, setBalance] = useState<Balance>(NO_BALANCE)
-
-  useEffect(() => {
-    if (!account || !ethereum) {
-      return
-    }
-
-    let cancel = false
-
-    // Poll wallet balance
-    const pollBalance = pollEvery<Balance, any>(
-      (
-        account: Account,
-        ethereum: EthereumProvider,
-        onUpdate: (balance: Balance) => void
-      ) => {
-        let lastBalance = NO_BALANCE
-        return {
-          async request() {
-            return getAccountBalance(ethereum, account)
-              .then((value) => {
-                return value ? JSBI.BigInt(value).toString() : NO_BALANCE
-              })
-              .catch(() => NO_BALANCE)
-          },
-          onResult(balance: Balance) {
-            if (!cancel && balance !== lastBalance) {
-              lastBalance = balance
-              onUpdate(balance)
-            }
-          },
-        }
-      },
-      pollBalanceInterval
-    )
-
-    // start polling balance every x time
-    const stopPollingBalance = pollBalance(account, ethereum, setBalance)
-
-    return () => {
-      cancel = true
-      stopPollingBalance()
-      setBalance(NO_BALANCE)
-    }
-  }, [account, ethereum, pollBalanceInterval])
-
-  return balance
+  pollBlockNumberInterval: number
 }
 
-// Only watch block numbers, and return functions allowing to subscribe to it.
-function useWatchBlockNumber({
-  ethereum,
-  pollBlockNumberInterval,
-}: {
-  ethereum: EthereumProvider
-  pollBlockNumberInterval: number
-}) {
-  const lastBlockNumber = useRef<number | null>(null)
+UseWalletProvider.propTypes = {
+  children: PropTypes.node,
+  connectors: PropTypes.objectOf(PropTypes.object),
+  autoConnect: PropTypes.bool,
+  pollBalanceInterval: PropTypes.number,
+  pollBlockNumberInterval: PropTypes.number,
+}
 
-  // Using listeners lets useWallet() decide if it wants to expose the block
-  // number, which implies to re-render whenever the block number updates.
-  const blockNumberListeners = useRef<Set<(blockNumber: number) => void>>(
-    new Set()
-  )
-
-  const addBlockNumberListener = useCallback((cb) => {
-    if (blockNumberListeners.current.has(cb)) {
-      return
-    }
-
-    // Immediately send the block number to the new listener
-    cb(lastBlockNumber.current)
-
-    // Add the listener
-    blockNumberListeners.current.add(cb)
-  }, [])
-
-  const removeBlockNumberListener = useCallback((cb) => {
-    blockNumberListeners.current.delete(cb)
-  }, [])
-
-  // Update the block number and broadcast it to the listeners
-  const updateBlockNumber = useCallback((blockNumber) => {
-    if (lastBlockNumber.current === blockNumber) {
-      return
-    }
-
-    lastBlockNumber.current = blockNumber
-    blockNumberListeners.current.forEach((cb) => cb(blockNumber))
-  }, [])
-
-  useEffect(() => {
-    if (!ethereum) {
-      updateBlockNumber(null)
-      return
-    }
-
-    let cancel = false
-
-    const pollBlockNumber = pollEvery(() => {
-      return {
-        request: () => getBlockNumber(ethereum),
-        onResult: (latestBlockNumber: number) => {
-          if (!cancel) {
-            updateBlockNumber(
-              latestBlockNumber === null
-                ? null
-                : JSBI.BigInt(latestBlockNumber).toString()
-            )
-          }
-        },
-      }
-    }, pollBlockNumberInterval)
-
-    const stopPollingBlockNumber = pollBlockNumber()
-
-    return () => {
-      cancel = true
-      stopPollingBlockNumber()
-    }
-  }, [ethereum, pollBlockNumberInterval, updateBlockNumber])
-
-  return { addBlockNumberListener, removeBlockNumberListener }
+UseWalletProvider.defaultProps = {
+  connectors: {},
+  autoConnect: false,
+  pollBalanceInterval: 2000,
+  pollBlockNumberInterval: 5000,
 }
 
 function UseWalletProvider({
   children,
   // connectors contains init functions and/or connector configs.
   connectors: connectorsInitsOrConfigs,
+  autoConnect,
   pollBalanceInterval,
   pollBlockNumberInterval,
 }: UseWalletProviderProps) {
@@ -280,6 +158,7 @@ function UseWalletProvider({
     () => getConnectors(connectorsInitsOrConfigs),
     [connectorsInitsOrConfigs]
   )
+
   const chainId = useMemo(
     () => (web3ChainId ? web3ChainId : chains.getDefaultChainId()),
     [web3ChainId]
@@ -378,6 +257,26 @@ function UseWalletProvider({
   )
 
   useEffect(() => {
+    if (!autoConnect) {
+      return
+    }
+
+    const { ethereum } = window
+    if (!ethereum?.selectedAddress) {
+      return
+    }
+
+    const isInjectedAvailable = Object.keys(connectors).some(
+      (key) => key === 'injected'
+    )
+
+    if (isInjectedAvailable) {
+      connect()
+    }
+    //eslint-disable-next-line
+  }, [])
+
+  useEffect(() => {
     if (!account || !ethereum) {
       return
     }
@@ -451,18 +350,8 @@ function UseWalletProvider({
   )
 }
 
-UseWalletProvider.propTypes = {
-  children: PropTypes.node,
-  connectors: PropTypes.objectOf(PropTypes.object),
-  pollBalanceInterval: PropTypes.number,
-  pollBlockNumberInterval: PropTypes.number,
-}
-
-UseWalletProvider.defaultProps = {
-  connectors: {},
-  pollBalanceInterval: 2000,
-  pollBlockNumberInterval: 5000,
-}
+UseWalletProviderWrapper.propTypes = UseWalletProvider.propTypes
+UseWalletProviderWrapper.defaultProps = UseWalletProvider.defaultProps
 
 function UseWalletProviderWrapper(props: UseWalletProviderProps) {
   return (
@@ -471,9 +360,6 @@ function UseWalletProviderWrapper(props: UseWalletProviderProps) {
     </Web3ReactProvider>
   )
 }
-
-UseWalletProviderWrapper.propTypes = UseWalletProvider.propTypes
-UseWalletProviderWrapper.defaultProps = UseWalletProvider.defaultProps
 
 export {
   ConnectionRejectedError,
