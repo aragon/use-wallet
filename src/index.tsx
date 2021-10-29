@@ -273,6 +273,7 @@ function UseWalletProvider({
     if (isInjectedAvailable) {
       connect()
     }
+    //eslint-disable-next-line
   }, [])
 
   useEffect(() => {
