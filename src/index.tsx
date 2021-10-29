@@ -103,7 +103,7 @@ function useGetBlockNumber(): () => number | null {
 type UseWalletProviderProps = {
   children: ReactNode
   connectors: { [key: string]: Connector | ConnectorConfig }
-  autoConnector: string
+  autoConnect: boolean
   pollBalanceInterval: number
   pollBlockNumberInterval: number
 }
@@ -111,14 +111,14 @@ type UseWalletProviderProps = {
 UseWalletProvider.propTypes = {
   children: PropTypes.node,
   connectors: PropTypes.objectOf(PropTypes.object),
-  autoConnector: PropTypes.string,
+  autoConnect: PropTypes.bool,
   pollBalanceInterval: PropTypes.number,
   pollBlockNumberInterval: PropTypes.number,
 }
 
 UseWalletProvider.defaultProps = {
   connectors: {},
-  autoConnector: '',
+  autoConnect: false,
   pollBalanceInterval: 2000,
   pollBlockNumberInterval: 5000,
 }
@@ -127,7 +127,7 @@ function UseWalletProvider({
   children,
   // connectors contains init functions and/or connector configs.
   connectors: connectorsInitsOrConfigs,
-  autoConnector,
+  autoConnect,
   pollBalanceInterval,
   pollBlockNumberInterval,
 }: UseWalletProviderProps) {
@@ -257,20 +257,21 @@ function UseWalletProvider({
   )
 
   useEffect(() => {
-    // only use autoconnect if the feature is set ...
-    if (!autoConnector) {
+    if (!autoConnect) {
       return
     }
 
-    // and if there is no connector is available
+    const { ethereum } = window
+    if (!ethereum?.selectedAddress) {
+      return
+    }
+
     const isInjectedAvailable = Object.keys(connectors).some(
-      (key) => key === autoConnector
+      (key) => key === 'injected'
     )
 
     if (isInjectedAvailable) {
       connect()
-    } else {
-      setError(new ConnectorUnsupportedError(autoConnector))
     }
   }, [])
 
