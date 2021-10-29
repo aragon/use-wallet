@@ -38,8 +38,6 @@ import * as chains from './chains'
 import { useWatchBlockNumber } from './hooks/watchBlockNumber'
 import { useWalletBalance } from './hooks/walletBalance'
 
-const UseWalletContext = React.createContext<WalletContext>(null)
-
 type WalletContext = {
   addBlockNumberListener: (callback: (blockNumber: number) => void) => void
   pollBalanceInterval: number
@@ -48,15 +46,9 @@ type WalletContext = {
   wallet: Wallet
 } | null
 
-type UseWalletProviderProps = {
-  children: ReactNode
-  connectors: { [key: string]: Connector | ConnectorConfig }
-  autoConnector: string
-  pollBalanceInterval: number
-  pollBlockNumberInterval: number
-}
+const UseWalletContext = React.createContext<WalletContext>(null)
 
-// CONTEXT CONSUMERS
+// CONTEXT CONSUMER ============================================================
 
 function useWallet(): Wallet {
   const walletContext = useContext(UseWalletContext)
@@ -106,7 +98,30 @@ function useGetBlockNumber(): () => number | null {
   return getBlockNumber
 }
 
-// CONTEXT PROVIDER
+// CONTEXT PROVIDER ============================================================
+
+type UseWalletProviderProps = {
+  children: ReactNode
+  connectors: { [key: string]: Connector | ConnectorConfig }
+  autoConnector: string
+  pollBalanceInterval: number
+  pollBlockNumberInterval: number
+}
+
+UseWalletProvider.propTypes = {
+  children: PropTypes.node,
+  connectors: PropTypes.objectOf(PropTypes.object),
+  autoConnector: PropTypes.string,
+  pollBalanceInterval: PropTypes.number,
+  pollBlockNumberInterval: PropTypes.number,
+}
+
+UseWalletProvider.defaultProps = {
+  connectors: {},
+  autoConnector: '',
+  pollBalanceInterval: 2000,
+  pollBlockNumberInterval: 5000,
+}
 
 function UseWalletProvider({
   children,
@@ -333,20 +348,8 @@ function UseWalletProvider({
   )
 }
 
-UseWalletProvider.propTypes = {
-  children: PropTypes.node,
-  connectors: PropTypes.objectOf(PropTypes.object),
-  autoConnector: PropTypes.string,
-  pollBalanceInterval: PropTypes.number,
-  pollBlockNumberInterval: PropTypes.number,
-}
-
-UseWalletProvider.defaultProps = {
-  connectors: {},
-  autoConnector: '',
-  pollBalanceInterval: 2000,
-  pollBlockNumberInterval: 5000,
-}
+UseWalletProviderWrapper.propTypes = UseWalletProvider.propTypes
+UseWalletProviderWrapper.defaultProps = UseWalletProvider.defaultProps
 
 function UseWalletProviderWrapper(props: UseWalletProviderProps) {
   return (
@@ -355,9 +358,6 @@ function UseWalletProviderWrapper(props: UseWalletProviderProps) {
     </Web3ReactProvider>
   )
 }
-
-UseWalletProviderWrapper.propTypes = UseWalletProvider.propTypes
-UseWalletProviderWrapper.defaultProps = UseWalletProvider.defaultProps
 
 export {
   ConnectionRejectedError,
