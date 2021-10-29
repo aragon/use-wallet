@@ -60,6 +60,7 @@ type WalletContext = {
 type UseWalletProviderProps = {
   children: ReactNode
   connectors: { [key: string]: Connector | ConnectorConfig }
+  autoConnector: string
   pollBalanceInterval: number
   pollBlockNumberInterval: number
 }
@@ -250,6 +251,7 @@ function UseWalletProvider({
   children,
   // connectors contains init functions and/or connector configs.
   connectors: connectorsInitsOrConfigs,
+  autoConnector,
   pollBalanceInterval,
   pollBlockNumberInterval,
 }: UseWalletProviderProps) {
@@ -280,6 +282,7 @@ function UseWalletProvider({
     () => getConnectors(connectorsInitsOrConfigs),
     [connectorsInitsOrConfigs]
   )
+
   const chainId = useMemo(
     () => (web3ChainId ? web3ChainId : chains.getDefaultChainId()),
     [web3ChainId]
@@ -378,6 +381,24 @@ function UseWalletProvider({
   )
 
   useEffect(() => {
+    // only use autoconnect if the feature is set ...
+    if (!autoConnector) {
+      return
+    }
+
+    // and if there is no connector is available
+    const isInjectedAvailable = Object.keys(connectors).some(
+      (key) => key === autoConnector
+    )
+
+    if (isInjectedAvailable) {
+      connect()
+    } else {
+      setError(new ConnectorUnsupportedError(autoConnector))
+    }
+  }, [])
+
+  useEffect(() => {
     if (!account || !ethereum) {
       return
     }
@@ -454,12 +475,14 @@ function UseWalletProvider({
 UseWalletProvider.propTypes = {
   children: PropTypes.node,
   connectors: PropTypes.objectOf(PropTypes.object),
+  autoConnector: PropTypes.string,
   pollBalanceInterval: PropTypes.number,
   pollBlockNumberInterval: PropTypes.number,
 }
 
 UseWalletProvider.defaultProps = {
   connectors: {},
+  autoConnector: '',
   pollBalanceInterval: 2000,
   pollBlockNumberInterval: 5000,
 }
