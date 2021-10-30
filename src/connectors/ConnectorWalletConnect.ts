@@ -20,7 +20,7 @@ export default async function init(): Promise<Connector> {
           'The WalletConnect connector requires rpcUrl to be set.'
         )
       }
-      Object.values(rpc).each((url: string) => {
+      Object.values(rpc).forEach((url: string) => {
         if (!/^https?:\/\//.test(url)) {
           throw new ConnectorConfigError(
             'The WalletConnect connector requires rpcUrl to be an HTTP URL.'
