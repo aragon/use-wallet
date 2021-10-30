@@ -1,4 +1,4 @@
-import { Connector } from '../types'
+import { Connector, RPC } from '../types'
 import { ConnectionRejectedError, ConnectorConfigError } from '../errors'
 
 export default async function init(): Promise<Connector> {
@@ -7,32 +7,31 @@ export default async function init(): Promise<Connector> {
   )
   return {
     web3ReactConnector({
-      chainId,
-      rpcUrl,
+      rpc,
       bridge,
       pollingInterval,
     }: {
-      chainId: number
-      rpcUrl: string
+      rpc: RPC
       bridge: any
       pollingInterval: number
     }) {
-      if (!rpcUrl) {
+      if (!rpc) {
         throw new ConnectorConfigError(
           'The WalletConnect connector requires rpcUrl to be set.'
         )
       }
-      if (!/^https?:\/\//.test(rpcUrl)) {
-        throw new ConnectorConfigError(
-          'The WalletConnect connector requires rpcUrl to be an HTTP URL.'
-        )
-      }
+      Object.values(rpc).map((url: string) => {
+        if (!/^https?:\/\//.test(url)) {
+          throw new ConnectorConfigError(
+            'The WalletConnect connector requires rpcUrl to be an HTTP URL.'
+          )
+        }
+      })
       return new WalletConnectConnector({
         bridge,
         pollingInterval,
         qrcode: true,
-        supportedChainIds: [chainId],
-        rpc: { [chainId]: rpcUrl },
+        rpc,
       })
     },
     handleActivationError(err: Error) {
