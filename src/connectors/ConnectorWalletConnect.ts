@@ -26,6 +26,7 @@ export default async function init(): Promise<Connector> {
             'The WalletConnect connector requires rpcUrl to be an HTTP URL.'
           )
         }
+        return
       })
       return new WalletConnectConnector({
         bridge,
