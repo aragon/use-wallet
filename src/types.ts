@@ -12,6 +12,10 @@ export type ChainType = {
   testnet: boolean
 }
 
+export type RpcData = {
+  [key: number]: string
+}
+
 export type ChainInformation = ChainType & {
   nativeCurrency: Currency
   fullName: string

@@ -111,8 +111,12 @@ ReactDOM.render(
         chainId: [1],
       },
       walletconnect: {
-        chainId: [1],
-        rpcUrl: 'https://mainnet.eth.aragon.network/',
+        rpc: {
+          1: 'https://mainnet.infura.io/v3/a0d8c94ba9a946daa5ee149e52fa5ff1',
+          4: 'https://rinkeby.infura.io/v3/a0d8c94ba9a946daa5ee149e52fa5ff1',
+        },
+        bridge: 'https://bridge.walletconnect.org',
+        pollingInterval: 12000,
       },
       walletlink: {
         chainId: [1],
