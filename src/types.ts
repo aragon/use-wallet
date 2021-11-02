@@ -12,7 +12,7 @@ export type ChainType = {
   testnet: boolean
 }
 
-export type RPC = {
+export type RpcData = {
   [key: number]: string
 }
 

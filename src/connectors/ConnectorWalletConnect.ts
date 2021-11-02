@@ -1,4 +1,4 @@
-import { Connector, RPC } from '../types'
+import { Connector, RpcData } from '../types'
 import { ConnectionRejectedError, ConnectorConfigError } from '../errors'
 
 export default async function init(): Promise<Connector> {
@@ -11,7 +11,7 @@ export default async function init(): Promise<Connector> {
       bridge,
       pollingInterval,
     }: {
-      rpc: RPC
+      rpc: RpcData
       bridge: any
       pollingInterval: number
     }) {
