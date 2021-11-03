@@ -262,17 +262,19 @@ function UseWalletProvider({
     }
 
     const { ethereum } = window
-    if (!ethereum?.selectedAddress) {
-      return
-    }
+    ethereum.enable.then(() => {
+      if (!ethereum?.selectedAddress) {
+        return
+      }
 
-    const isInjectedAvailable = Object.keys(connectors).some(
-      (key) => key === 'injected'
-    )
+      const isInjectedAvailable = Object.keys(connectors).some(
+        (key) => key === 'injected'
+      )
 
-    if (isInjectedAvailable) {
-      connect()
-    }
+      if (isInjectedAvailable) {
+        connect()
+      }
+    })
     //eslint-disable-next-line
   }, [])
 
