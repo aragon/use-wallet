@@ -28,7 +28,15 @@ import {
   ChainUnsupportedError,
   ConnectorUnsupportedError,
 } from './errors'
-import { getAccountIsContract, blockExplorerUrl, getLastActiveAccount, clearLastActiveAccount, setLastActiveAccount, setLastConnector, getLastConnector } from './utils'
+import {
+  getAccountIsContract,
+  blockExplorerUrl,
+  getLastActiveAccount,
+  clearLastActiveAccount,
+  setLastActiveAccount,
+  setLastConnector,
+  getLastConnector,
+} from './utils'
 
 import {
   getProviderFromUseWalletId,
@@ -226,14 +234,14 @@ function UseWalletProvider({
         // could reconnect to the last provider the user tried to connect to.
         setConnector(connectorId)
         await web3ReactContext.activate(web3ReactConnector, undefined, true)
-        setLastConnector(connectorId);
-        if((connectorId === 'injected')) {
+        setLastConnector(connectorId)
+        if (connectorId === 'injected') {
           const account = await web3ReactConnector.getAccount()
           account && setLastActiveAccount(account)
           web3ReactConnector.getProvider().then((provider) => {
-            provider.on("accountsChanged", (accounts: string[]) => {
-              setLastActiveAccount(accounts[0]);
-            });
+            provider.on('accountsChanged', (accounts: string[]) => {
+              setLastActiveAccount(accounts[0])
+            })
           })
         }
         setStatus('connected')
@@ -276,12 +284,12 @@ function UseWalletProvider({
     const lastActiveAccount = getLastActiveAccount()
 
     const { ethereum } = window
-    if(lastActiveAccount && ethereum && lastConnector == 'injected') {
+    if (lastActiveAccount && ethereum && lastConnector === 'injected') {
       ethereum.enable()?.then(() => {
         const isInjectedAvailable = Object.keys(connectors).some(
           (key) => key === 'injected'
         )
-  
+
         if (isInjectedAvailable) {
           connect()
         }

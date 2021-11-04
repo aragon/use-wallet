@@ -148,8 +148,8 @@ export function pollEvery<R, T>(
   }
 }
 
-const ACCOUNT_KEY = "LAST_ACTIVE_ACCOUNT";
-const CONNECTOR_KEY = "LAST_WALLET_CONNECTOR";
+const ACCOUNT_KEY = 'LAST_ACTIVE_ACCOUNT'
+const CONNECTOR_KEY = 'LAST_WALLET_CONNECTOR'
 
 export const setLastActiveAccount = (account: Account) => {
   localStorage?.setItem(ACCOUNT_KEY, account)
