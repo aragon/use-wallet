@@ -285,15 +285,13 @@ function UseWalletProvider({
 
     const { ethereum } = window
     if (lastActiveAccount && ethereum && lastConnector === 'injected') {
-      ethereum.enable()?.then(() => {
-        const isInjectedAvailable = Object.keys(connectors).some(
-          (key) => key === 'injected'
-        )
+      const isInjectedAvailable = Object.keys(connectors).some(
+        (key) => key === 'injected'
+      )
 
-        if (isInjectedAvailable) {
-          connect()
-        }
-      })
+      if (isInjectedAvailable) {
+        connect()
+      }
     }
 
     //eslint-disable-next-line
