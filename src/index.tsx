@@ -28,7 +28,7 @@ import {
   ChainUnsupportedError,
   ConnectorUnsupportedError,
 } from './errors'
-import { getAccountIsContract, blockExplorerUrl } from './utils'
+import { getAccountIsContract, blockExplorerUrl, getLastActiveAccount, clearLastActiveAccount, setLastActiveAccount, setLastConnector, getLastConnector } from './utils'
 
 import {
   getProviderFromUseWalletId,
@@ -168,6 +168,7 @@ function UseWalletProvider({
     if (web3ReactContext.active) {
       web3ReactContext.deactivate()
     }
+    clearLastActiveAccount()
     setConnector(null)
     setError(null)
     setStatus('disconnected')
@@ -225,6 +226,16 @@ function UseWalletProvider({
         // could reconnect to the last provider the user tried to connect to.
         setConnector(connectorId)
         await web3ReactContext.activate(web3ReactConnector, undefined, true)
+        setLastConnector(connectorId);
+        if((connectorId === 'injected')) {
+          const account = await web3ReactConnector.getAccount()
+          account && setLastActiveAccount(account)
+          web3ReactConnector.getProvider().then((provider) => {
+            provider.on("accountsChanged", (accounts: string[]) => {
+              setLastActiveAccount(accounts[0]);
+            });
+          })
+        }
         setStatus('connected')
       } catch (err) {
         // Don’t throw if another connection has happened in the meantime.
@@ -261,20 +272,22 @@ function UseWalletProvider({
       return
     }
 
+    const lastConnector = getLastConnector()
+    const lastActiveAccount = getLastActiveAccount()
+
     const { ethereum } = window
-    ethereum.enable.then(() => {
-      if (!ethereum?.selectedAddress) {
-        return
-      }
+    if(lastActiveAccount && ethereum && lastConnector == 'injected') {
+      ethereum.enable()?.then(() => {
+        const isInjectedAvailable = Object.keys(connectors).some(
+          (key) => key === 'injected'
+        )
+  
+        if (isInjectedAvailable) {
+          connect()
+        }
+      })
+    }
 
-      const isInjectedAvailable = Object.keys(connectors).some(
-        (key) => key === 'injected'
-      )
-
-      if (isInjectedAvailable) {
-        connect()
-      }
-    })
     //eslint-disable-next-line
   }, [])
 
@@ -372,5 +385,6 @@ export {
   getProviderString,
   getProviderFromUseWalletId,
   blockExplorerUrl,
+  getLastActiveAccount,
   chains,
 }
