@@ -76,6 +76,15 @@ const PROVIDERS = new Map<string, Provider>(
       },
     },
     {
+      id: 'walletconnect',
+      name: 'WalletConnect',
+      type: 'Any',
+      image: `${BASE_URL}/walletconnect.png`,
+      strings: {
+        'your Ethereum wallet': 'WalletConnect',
+      },
+    },
+    {
       id: 'unknown',
       name: 'Unknown',
       type: 'Desktop',
