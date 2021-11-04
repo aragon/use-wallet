@@ -97,6 +97,7 @@ function App() {
 
 ReactDOM.render(
   <UseWalletProvider
+    autoConnect
     connectors={{
       injected: {
         //allows you to connect and switch between mainnet and rinkeby within Metamask.
