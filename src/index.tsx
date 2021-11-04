@@ -283,8 +283,7 @@ function UseWalletProvider({
     const lastConnector = getLastConnector()
     const lastActiveAccount = getLastActiveAccount()
 
-    const { ethereum } = window
-    if (lastActiveAccount && ethereum && lastConnector === 'injected') {
+    if (lastActiveAccount && lastConnector === 'injected') {
       const isInjectedAvailable = Object.keys(connectors).some(
         (key) => key === 'injected'
       )
