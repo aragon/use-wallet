@@ -114,6 +114,7 @@ type UseWalletProviderProps = {
   autoConnect: boolean
   pollBalanceInterval: number
   pollBlockNumberInterval: number
+  getLibrary?: (provider: any) => void
 }
 
 UseWalletProvider.propTypes = {
@@ -374,9 +375,14 @@ UseWalletProviderWrapper.propTypes = UseWalletProvider.propTypes
 UseWalletProviderWrapper.defaultProps = UseWalletProvider.defaultProps
 
 function UseWalletProviderWrapper(props: UseWalletProviderProps) {
+  const { getLibrary, ...restProps } = props
+  const getLibraryOrDefault = getLibrary
+    ? getLibrary
+    : (provider: any) => provider
+
   return (
-    <Web3ReactProvider getLibrary={(ethereum) => ethereum}>
-      <UseWalletProvider {...props} />
+    <Web3ReactProvider getLibrary={getLibraryOrDefault}>
+      <UseWalletProvider {...restProps} />
     </Web3ReactProvider>
   )
 }
