@@ -37,6 +37,12 @@ const BNB: Currency = {
   decimals: 18,
 }
 
+const CELO: Currency = {
+  name: 'Celo',
+  symbol: 'CELO',
+  decimals: 18,
+}
+
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
     1,
@@ -239,6 +245,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       shortName: 'Arbitrum',
       explorerUrl: 'https://arbiscan.io/',
       testnet: false,
+    },
+  ],
+  [
+    42220,
+    {
+      id: 42220,
+      nativeCurrency: CELO,
+      type: 'celo',
+      fullName: 'Celo (Mainnet)',
+      shortName: 'Celo',
+      explorerUrl: 'https://explorer.celo.org/',
+      testnet: false,
+    },
+  ],
+  [
+    44787,
+    {
+      id: 44787,
+      nativeCurrency: CELO,
+      type: 'celoTest',
+      fullName: 'Celo (Alfajores Testnet)',
+      shortName: 'Alfajores',
+      explorerUrl: 'https://alfajores-blockscout.celo-testnet.org/',
+      testnet: true,
     },
   ],
   [
