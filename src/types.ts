@@ -42,7 +42,7 @@ export type Wallet = {
   account: Account | null
   balance: string
   chainId: number | undefined
-  connect: (connectorId: string) => Promise<void>
+  connect: (connectorId?: string) => Promise<void>
   connector: string | null
   connectors: object
   error: Error | null
