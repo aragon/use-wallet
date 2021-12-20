@@ -43,6 +43,12 @@ const CELO: Currency = {
   decimals: 18,
 }
 
+const METIS: Currency = {
+  name: 'METIS',
+  symbol: 'METIS',
+  decimals: 18,
+}
+
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
     1,
@@ -269,6 +275,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       shortName: 'Alfajores',
       explorerUrl: 'https://alfajores-blockscout.celo-testnet.org/',
       testnet: true,
+    },
+  ],
+  [
+    588,
+    {
+      id: 588,
+      nativeCurrency: METIS,
+      type: 'stardust',
+      fullName: 'Metis Stardust Testnet',
+      shortName: 'Stardust',
+      explorerUrl: 'https://stardust-explorer.metis.io/',
+      testnet: true,
+    },
+  ],
+  [
+    1088,
+    {
+      id: 1088,
+      nativeCurrency: METIS,
+      type: 'andromeda',
+      fullName: 'Metis Andromeda',
+      shortName: 'Andromeda',
+      explorerUrl: 'https://andromeda-explorer.metis.io/',
+      testnet: false,
     },
   ],
   [
