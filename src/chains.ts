@@ -277,8 +277,8 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       testnet: true,
     },
   ],
-[
- 588,
+  [
+  588,
     {
       id: 588,
       nativeCurrency: METIS,
