@@ -117,6 +117,10 @@ Configuration for the different connectors. If you use a connector that requires
 
 See the [web3-react documentation](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs) for more details.
 
+#### autoConnect
+
+Automatically connect to wallet on page load. Defaults to false.
+
 ### useWallet()
 
 This is the hook to be used throughout the app.
