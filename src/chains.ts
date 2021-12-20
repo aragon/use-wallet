@@ -40,7 +40,13 @@ const BNB: Currency = {
 const TT: Currency = {
   name: 'Thunder Token',
   symbol: 'TT',
-  decimals: 18
+  decimals: 18,
+}
+
+const CELO: Currency = {
+  name: 'Celo',
+  symbol: 'CELO',
+  decimals: 18,
 }
 
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
@@ -123,7 +129,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       type: 'fuji',
       fullName: 'Avalanche Fuji',
       shortName: 'Fuji',
-      explorerUrl: 'https://cchain.explorer.avax-test.network/',
+      explorerUrl: 'https://testnet.snowtrace.io/',
       testnet: true,
     },
   ],
@@ -135,7 +141,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       type: 'avalanche',
       fullName: 'Avalanche Mainnet',
       shortName: 'Avalanche',
-      explorerUrl: 'https://cchain.explorer.avax.network/',
+      explorerUrl: 'https://snowtrace.io/',
       testnet: false,
     },
   ],
@@ -269,6 +275,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       shortName: 'Arbitrum',
       explorerUrl: 'https://arbiscan.io/',
       testnet: false,
+    },
+  ],
+  [
+    42220,
+    {
+      id: 42220,
+      nativeCurrency: CELO,
+      type: 'celo',
+      fullName: 'Celo (Mainnet)',
+      shortName: 'Celo',
+      explorerUrl: 'https://explorer.celo.org/',
+      testnet: false,
+    },
+  ],
+  [
+    44787,
+    {
+      id: 44787,
+      nativeCurrency: CELO,
+      type: 'celoTest',
+      fullName: 'Celo (Alfajores Testnet)',
+      shortName: 'Alfajores',
+      explorerUrl: 'https://alfajores-blockscout.celo-testnet.org/',
+      testnet: true,
     },
   ],
   [
