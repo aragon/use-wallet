@@ -112,7 +112,7 @@ Configuration for the different connectors. If you use a connector that requires
 - `provided`: `{ provider }`
 - `authereum`: no configuration needed.
 - `squarelink`: `{ clientId, options }`
-- `walletconnect`: `{ rpcUrl }`
+- `walletconnect`: `{ rpc: { 1: 'https://rpc-url', 3: 'https://rpc-url' } }`
 - `walletlink`: `{ url, appName, appLogoUrl }`
 
 See the [web3-react documentation](https://github.com/NoahZinsmeister/web3-react/tree/v6/docs) for more details.
