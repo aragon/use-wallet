@@ -37,6 +37,12 @@ const BNB: Currency = {
   decimals: 18,
 }
 
+const TT: Currency = {
+  name: 'Thunder Token',
+  symbol: 'TT',
+  decimals: 18,
+}
+
 const CELO: Currency = {
   name: 'Celo',
   symbol: 'CELO',
@@ -226,6 +232,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Binance Smart Chain Testnet',
       shortName: 'BSC Testnet',
       explorerUrl: `https://testnet.bscscan.com/`,
+      testnet: true,
+    },
+  ],
+  [
+    108,
+    {
+      id: 108,
+      nativeCurrency: TT,
+      type: 'thundercore',
+      fullName: 'ThunderCore Mainnet',
+      shortName: 'ThunderCore',
+      explorerUrl: `https://scan.thundercore.com/`,
+      testnet: false,
+    },
+  ],
+  [
+    18,
+    {
+      id: 18,
+      nativeCurrency: TT,
+      type: 'thundercoreTest',
+      fullName: 'ThunderCore Testnet',
+      shortName: 'ThunderCore Testnet',
+      explorerUrl: `https://scan-testnet.thundercore.com/`,
       testnet: true,
     },
   ],
