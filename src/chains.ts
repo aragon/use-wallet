@@ -55,6 +55,12 @@ const METIS: Currency = {
   decimals: 18,
 }
 
+const FTM: Currency = {
+  name: 'FTM',
+  symbol: 'FTM',
+  decimals: 18,
+}
+
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
     1,
@@ -187,6 +193,15 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       testnet: true,
     },
   ],
+  [250, {
+    id: 250,
+    nativeCurrency: FTM,
+    type: 'fantom',
+    fullName: 'Fantom',
+    shortName: 'FTM',
+    explorerUrl: `https://ftmscan.com/`,
+    testnet: false
+  }],
   [
     1666600000,
     {
