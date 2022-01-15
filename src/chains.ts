@@ -37,9 +37,21 @@ const BNB: Currency = {
   decimals: 18,
 }
 
+const TT: Currency = {
+  name: 'Thunder Token',
+  symbol: 'TT',
+  decimals: 18,
+}
+
 const CELO: Currency = {
   name: 'Celo',
   symbol: 'CELO',
+  decimals: 18,
+}
+
+const METIS: Currency = {
+  name: 'METIS',
+  symbol: 'METIS',
   decimals: 18,
 }
 
@@ -123,7 +135,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       type: 'fuji',
       fullName: 'Avalanche Fuji',
       shortName: 'Fuji',
-      explorerUrl: 'https://cchain.explorer.avax-test.network/',
+      explorerUrl: 'https://testnet.snowtrace.io/',
       testnet: true,
     },
   ],
@@ -135,7 +147,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       type: 'avalanche',
       fullName: 'Avalanche Mainnet',
       shortName: 'Avalanche',
-      explorerUrl: 'https://cchain.explorer.avax.network/',
+      explorerUrl: 'https://snowtrace.io/',
       testnet: false,
     },
   ],
@@ -224,6 +236,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
     },
   ],
   [
+    108,
+    {
+      id: 108,
+      nativeCurrency: TT,
+      type: 'thundercore',
+      fullName: 'ThunderCore Mainnet',
+      shortName: 'ThunderCore',
+      explorerUrl: `https://scan.thundercore.com/`,
+      testnet: false,
+    },
+  ],
+  [
+    18,
+    {
+      id: 18,
+      nativeCurrency: TT,
+      type: 'thundercoreTest',
+      fullName: 'ThunderCore Testnet',
+      shortName: 'ThunderCore Testnet',
+      explorerUrl: `https://scan-testnet.thundercore.com/`,
+      testnet: true,
+    },
+  ],
+  [
     421611,
     {
       id: 421611,
@@ -269,6 +305,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       shortName: 'Alfajores',
       explorerUrl: 'https://alfajores-blockscout.celo-testnet.org/',
       testnet: true,
+    },
+  ],
+  [
+    588,
+    {
+      id: 588,
+      nativeCurrency: METIS,
+      type: 'stardust',
+      fullName: 'Metis Stardust Testnet',
+      shortName: 'Stardust',
+      explorerUrl: 'https://stardust-explorer.metis.io/',
+      testnet: true,
+    },
+  ],
+  [
+    1088,
+    {
+      id: 1088,
+      nativeCurrency: METIS,
+      type: 'andromeda',
+      fullName: 'Metis Andromeda',
+      shortName: 'Andromeda',
+      explorerUrl: 'https://andromeda-explorer.metis.io/',
+      testnet: false,
     },
   ],
   [
