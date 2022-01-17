@@ -403,7 +403,7 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       type: 'moonbeam',
       fullName: 'Moonbeam',
       shortName: 'Moonbeam',
-      explorerUrl: 'https://blockscout.moonbeam.network/',
+      explorerUrl: 'https://moonbeam.moonscan.io/',
       testnet: false,
     },
   ],
