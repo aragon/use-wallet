@@ -55,6 +55,22 @@ const METIS: Currency = {
   decimals: 18,
 }
 
+const DEV: Currency = {
+  name: 'DEV',
+  symbol: 'DEV',
+  decimals: 18,
+}
+const MOVR: Currency = {
+  name: 'Moonriver',
+  symbol: 'MOVR',
+  decimals: 18,
+}
+const GLMR: Currency = {
+  name: 'Glimmer',
+  symbol: 'GLMR',
+  decimals: 18,
+}
+
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
     1,
@@ -328,6 +344,66 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Metis Andromeda',
       shortName: 'Andromeda',
       explorerUrl: 'https://andromeda-explorer.metis.io/',
+      testnet: false,
+    },
+  ],
+  [
+    1313161555,
+    {
+      id: 1313161555,
+      nativeCurrency: ETH,
+      type: 'aurora',
+      fullName: 'Aurora Testnet',
+      shortName: 'AuroraTest',
+      explorerUrl: 'https://explorer.testnet.aurora.dev/',
+      testnet: true,
+    },
+  ],
+  [
+    1313161554,
+    {
+      id: 1313161554,
+      nativeCurrency: ETH,
+      type: 'aurora',
+      fullName: 'Aurora Mainnet',
+      shortName: 'Aurora',
+      explorerUrl: 'https://explorer.mainnet.aurora.dev/',
+      testnet: false,
+    },
+  ],
+  [
+    1287,
+    {
+      id: 1287,
+      nativeCurrency: DEV,
+      type: 'moonbase',
+      fullName: 'moonbase',
+      shortName: 'Moonbase Alphanet',
+      explorerUrl: 'https://moonbase.moonscan.io/',
+      testnet: true,
+    },
+  ],
+  [
+    1285,
+    {
+      id: 1285,
+      nativeCurrency: MOVR,
+      type: 'moonriver',
+      fullName: 'Moonriver',
+      shortName: 'Moonriver',
+      explorerUrl: 'https://moonriver.moonscan.io/',
+      testnet: false,
+    },
+  ],
+  [
+    1284,
+    {
+      id: 1284,
+      nativeCurrency: GLMR,
+      type: 'moonbeam',
+      fullName: 'Moonbeam',
+      shortName: 'Moonbeam',
+      explorerUrl: 'https://moonbeam.moonscan.io/',
       testnet: false,
     },
   ],
