@@ -49,7 +49,6 @@ export type Wallet = {
   ethereum?: any
   getBlockNumber?: () => number | null
   isConnected: () => boolean
-  networkName: string | null
   reset: () => void
   status: Status
   type: AccountType | null
