@@ -331,7 +331,6 @@ function UseWalletProvider({
       error,
       ethereum,
       isConnected: () => status === 'connected',
-      networkName: chains.getChainInformation(chainId).type,
       providerInfo: connector
         ? getProviderFromUseWalletId(connector)
         : getProviderFromUseWalletId('unknown'),
