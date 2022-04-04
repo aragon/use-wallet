@@ -85,6 +85,15 @@ const PROVIDERS = new Map<string, Provider>(
       },
     },
     {
+      id: 'coinbase',
+      name: 'Coinbase',
+      type: 'Any',
+      image: `${BASE_URL}/coinbase.png`,
+      strings: {
+        'your Ethereum wallet': 'Coinbase',
+      },
+    },
+    {
       id: 'unknown',
       name: 'Unknown',
       type: 'Desktop',
@@ -116,6 +125,10 @@ function identifyProvider(provider: any) {
   if (provider && provider.isMetaMask) {
     return 'metamask'
   }
+  if (provider && provider.isCoinbaseWallet) {
+    return 'coinbase';
+  }
+
   return 'unknown'
 }
 
