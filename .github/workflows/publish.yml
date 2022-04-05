@@ -1,0 +1,20 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - run: yarn --frozen-lockfile
+      - run: yarn build
+      - run: yarn publish --no-git-tag-version --new-version ${{ github.event.release.tag_name }}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
