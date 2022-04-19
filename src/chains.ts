@@ -76,6 +76,11 @@ const GLMR: Currency = {
   symbol: 'GLMR',
   decimals: 18,
 }
+const HECO: Currency = {
+  name: 'HECO',
+  symbol: 'HT',
+  decimals: 18,
+}
 
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
@@ -439,6 +444,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       id: 5777,
       type: 'ganache',
       testnet: true,
+    },
+  ],
+  [
+    128,
+    {
+      id: 128,
+      nativeCurrency: HECO,
+      type: 'main',
+      fullName: 'HECO Mainnet',
+      shortName: 'HECO',
+      explorerUrl: `https://hecoscan.xyz/`,
+      testnet: false,
     },
   ],
 ])
