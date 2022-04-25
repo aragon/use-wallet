@@ -81,6 +81,11 @@ const HECO: Currency = {
   symbol: 'HT',
   decimals: 18,
 }
+const CRO: Currency = {
+  name: 'CRONOS',
+  symbol: 'CRO',
+  decimals: 18,
+}
 
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
@@ -455,6 +460,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'HECO Mainnet',
       shortName: 'HECO',
       explorerUrl: `https://hecoscan.xyz/`,
+      testnet: false,
+    },
+  ],
+  [
+    25,
+    {
+      id: 25,
+      nativeCurrency: CRO,
+      type: 'main',
+      fullName: 'Cronos Chain',
+      shortName: 'Cronos',
+      explorerUrl: `https://cronoscan.com`,
       testnet: false,
     },
   ],
