@@ -81,6 +81,11 @@ const HECO: Currency = {
   symbol: 'HT',
   decimals: 18,
 }
+const ROSE: Currency = {
+  name: 'ROSE',
+  symbol: 'ROSE',
+  decimals: 18,
+}
 
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
@@ -456,6 +461,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       shortName: 'HECO',
       explorerUrl: `https://hecoscan.xyz/`,
       testnet: false,
+    },
+  ],
+  [
+    42262,
+    {
+      id: 42262,
+      nativeCurrency: ROSE,
+      type: 'oasisMain',
+      fullName: 'Oasis Emerald Mainnet',
+      shortName: 'Emerald Mainnet',
+      explorerUrl: `https://explorer.emerald.oasis.dev`,
+      testnet: false,
+    },
+  ],
+  [
+    42261,
+    {
+      id: 42261,
+      nativeCurrency: ROSE,
+      type: 'oasisTest',
+      fullName: 'Oasis Emerald Testnet',
+      shortName: 'Emerald Testnet',
+      explorerUrl: `https://testnet.explorer.emerald.oasis.dev`,
+      testnet: true,
     },
   ],
 ])
