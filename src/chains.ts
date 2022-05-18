@@ -13,6 +13,12 @@ const MATIC: Currency = {
   decimals: 18,
 }
 
+const ASTR: Currency = {
+  name: 'Astar',
+  symbol: 'ASTR',
+  decimals: 18,
+}
+
 const AVAX: Currency = {
   name: 'Avax',
   symbol: 'AVAX',
@@ -199,6 +205,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Polygon Mainnet',
       shortName: 'Polygon',
       explorerUrl: `https://polygonscan.com`,
+      testnet: false,
+    },
+  ],
+  [
+    592,
+    {
+      id: 592,
+      nativeCurrency: ASTR,
+      type: 'astar',
+      fullName: 'Astar Network',
+      shortName: 'Astar',
+      explorerUrl: `https://blockscout.com/astar/`,
       testnet: false,
     },
   ],
