@@ -1,6 +1,6 @@
 {
   "name": "@librafinance-xyz/use-wallet",
-  "version": "0.13.5b",
+  "version": "0.13.5-f",
   "author": "Aragon Association <legal@aragon.org>",
   "license": "MIT",
   "main": "dist/cjs/index.js",
@@ -15,7 +15,8 @@
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint src",
-    "prepare": "rm -rf ./dist && yarn build"
+    "prepare": "rm -rf ./dist && yarn build",
+    "publish": "yarn prepare; npm publish --access public"
   },
   "dependencies": {
     "@aragon/provided-connector": "^6.0.8",
