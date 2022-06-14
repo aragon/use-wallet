@@ -81,6 +81,11 @@ const HECO: Currency = {
   symbol: 'HT',
   decimals: 18,
 }
+const OPTIMISM: Currency = {
+  name: 'OPTIMISM',
+  symbol: 'op',
+  decimals: 18,
+}
 
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
@@ -455,6 +460,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'HECO Mainnet',
       shortName: 'HECO',
       explorerUrl: `https://hecoscan.xyz/`,
+      testnet: false,
+    },
+  ],
+  [
+    10,
+    {
+      id: 10,
+      nativeCurrency: OPTIMISM,
+      type: 'main',
+      fullName: 'Optimism Mainnet',
+      shortName: 'OP',
+      explorerUrl: `https://mainnet.optimism.io/`,
       testnet: false,
     },
   ],
