@@ -1,4 +1,3 @@
-import { ChainUnknownError } from './errors'
 import { ChainInformation, ChainType, Currency } from './types'
 
 const ETH: Currency = {
@@ -497,7 +496,17 @@ export function getChainInformation(
   chainId: number
 ): ChainInformation | ChainType {
   const chainInfo = CHAIN_INFORMATION.get(chainId)
-  if (!chainInfo) throw new ChainUnknownError(`Unknown chain id: ${chainId}`)
+  if (!chainInfo) {
+    return {
+      id: -1,
+      nativeCurrency: OPTIMISM,
+      type: 'Unknow Type',
+      fullName: 'Unknow Support',
+      shortName: 'Unknow',
+      explorerUrl: `https://etherscan.io/`,
+      testnet: false,
+    }
+  }
   return chainInfo
 }
 
