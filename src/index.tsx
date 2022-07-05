@@ -17,6 +17,7 @@ import {
 
 import {
   AccountType,
+  ChainInformation,
   Connector,
   ConnectorConfig,
   Status,
@@ -57,6 +58,10 @@ type WalletContext = {
 const UseWalletContext = React.createContext<WalletContext>(null)
 
 // CONTEXT CONSUMER ============================================================
+
+function addNewChain(chainInfo: ChainInformation): ChainInformation {
+  return chains.addChainInformation(chainInfo)
+}
 
 function useWallet(): Wallet {
   const walletContext = useContext(UseWalletContext)
@@ -391,5 +396,6 @@ export {
   getProviderFromUseWalletId,
   blockExplorerUrl,
   getLastActiveAccount,
+  addNewChain,
   chains,
 }
