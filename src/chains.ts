@@ -458,6 +458,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       testnet: false,
     },
   ],
+  [
+    73927,
+    {
+      id: 73927,
+      nativeCurrency: ETH,
+      type: 'mvm',
+      fullName: 'Mixin Virtual Machine',
+      shortName: 'MVM',
+      explorerUrl: `https://scan.mvm.dev`,
+      testnet: false,
+    },
+  ],
 ])
 
 /**
