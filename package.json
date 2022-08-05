@@ -31,8 +31,7 @@
     "@web3-react/walletlink-connector": "6.2.5",
     "jsbi": "^3.1.4",
     "prop-types": "^15.7.2",
-    "regenerator-runtime": "^0.13.7",
-    "rollup-plugin-image-files": "^1.4.2"
+    "regenerator-runtime": "^0.13.7"
   },
   "husky": {
     "hooks": {
