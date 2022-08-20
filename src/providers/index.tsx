@@ -83,6 +83,15 @@ const PROVIDERS = new Map<string, Provider>(
       },
     },
     {
+      id: 'unstoppable',
+      name: 'Unstoppable',
+      type: 'Any',
+      image: Images.walletconnect, // change this image
+      strings: {
+        'your Ethereum wallet': 'Unstoppable',
+      },
+    },    
+    {
       id: 'unknown',
       name: 'Unknown',
       type: 'Desktop',
