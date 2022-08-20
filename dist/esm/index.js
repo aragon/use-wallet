@@ -1439,7 +1439,8 @@ function _init$9() {
                     scope = _ref.scope,
                     injectedConnector = _ref.injectedConnector,
                     walletconnectConnector = _ref.walletconnectConnector,
-                    shouldLoginWithRedirect = _ref.shouldLoginWithRedirect;
+                    shouldLoginWithRedirect = _ref.shouldLoginWithRedirect,
+                    supportedChainIds = _ref.supportedChainIds;
 
                 if (!clientID) {
                   throw new ConnectorConfigError('The UAuth connector requires clientID to be set.');
@@ -1465,7 +1466,8 @@ function _init$9() {
                     injected: injectedConnector,
                     walletconnect: walletconnectConnector
                   },
-                  shouldLoginWithRedirect: shouldLoginWithRedirect
+                  shouldLoginWithRedirect: shouldLoginWithRedirect,
+                  supportedChainIds: supportedChainIds
                 });
               }
             });

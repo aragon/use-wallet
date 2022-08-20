@@ -13,6 +13,7 @@ export default async function init(): Promise<Connector> {
       injectedConnector,
       walletconnectConnector,
       shouldLoginWithRedirect,
+      supportedChainIds
     }: {
       clientID: string
       redirectUri: string
@@ -20,7 +21,8 @@ export default async function init(): Promise<Connector> {
       scope: string
       injectedConnector: AbstractConnector
       walletconnectConnector: AbstractConnector
-      shouldLoginWithRedirect?: boolean
+      shouldLoginWithRedirect?: boolean,
+      supportedChainIds?: number[]
     }) {
       if (!clientID) {
         throw new ConnectorConfigError(
@@ -57,6 +59,8 @@ export default async function init(): Promise<Connector> {
         },
 
         shouldLoginWithRedirect,
+        
+        supportedChainIds
       })
     },
   }
