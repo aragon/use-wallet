@@ -15,11 +15,12 @@
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint src",
-    "prepare": "rm -rf ./dist && yarn build"
+    "prepare": "rimraf ./dist && yarn build"
   },
   "dependencies": {
     "@aragon/provided-connector": "^6.0.8",
     "@typescript-eslint/parser": "^4.1.0",
+    "@uauth/web3-react": "^2.2.0",
     "@web3-react/core": "6.1.9",
     "@web3-react/fortmatic-connector": "6.1.6",
     "@web3-react/frame-connector": "6.0.9",
@@ -61,6 +62,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.3.0",
     "prettier": "^2.1.1",
+    "rimraf": "^3.0.2",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.1",
     "typescript": "^4.0.2"
