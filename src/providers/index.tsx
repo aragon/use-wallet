@@ -90,7 +90,7 @@ const PROVIDERS = new Map<string, Provider>(
       strings: {
         'your Ethereum wallet': 'Unstoppable',
       },
-    },    
+    },
     {
       id: 'unknown',
       name: 'Unknown',
