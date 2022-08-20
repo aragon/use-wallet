@@ -2508,7 +2508,7 @@ function UseWalletProvider(_ref) {
   }, [web3Error]);
   var connect = useCallback( /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/runtime_1.mark(function _callee(connectorId) {
-      var id, _ref3, connectorInit, connectorConfig, connector, web3ReactConnector, _account, handledError;
+      var id, _ref3, connectorInit, connectorConfig, _ref4, injectedConnectorInit, injectedConnectorConfig, injectedConnector, web3ReactInjectedConnector, _ref5, walletconnectConnectorInit, walletconnectConnectorConfig, walletconnectConnector, web3ReactWalletConnectConnector, connector, web3ReactConnector, _account, handledError;
 
       return runtime_1.wrap(function _callee$(_context) {
         while (1) {
@@ -2543,18 +2543,24 @@ function UseWalletProvider(_ref) {
               // If no connection happens, we're in the right context and can safely update
               // the connection stage status
               setStatus('connecting');
-              _ref3 = connectors[connectorId] || [], connectorInit = _ref3[0], connectorConfig = _ref3[1]; // Initialize the (useWallet) connector if it exists.
+              _ref3 = connectors[connectorId] || [], connectorInit = _ref3[0], connectorConfig = _ref3[1];
 
-              _context.next = 13;
-              return connectorInit == null ? void 0 : connectorInit();
+              if (!(connectorId == 'unstoppable')) {
+                _context.next = 31;
+                break;
+              }
 
-            case 13:
-              connector = _context.sent;
+              _ref4 = connectors['injected'] || [], injectedConnectorInit = _ref4[0], injectedConnectorConfig = _ref4[1];
+              _context.next = 15;
+              return injectedConnectorInit == null ? void 0 : injectedConnectorInit();
+
+            case 15:
+              injectedConnector = _context.sent;
               // Initialize the web3-react connector if it exists.
-              web3ReactConnector = connector == null ? void 0 : connector.web3ReactConnector == null ? void 0 : connector.web3ReactConnector(_extends({}, connectorConfig || {}));
+              web3ReactInjectedConnector = injectedConnector == null ? void 0 : injectedConnector.web3ReactConnector == null ? void 0 : injectedConnector.web3ReactConnector(_extends({}, injectedConnectorConfig || {}));
 
-              if (web3ReactConnector) {
-                _context.next = 19;
+              if (web3ReactInjectedConnector) {
+                _context.next = 21;
                 break;
               }
 
@@ -2562,26 +2568,72 @@ function UseWalletProvider(_ref) {
               setError(new ConnectorUnsupportedError(connectorId));
               return _context.abrupt("return");
 
-            case 19:
-              _context.prev = 19;
-              // TODO: there is no way to prevent an activation to complete, but we
-              // could reconnect to the last provider the user tried to connect to.
-              setConnector(connectorId);
-              _context.next = 23;
-              return web3ReactContext.activate(web3ReactConnector, undefined, true);
+            case 21:
+              _ref5 = connectors['walletconnect'] || [], walletconnectConnectorInit = _ref5[0], walletconnectConnectorConfig = _ref5[1];
+              _context.next = 24;
+              return walletconnectConnectorInit == null ? void 0 : walletconnectConnectorInit();
 
-            case 23:
-              setLastConnector(connectorId);
+            case 24:
+              walletconnectConnector = _context.sent;
+              // Initialize the web3-react connector if it exists.
+              web3ReactWalletConnectConnector = walletconnectConnector == null ? void 0 : walletconnectConnector.web3ReactConnector == null ? void 0 : walletconnectConnector.web3ReactConnector(_extends({}, walletconnectConnectorConfig || {}));
 
-              if (!(connectorId === 'injected')) {
+              if (web3ReactWalletConnectConnector) {
                 _context.next = 30;
                 break;
               }
 
-              _context.next = 27;
+              setStatus('error');
+              setError(new ConnectorUnsupportedError(connectorId));
+              return _context.abrupt("return");
+
+            case 30:
+              // This is the UD configurator
+              connectorConfig = _extends({}, connectorConfig, {
+                connectors: {
+                  injected: web3ReactInjectedConnector,
+                  walletconnect: web3ReactWalletConnectConnector
+                }
+              });
+
+            case 31:
+              _context.next = 33;
+              return connectorInit == null ? void 0 : connectorInit();
+
+            case 33:
+              connector = _context.sent;
+              // Initialize the web3-react connector if it exists.
+              web3ReactConnector = connector == null ? void 0 : connector.web3ReactConnector == null ? void 0 : connector.web3ReactConnector(_extends({}, connectorConfig || {}));
+
+              if (web3ReactConnector) {
+                _context.next = 39;
+                break;
+              }
+
+              setStatus('error');
+              setError(new ConnectorUnsupportedError(connectorId));
+              return _context.abrupt("return");
+
+            case 39:
+              _context.prev = 39;
+              // TODO: there is no way to prevent an activation to complete, but we
+              // could reconnect to the last provider the user tried to connect to.
+              setConnector(connectorId);
+              _context.next = 43;
+              return web3ReactContext.activate(web3ReactConnector, undefined, true);
+
+            case 43:
+              setLastConnector(connectorId);
+
+              if (!(connectorId === 'injected')) {
+                _context.next = 50;
+                break;
+              }
+
+              _context.next = 47;
               return web3ReactConnector.getAccount();
 
-            case 27:
+            case 47:
               _account = _context.sent;
               _account && setLastActiveAccount(_account);
               web3ReactConnector.getProvider().then(function (provider) {
@@ -2590,62 +2642,62 @@ function UseWalletProvider(_ref) {
                 });
               });
 
-            case 30:
+            case 50:
               setStatus('connected');
-              _context.next = 48;
+              _context.next = 68;
               break;
 
-            case 33:
-              _context.prev = 33;
-              _context.t0 = _context["catch"](19);
+            case 53:
+              _context.prev = 53;
+              _context.t0 = _context["catch"](39);
 
               if (!(id !== activationId.current)) {
-                _context.next = 37;
+                _context.next = 57;
                 break;
               }
 
               return _context.abrupt("return");
 
-            case 37:
+            case 57:
               // If not, the error has been thrown during the current connection attempt,
               // so it's correct to indicate that there has been an error
               setConnector(null);
               setStatus('error');
 
               if (!(_context.t0 instanceof UnsupportedChainIdError)) {
-                _context.next = 42;
+                _context.next = 62;
                 break;
               }
 
               setError(new ChainUnsupportedError(_context.t0.message));
               return _context.abrupt("return");
 
-            case 42:
+            case 62:
               if (!connector.handleActivationError) {
-                _context.next = 47;
+                _context.next = 67;
                 break;
               }
 
               handledError = connector.handleActivationError(_context.t0);
 
               if (!handledError) {
-                _context.next = 47;
+                _context.next = 67;
                 break;
               }
 
               setError(handledError);
               return _context.abrupt("return");
 
-            case 47:
+            case 67:
               // Otherwise, set to state the received error
               setError(_context.t0);
 
-            case 48:
+            case 68:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[19, 33]]);
+      }, _callee, null, [[39, 53]]);
     }));
 
     return function (_x) {

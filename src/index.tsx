@@ -213,10 +213,54 @@ function UseWalletProvider({
       // the connection stage status
       setStatus('connecting')
 
-      const [connectorInit, connectorConfig] = connectors[connectorId] || []
+      let [connectorInit, connectorConfig] = connectors[connectorId] || []
+
+      if (connectorId === 'unstoppable') {
+        const [injectedConnectorInit, injectedConnectorConfig] =
+          connectors['injected'] || []
+
+        const injectedConnector = await injectedConnectorInit?.()
+
+        // Initialize the web3-react connector if it exists.
+        const web3ReactInjectedConnector =
+          injectedConnector?.web3ReactConnector?.({
+            ...(injectedConnectorConfig || {}),
+          })
+
+        if (!web3ReactInjectedConnector) {
+          setStatus('error')
+          setError(new ConnectorUnsupportedError(connectorId))
+          return
+        }
+
+        const [walletconnectConnectorInit, walletconnectConnectorConfig] =
+          connectors['walletconnect'] || []
+        const walletconnectConnector = await walletconnectConnectorInit?.()
+
+        // Initialize the web3-react connector if it exists.
+        const web3ReactWalletConnectConnector =
+          walletconnectConnector?.web3ReactConnector?.({
+            ...(walletconnectConnectorConfig || {}),
+          })
+
+        if (!web3ReactWalletConnectConnector) {
+          setStatus('error')
+          setError(new ConnectorUnsupportedError(connectorId))
+          return
+        }
+
+        // This is the UD configurator
+        connectorConfig = {
+          ...connectorConfig,
+          connectors: {
+            injected: web3ReactInjectedConnector,
+            walletconnect: web3ReactWalletConnectConnector,
+          },
+        }
+      }
 
       // Initialize the (useWallet) connector if it exists.
-      const connector = await connectorInit?.()
+      let connector = await connectorInit?.()
 
       // Initialize the web3-react connector if it exists.
       const web3ReactConnector = connector?.web3ReactConnector?.({
