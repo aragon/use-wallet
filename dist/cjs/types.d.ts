@@ -26,7 +26,6 @@ export declare type Provider = {
     id: string;
     name: string;
     type: string;
-    image: string;
     strings: any;
 };
 export declare type Wallet = {

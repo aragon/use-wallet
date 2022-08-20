@@ -34,7 +34,6 @@ export type Provider = {
   id: string
   name: string
   type: string
-  image: string
   strings: any
 }
 
