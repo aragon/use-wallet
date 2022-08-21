@@ -2545,7 +2545,7 @@ function UseWalletProvider(_ref) {
               setStatus('connecting');
               _ref3 = connectors[connectorId] || [], connectorInit = _ref3[0], connectorConfig = _ref3[1];
 
-              if (!(connectorId == 'unstoppable')) {
+              if (!(connectorId === 'unstoppable')) {
                 _context.next = 31;
                 break;
               }
@@ -2590,6 +2590,8 @@ function UseWalletProvider(_ref) {
             case 30:
               // This is the UD configurator
               connectorConfig = _extends({}, connectorConfig, {
+                injectedConnector: web3ReactInjectedConnector,
+                walletconnectConnector: web3ReactWalletConnectConnector,
                 connectors: {
                   injected: web3ReactInjectedConnector,
                   walletconnect: web3ReactWalletConnectConnector

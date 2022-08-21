@@ -252,6 +252,8 @@ function UseWalletProvider({
         // This is the UD configurator
         connectorConfig = {
           ...connectorConfig,
+          injectedConnector: web3ReactInjectedConnector,
+          walletconnectConnector: web3ReactWalletConnectConnector,
           connectors: {
             injected: web3ReactInjectedConnector,
             walletconnect: web3ReactWalletConnectConnector,
