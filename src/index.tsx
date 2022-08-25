@@ -237,14 +237,6 @@ function UseWalletProvider({
           connectors['walletconnect'] || []
         const walletconnectConnector = await walletconnectConnectorInit?.()
 
-        // Taken from https://github.com/NoahZinsmeister/web3-react/issues/124#issuecomment-817631654
-        if (
-          walletconnectConnector instanceof WalletConnectConnector &&
-          walletconnectConnector.walletConnectProvider
-        ) {
-          walletconnectConnector.walletConnectProvider = undefined
-        }
-
         // Initialize the web3-react connector if it exists.
         const web3ReactWalletConnectConnector =
           walletconnectConnector?.web3ReactConnector?.({
@@ -255,6 +247,14 @@ function UseWalletProvider({
           setStatus('error')
           setError(new ConnectorUnsupportedError(connectorId))
           return
+        }
+
+        // Taken from https://github.com/NoahZinsmeister/web3-react/issues/124#issuecomment-817631654
+        if (
+          web3ReactWalletConnectConnector instanceof WalletConnectConnector &&
+          web3ReactWalletConnectConnector.walletConnectProvider
+        ) {
+          web3ReactWalletConnectConnector.walletConnectProvider = undefined
         }
 
         // This is the UD configurator
@@ -272,14 +272,6 @@ function UseWalletProvider({
       // Initialize the (useWallet) connector if it exists.
       let connector = await connectorInit?.()
 
-      // Taken from https://github.com/NoahZinsmeister/web3-react/issues/124#issuecomment-817631654
-      if (
-        connector instanceof WalletConnectConnector &&
-        connector.walletConnectProvider
-      ) {
-        connector.walletConnectProvider = undefined
-      }
-
       // Initialize the web3-react connector if it exists.
       const web3ReactConnector = connector?.web3ReactConnector?.({
         ...(connectorConfig || {}),
@@ -289,6 +281,14 @@ function UseWalletProvider({
         setStatus('error')
         setError(new ConnectorUnsupportedError(connectorId))
         return
+      }
+
+      // Taken from https://github.com/NoahZinsmeister/web3-react/issues/124#issuecomment-817631654
+      if (
+        web3ReactConnector instanceof WalletConnectConnector &&
+        web3ReactConnector.walletConnectProvider
+      ) {
+        web3ReactConnector.walletConnectProvider = undefined
       }
 
       try {

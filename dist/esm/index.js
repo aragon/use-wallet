@@ -2576,17 +2576,11 @@ function UseWalletProvider(_ref) {
 
             case 24:
               walletconnectConnector = _context.sent;
-
-              // Taken from https://github.com/NoahZinsmeister/web3-react/issues/124#issuecomment-817631654
-              if (walletconnectConnector instanceof WalletConnectConnector && walletconnectConnector.walletConnectProvider) {
-                walletconnectConnector.walletConnectProvider = undefined;
-              } // Initialize the web3-react connector if it exists.
-
-
+              // Initialize the web3-react connector if it exists.
               web3ReactWalletConnectConnector = walletconnectConnector == null ? void 0 : walletconnectConnector.web3ReactConnector == null ? void 0 : walletconnectConnector.web3ReactConnector(_extends({}, walletconnectConnectorConfig || {}));
 
               if (web3ReactWalletConnectConnector) {
-                _context.next = 31;
+                _context.next = 30;
                 break;
               }
 
@@ -2594,8 +2588,13 @@ function UseWalletProvider(_ref) {
               setError(new ConnectorUnsupportedError(connectorId));
               return _context.abrupt("return");
 
-            case 31:
-              // This is the UD configurator
+            case 30:
+              // Taken from https://github.com/NoahZinsmeister/web3-react/issues/124#issuecomment-817631654
+              if (web3ReactWalletConnectConnector instanceof WalletConnectConnector && web3ReactWalletConnectConnector.walletConnectProvider) {
+                web3ReactWalletConnectConnector.walletConnectProvider = undefined;
+              } // This is the UD configurator
+
+
               connectorConfig = _extends({}, connectorConfig, {
                 injectedConnector: web3ReactInjectedConnector,
                 walletconnectConnector: web3ReactWalletConnectConnector,
@@ -2611,17 +2610,11 @@ function UseWalletProvider(_ref) {
 
             case 34:
               connector = _context.sent;
-
-              // Taken from https://github.com/NoahZinsmeister/web3-react/issues/124#issuecomment-817631654
-              if (connector instanceof WalletConnectConnector && connector.walletConnectProvider) {
-                connector.walletConnectProvider = undefined;
-              } // Initialize the web3-react connector if it exists.
-
-
+              // Initialize the web3-react connector if it exists.
               web3ReactConnector = connector == null ? void 0 : connector.web3ReactConnector == null ? void 0 : connector.web3ReactConnector(_extends({}, connectorConfig || {}));
 
               if (web3ReactConnector) {
-                _context.next = 41;
+                _context.next = 40;
                 break;
               }
 
@@ -2629,7 +2622,12 @@ function UseWalletProvider(_ref) {
               setError(new ConnectorUnsupportedError(connectorId));
               return _context.abrupt("return");
 
-            case 41:
+            case 40:
+              // Taken from https://github.com/NoahZinsmeister/web3-react/issues/124#issuecomment-817631654
+              if (web3ReactConnector instanceof WalletConnectConnector && web3ReactConnector.walletConnectProvider) {
+                web3ReactConnector.walletConnectProvider = undefined;
+              }
+
               _context.prev = 41;
               // TODO: there is no way to prevent an activation to complete, but we
               // could reconnect to the last provider the user tried to connect to.
