@@ -245,7 +245,7 @@ function UseWalletProvider({
         if (connectorId === 'injected') {
           const account = await web3ReactConnector.getAccount()
           account && setLastActiveAccount(account)
-          web3ReactConnector.getProvider().then((provider) => {
+          web3ReactConnector.getProvider().then((provider: any) => {
             provider.on('accountsChanged', (accounts: string[]) => {
               setLastActiveAccount(accounts[0])
             })
