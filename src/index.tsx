@@ -319,6 +319,14 @@ function UseWalletProvider({
     }
   }, [account, ethereum])
 
+  const networkName = useMemo(() => {
+    try {
+      return chains.getChainInformation(chainId).type
+    } catch {
+      return 'unknown'
+    }
+  }, [chainId])
+
   const wallet = useMemo(
     () => ({
       _web3ReactContext: web3ReactContext,
@@ -331,7 +339,7 @@ function UseWalletProvider({
       error,
       ethereum,
       isConnected: () => status === 'connected',
-      networkName: chains.getChainInformation(chainId).type,
+      networkName,
       providerInfo: connector
         ? getProviderFromUseWalletId(connector)
         : getProviderFromUseWalletId('unknown'),
@@ -348,6 +356,7 @@ function UseWalletProvider({
       connectors,
       error,
       ethereum,
+      networkName,
       type,
       reset,
       status,
