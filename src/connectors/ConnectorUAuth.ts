@@ -1,17 +1,22 @@
-import { AbstractConnector } from '@web3-react/abstract-connector'
-import { Connector } from '../types'
+import { ConnectorConfig, Connector } from '../types'
 import { ConnectorConfigError } from '../errors'
+import initInjected from './ConnectorInjected'
+import initWalletConnect from './ConnectorWalletConnect'
 
 export default async function init(): Promise<Connector> {
   const { UAuthConnector } = await import('@uauth/web3-react')
+
+  const injectedConnector = await initInjected()
+  const walletconnectConnector = await initWalletConnect()
+
   return {
     web3ReactConnector({
       clientID,
       redirectUri,
       postLogoutRedirectUri,
       scope,
-      injectedConnector,
-      walletconnectConnector,
+      injectedConnectorConfig,
+      walletconnectConnectorConfig,
       shouldLoginWithRedirect,
       supportedChainIds,
     }: {
@@ -19,8 +24,8 @@ export default async function init(): Promise<Connector> {
       redirectUri: string
       postLogoutRedirectUri: string
       scope: string
-      injectedConnector: AbstractConnector
-      walletconnectConnector: AbstractConnector
+      injectedConnectorConfig: ConnectorConfig
+      walletconnectConnectorConfig: ConnectorConfig
       shouldLoginWithRedirect?: boolean
       supportedChainIds?: number[]
     }) {
@@ -44,6 +49,29 @@ export default async function init(): Promise<Connector> {
         }
       }
 
+      // Initialize the web3-react connector if it exists.
+      const web3ReactInjectedConnector =
+        injectedConnector?.web3ReactConnector?.({
+          ...(injectedConnectorConfig || {}),
+        })
+
+      if (!web3ReactInjectedConnector) {
+        throw new ConnectorConfigError(
+          'The UAuth connector requires Injected connector.'
+        )
+      }
+
+      const web3ReactWalletConnectConnector =
+        walletconnectConnector?.web3ReactConnector?.({
+          ...(walletconnectConnectorConfig || {}),
+        })
+
+      if (!web3ReactInjectedConnector) {
+        throw new ConnectorConfigError(
+          'The UAuth connector requires WalletConnect connector.'
+        )
+      }
+
       return new UAuthConnector({
         clientID,
 
@@ -52,10 +80,10 @@ export default async function init(): Promise<Connector> {
 
         scope,
 
-        // Injected and walletconnect connectors are required.
+        // Injected and WalletConnect connectors are required.
         connectors: {
-          injected: injectedConnector,
-          walletconnect: walletconnectConnector,
+          injected: web3ReactInjectedConnector,
+          walletconnect: web3ReactWalletConnectConnector,
         },
 
         shouldLoginWithRedirect,

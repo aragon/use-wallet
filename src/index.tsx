@@ -45,7 +45,6 @@ import {
 import * as chains from './chains'
 import { useWatchBlockNumber } from './hooks/watchBlockNumber'
 import { useWalletBalance } from './hooks/walletBalance'
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 type WalletContext = {
   addBlockNumberListener: (callback: (blockNumber: number) => void) => void
   pollBalanceInterval: number
@@ -215,60 +214,6 @@ function UseWalletProvider({
 
       let [connectorInit, connectorConfig] = connectors[connectorId] || []
 
-      if (connectorId === 'unstoppable') {
-        const [injectedConnectorInit, injectedConnectorConfig] =
-          connectors['injected'] || []
-
-        const injectedConnector = await injectedConnectorInit?.()
-
-        // Initialize the web3-react connector if it exists.
-        const web3ReactInjectedConnector =
-          injectedConnector?.web3ReactConnector?.({
-            ...(injectedConnectorConfig || {}),
-          })
-
-        if (!web3ReactInjectedConnector) {
-          setStatus('error')
-          setError(new ConnectorUnsupportedError(connectorId))
-          return
-        }
-
-        const [walletconnectConnectorInit, walletconnectConnectorConfig] =
-          connectors['walletconnect'] || []
-        const walletconnectConnector = await walletconnectConnectorInit?.()
-
-        // Initialize the web3-react connector if it exists.
-        const web3ReactWalletConnectConnector =
-          walletconnectConnector?.web3ReactConnector?.({
-            ...(walletconnectConnectorConfig || {}),
-          })
-
-        if (!web3ReactWalletConnectConnector) {
-          setStatus('error')
-          setError(new ConnectorUnsupportedError(connectorId))
-          return
-        }
-
-        // Taken from https://github.com/NoahZinsmeister/web3-react/issues/124#issuecomment-817631654
-        if (
-          web3ReactWalletConnectConnector instanceof WalletConnectConnector &&
-          web3ReactWalletConnectConnector.walletConnectProvider
-        ) {
-          web3ReactWalletConnectConnector.walletConnectProvider = undefined
-        }
-
-        // This is the UD configurator
-        connectorConfig = {
-          ...connectorConfig,
-          injectedConnector: web3ReactInjectedConnector,
-          walletconnectConnector: web3ReactWalletConnectConnector,
-          connectors: {
-            injected: web3ReactInjectedConnector,
-            walletconnect: web3ReactWalletConnectConnector,
-          },
-        }
-      }
-
       // Initialize the (useWallet) connector if it exists.
       let connector = await connectorInit?.()
 
@@ -281,14 +226,6 @@ function UseWalletProvider({
         setStatus('error')
         setError(new ConnectorUnsupportedError(connectorId))
         return
-      }
-
-      // Taken from https://github.com/NoahZinsmeister/web3-react/issues/124#issuecomment-817631654
-      if (
-        web3ReactConnector instanceof WalletConnectConnector &&
-        web3ReactConnector.walletConnectProvider
-      ) {
-        web3ReactConnector.walletConnectProvider = undefined
       }
 
       try {

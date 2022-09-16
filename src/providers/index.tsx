@@ -75,7 +75,7 @@ const PROVIDERS = new Map<string, Provider>(
       },
     },
     {
-      id: 'unstoppable',
+      id: 'uauth',
       name: 'Unstoppable',
       type: 'Any',
       strings: {
