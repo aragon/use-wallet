@@ -81,6 +81,11 @@ const HECO: Currency = {
   symbol: 'HT',
   decimals: 18,
 }
+const CRO: Currency = {
+  name: 'Cronos',
+  symbol: 'CRO',
+  decimals: 18,
+}
 
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
@@ -428,6 +433,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       shortName: 'Moonbeam',
       explorerUrl: 'https://moonbeam.moonscan.io/',
       testnet: false,
+    },
+  ],
+  [
+    25,
+    {
+      id: 25,
+      nativeCurrency: CRO,
+      type: 'cronos',
+      fullName: 'Cronos Mainnet',
+      shortName: 'CRO',
+      explorerUrl: `https://cronoscan.com/`,
+      testnet: false,
+    },
+  ],
+  [
+    338,
+    {
+      id: 338,
+      nativeCurrency: CRO,
+      type: 'cronos',
+      fullName: 'Cronos Testnet',
+      shortName: 'CRO Testnet',
+      explorerUrl: `https://testnet.cronoscan.com/`,
+      testnet: true,
     },
   ],
   [
