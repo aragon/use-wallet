@@ -5,7 +5,11 @@ import { ConnectionRejectedError, ChainUnsupportedError, ConnectorUnsupportedErr
 import { blockExplorerUrl, getLastActiveAccount } from './utils';
 import { getProviderFromUseWalletId, getProviderString } from './providers/index';
 import * as chains from './chains';
+import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
 declare function useWallet(): Wallet;
+declare type UseWalletProviderWrapperProps = {
+    getLibrary?: (provider?: any, connector?: Required<Web3ReactContextInterface>['connector']) => any;
+} & UseWalletProviderProps;
 declare type UseWalletProviderProps = {
     children: ReactNode;
     connectors: {
@@ -15,7 +19,7 @@ declare type UseWalletProviderProps = {
     pollBalanceInterval: number;
     pollBlockNumberInterval: number;
 };
-declare function UseWalletProviderWrapper(props: UseWalletProviderProps): JSX.Element;
+declare function UseWalletProviderWrapper({ getLibrary, ...props }: UseWalletProviderWrapperProps): JSX.Element;
 declare namespace UseWalletProviderWrapper {
     var propTypes: {
         children: PropTypes.Requireable<PropTypes.ReactNodeLike>;

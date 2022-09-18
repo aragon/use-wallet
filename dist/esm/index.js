@@ -148,6 +148,21 @@ function _wrapNativeSuper(Class) {
   return _wrapNativeSuper(Class);
 }
 
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
@@ -1614,6 +1629,11 @@ var HECO = {
   symbol: 'HT',
   decimals: 18
 };
+var CRO = {
+  name: 'Cronos',
+  symbol: 'CRO',
+  decimals: 18
+};
 var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   id: 1,
   nativeCurrency: ETH,
@@ -1845,6 +1865,22 @@ var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   shortName: 'Moonbeam',
   explorerUrl: 'https://moonbeam.moonscan.io/',
   testnet: false
+}], [25, {
+  id: 25,
+  nativeCurrency: CRO,
+  type: 'cronos',
+  fullName: 'Cronos Mainnet',
+  shortName: 'CRO',
+  explorerUrl: "https://cronoscan.com/",
+  testnet: false
+}], [338, {
+  id: 338,
+  nativeCurrency: CRO,
+  type: 'cronos',
+  fullName: 'Cronos Testnet',
+  shortName: 'CRO Testnet',
+  explorerUrl: "https://testnet.cronoscan.com/",
+  testnet: true
 }], [1337, {
   id: 1337,
   type: 'local',
@@ -2023,7 +2059,7 @@ function _getAccountIsContract() {
           case 0:
             _context3.prev = 0;
             _context3.next = 3;
-            return ethereumRequest(ethereum, 'eth_getCode', [account]);
+            return ethereumRequest(ethereum, 'eth_getCode', [account, 'latest']);
 
           case 3:
             code = _context3.sent;
@@ -2749,10 +2785,13 @@ function UseWalletProvider(_ref) {
 UseWalletProviderWrapper.propTypes = UseWalletProvider.propTypes;
 UseWalletProviderWrapper.defaultProps = UseWalletProvider.defaultProps;
 
-function UseWalletProviderWrapper(props) {
+function UseWalletProviderWrapper(_ref4) {
+  var _getLibrary = _ref4.getLibrary,
+      props = _objectWithoutPropertiesLoose(_ref4, ["getLibrary"]);
+
   return createElement(Web3ReactProvider, {
-    getLibrary: function getLibrary(ethereum) {
-      return ethereum;
+    getLibrary: function getLibrary(provider, connector) {
+      return _getLibrary ? _getLibrary(provider, connector) : provider;
     }
   }, createElement(UseWalletProvider, Object.assign({}, props)));
 }

@@ -220,10 +220,10 @@ function UseWalletProvider({
       // the connection stage status
       setStatus('connecting')
 
-      let [connectorInit, connectorConfig] = connectors[connectorId] || []
+      const [connectorInit, connectorConfig] = connectors[connectorId] || []
 
       // Initialize the (useWallet) connector if it exists.
-      let connector = await connectorInit?.()
+      const connector = await connectorInit?.()
 
       // Initialize the web3-react connector if it exists.
       const web3ReactConnector = connector?.web3ReactConnector?.({
