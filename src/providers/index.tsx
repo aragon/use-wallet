@@ -1,5 +1,4 @@
 import { Provider } from '../types'
-import * as Images from '../images/index'
 
 declare global {
   interface Window {
@@ -23,7 +22,6 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'frame',
       name: 'Frame',
       type: 'Desktop',
-      image: Images.Frame,
       strings: {
         'your Ethereum wallet': 'Frame',
       },
@@ -32,7 +30,6 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'metamask',
       name: 'Metamask',
       type: 'Desktop',
-      image: Images.Metamask,
       strings: {
         'your Ethereum wallet': 'Metamask',
       },
@@ -41,7 +38,6 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'status',
       name: 'Status',
       type: 'Mobile',
-      image: Images.Status,
       strings: {
         'your Ethereum wallet': 'Status',
       },
@@ -50,7 +46,6 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'cipher',
       name: 'Cipher',
       type: 'Mobile',
-      image: Images.Cipher,
       strings: {
         'your Ethereum wallet': 'Cipher',
       },
@@ -59,7 +54,6 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'fortmatic',
       name: 'Fortmatic',
       type: 'Any',
-      image: Images.Fortmatic,
       strings: {
         'your Ethereum wallet': 'Fortmatic',
       },
@@ -68,7 +62,6 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'portis',
       name: 'Portis',
       type: 'Any',
-      image: Images.Portis,
       strings: {
         'your Ethereum wallet': 'Portis',
       },
@@ -77,7 +70,6 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'walletconnect',
       name: 'WalletConnect',
       type: 'Any',
-      image: Images.walletconnect,
       strings: {
         'your Ethereum wallet': 'WalletConnect',
       },
@@ -86,7 +78,6 @@ const PROVIDERS = new Map<string, Provider>(
       id: 'unknown',
       name: 'Unknown',
       type: 'Desktop',
-      image: Images.wallet,
       strings: {
         'your Ethereum wallet': 'your wallet',
       },
