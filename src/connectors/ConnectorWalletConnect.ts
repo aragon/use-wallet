@@ -6,15 +6,7 @@ export default async function init(): Promise<Connector> {
     '@web3-react/walletconnect-connector'
   )
   return {
-    web3ReactConnector({
-      rpc,
-      bridge,
-      pollingInterval,
-    }: {
-      rpc: RpcData
-      bridge: any
-      pollingInterval: number
-    }) {
+    web3ReactConnector({ rpc, bridge }: { rpc: RpcData; bridge: any }) {
       if (!rpc) {
         throw new ConnectorConfigError(
           'The WalletConnect connector requires rpcUrl to be set.'
@@ -30,7 +22,6 @@ export default async function init(): Promise<Connector> {
       })
       return new WalletConnectConnector({
         bridge,
-        pollingInterval,
         qrcode: true,
         rpc,
       })

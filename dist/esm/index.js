@@ -1291,8 +1291,7 @@ function _init$6() {
             return _context.abrupt("return", {
               web3ReactConnector: function web3ReactConnector(_ref) {
                 var rpc = _ref.rpc,
-                    bridge = _ref.bridge,
-                    pollingInterval = _ref.pollingInterval;
+                    bridge = _ref.bridge;
 
                 if (!rpc) {
                   throw new ConnectorConfigError('The WalletConnect connector requires rpcUrl to be set.');
@@ -1307,7 +1306,6 @@ function _init$6() {
                 });
                 return new WalletConnectConnector({
                   bridge: bridge,
-                  pollingInterval: pollingInterval,
                   qrcode: true,
                   rpc: rpc
                 });
