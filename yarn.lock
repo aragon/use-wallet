@@ -2344,7 +2344,7 @@
     global "^4.4.0"
     jose "^4.5.0"
 
-"@uauth/web3-react@^2.2.0":
+"@uauth/web3-react@^2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@uauth/web3-react/-/web3-react-2.4.0.tgz#45b8a1f43d17c96db60bd8a340a5028ac0d75ce2"
   integrity sha512-/2PgEg3OWmWmUvxY1oHgiz2n1xYCnbgpjdgGzDzvYUzukjJcVOs8l90eSwHfm8J0pLn5+B52MGRK3h0nL0S6cQ==
@@ -2621,10 +2621,10 @@
     "@web3-react/types" "^6.0.7"
     tiny-invariant "^1.0.6"
 
-"@web3-react/torus-connector@6.1.7":
-  version "6.1.7"
-  resolved "https://registry.yarnpkg.com/@web3-react/torus-connector/-/torus-connector-6.1.7.tgz#5ce7829a5669efdaa2e39abe2989a490b87dad1a"
-  integrity sha512-zuirHlkcUuwkAyhCz1zBHbxiQ3627Zvw/MJyXGFVX5BSr9ywulFzEi2f+DOyDMMBZAxtSPs3VHB4xMTetUCkOg==
+"@web3-react/torus-connector@6.1.9":
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/@web3-react/torus-connector/-/torus-connector-6.1.9.tgz#5a3b7c262b145c293c74a56f457ee932930e6da8"
+  integrity sha512-HOEGbs1XMWncUs/KKBf+8OQaWHxlI3vXRMpXU7UJF404WvawgklEK5yljmFBA0YjwFUwanx0uL36HRYgijVfwA==
   dependencies:
     "@toruslabs/torus-embed" "^1.8.0"
     "@web3-react/abstract-connector" "^6.0.7"
