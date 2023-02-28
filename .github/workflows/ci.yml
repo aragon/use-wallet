@@ -8,7 +8,7 @@ jobs:
     - name: Install node
       uses: actions/setup-node@v1
       with:
-        node-version: 12
+        node-version: 18
     - name: install
       run: yarn
     - name: build
