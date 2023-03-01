@@ -1,5 +1,5 @@
 {
-  "name": "use-wallet",
+  "name": "@react-w3/use-wallet",
   "version": "0.13.7",
   "author": "Aragon Association <legal@aragon.org>",
   "license": "MIT",
