@@ -87,6 +87,12 @@ const CRO: Currency = {
   decimals: 18,
 }
 
+const SFUEL: Currency = {
+  name: 'sFUEL',
+  symbol: 'sFUEL',
+  decimals: 18,
+}
+
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
     1,
@@ -456,6 +462,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       fullName: 'Cronos Testnet',
       shortName: 'CRO Testnet',
       explorerUrl: `https://testnet.cronoscan.com/`,
+      testnet: true,
+    },
+  ],
+  [
+    1564830818,
+    {
+      id: 1564830818,
+      nativeCurrency: SFUEL,
+      type: 'skale',
+      fullName: 'SKALE Calypso Mainnet',
+      shortName: 'SKL',
+      explorerUrl: `https://honorable-steel-rasalhague.explorer.mainnet.skalenodes.com/`,
+      testnet: false,
+    },
+  ],
+  [
+    344106930,
+    {
+      id: 344106930,
+      nativeCurrency: SFUEL,
+      type: 'skale',
+      fullName: 'SKALE Calypso Testnet',
+      shortName: 'SKL Testnet',
+      explorerUrl: `https://staging-utter-unripe-menkar.explorer.staging-v3.skalenodes.com/`,
       testnet: true,
     },
   ],

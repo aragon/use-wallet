@@ -1632,6 +1632,11 @@ var CRO = {
   symbol: 'CRO',
   decimals: 18
 };
+var SFUEL = {
+  name: 'sFUEL',
+  symbol: 'sFUEL',
+  decimals: 18
+};
 var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   id: 1,
   nativeCurrency: ETH,
@@ -1878,6 +1883,22 @@ var CHAIN_INFORMATION = /*#__PURE__*/new Map([[1, {
   fullName: 'Cronos Testnet',
   shortName: 'CRO Testnet',
   explorerUrl: "https://testnet.cronoscan.com/",
+  testnet: true
+}], [1564830818, {
+  id: 1564830818,
+  nativeCurrency: SFUEL,
+  type: 'skale',
+  fullName: 'SKALE Calypso Mainnet',
+  shortName: 'SKL',
+  explorerUrl: "https://honorable-steel-rasalhague.explorer.mainnet.skalenodes.com/",
+  testnet: false
+}], [344106930, {
+  id: 344106930,
+  nativeCurrency: SFUEL,
+  type: 'skale',
+  fullName: 'SKALE Calypso Testnet',
+  shortName: 'SKL Testnet',
+  explorerUrl: "https://staging-utter-unripe-menkar.explorer.staging-v3.skalenodes.com/",
   testnet: true
 }], [1337, {
   id: 1337,
