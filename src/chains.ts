@@ -86,6 +86,13 @@ const OPTIMISM: Currency = {
   decimals: 18,
 }
 
+
+const ZKSYNC: Currency = {
+  name: 'ZKSYNC',
+  symbol: 'ETH',
+  decimals: 18,
+}
+
 const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
   [
     1,
@@ -474,6 +481,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       testnet: false,
     },
   ],
+  [
+    324,
+    {
+      id: 324,
+      nativeCurrency: ZKSYNC,
+      type: 'main',
+      fullName: 'zkSync Era Mainnet',
+      shortName: 'zkSync',
+      explorerUrl: `https://explore.zksync.io/`,
+      testnet: false,
+    },
+  ],
 ])
 
 /**
@@ -530,5 +549,5 @@ export function getKnownChainInformation(): ChainInformation | ChainType[] {
 }
 
 export function getDefaultChainId(): number {
-  return 1
+  return -1
 }
