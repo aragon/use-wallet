@@ -176,6 +176,9 @@ function UseWalletProvider({
     if (web3ReactContext.active) {
       web3ReactContext.deactivate()
     }
+    web3ReactContext.library = null
+    web3ReactContext.active = false
+    web3ReactContext.account = null;
     clearLastActiveAccount()
     setConnector(null)
     setError(null)
