@@ -95,7 +95,10 @@ export async function getAccountIsContract(
   account: Account
 ): Promise<boolean> {
   try {
-    const code = await ethereumRequest(ethereum, 'eth_getCode', [account])
+    const code = await ethereumRequest(ethereum, 'eth_getCode', [
+      account,
+      'latest',
+    ])
     return code !== '0x'
   } catch (err) {
     return false

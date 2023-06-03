@@ -45,6 +45,7 @@ import {
 import * as chains from './chains'
 import { useWatchBlockNumber } from './hooks/watchBlockNumber'
 import { useWalletBalance } from './hooks/walletBalance'
+import { Web3ReactContextInterface } from '@web3-react/core/dist/types'
 
 type WalletContext = {
   addBlockNumberListener: (callback: (blockNumber: number) => void) => void
@@ -108,6 +109,12 @@ function useGetBlockNumber(): () => number | null {
 
 // CONTEXT PROVIDER ============================================================
 
+type UseWalletProviderWrapperProps = {
+  getLibrary?: (
+    provider?: any,
+    connector?: Required<Web3ReactContextInterface>['connector']
+  ) => any
+} & UseWalletProviderProps
 type UseWalletProviderProps = {
   children: ReactNode
   connectors: { [key: string]: Connector | ConnectorConfig }
@@ -238,7 +245,7 @@ function UseWalletProvider({
         if (connectorId === 'injected') {
           const account = await web3ReactConnector.getAccount()
           account && setLastActiveAccount(account)
-          web3ReactConnector.getProvider().then((provider) => {
+          web3ReactConnector.getProvider().then((provider: any) => {
             provider.on('accountsChanged', (accounts: string[]) => {
               setLastActiveAccount(accounts[0])
             })
@@ -373,9 +380,16 @@ function UseWalletProvider({
 UseWalletProviderWrapper.propTypes = UseWalletProvider.propTypes
 UseWalletProviderWrapper.defaultProps = UseWalletProvider.defaultProps
 
-function UseWalletProviderWrapper(props: UseWalletProviderProps) {
+function UseWalletProviderWrapper({
+  getLibrary,
+  ...props
+}: UseWalletProviderWrapperProps) {
   return (
-    <Web3ReactProvider getLibrary={(ethereum) => ethereum}>
+    <Web3ReactProvider
+      getLibrary={(provider, connector) =>
+        getLibrary ? getLibrary(provider, connector) : provider
+      }
+    >
       <UseWalletProvider {...props} />
     </Web3ReactProvider>
   )
