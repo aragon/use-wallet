@@ -3,7 +3,7 @@ import * as Images from '../images/index'
 
 declare global {
   interface Window {
-    ethereum: any
+    // readonly ethereum: any;
   }
 }
 

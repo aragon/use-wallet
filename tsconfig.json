@@ -19,6 +19,7 @@
     },
     "jsx": "react",
     "esModuleInterop": false,
-    "allowSyntheticDefaultImports": false
+    "allowSyntheticDefaultImports": false,
+    "skipLibCheck": true
   }
 }

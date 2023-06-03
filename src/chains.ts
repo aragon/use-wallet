@@ -1,4 +1,3 @@
-import { ChainUnknownError } from './errors'
 import { ChainInformation, ChainType, Currency } from './types'
 
 const ETH: Currency = {
@@ -79,6 +78,18 @@ const GLMR: Currency = {
 const HECO: Currency = {
   name: 'HECO',
   symbol: 'HT',
+  decimals: 18,
+}
+const OPTIMISM: Currency = {
+  name: 'OPTIMISM',
+  symbol: 'op',
+  decimals: 18,
+}
+
+
+const ZKSYNC: Currency = {
+  name: 'ZKSYNC',
+  symbol: 'ETH',
   decimals: 18,
 }
 
@@ -446,6 +457,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
       testnet: false,
     },
   ],
+  [
+    10,
+    {
+      id: 10,
+      nativeCurrency: OPTIMISM,
+      type: 'main',
+      fullName: 'Optimism Mainnet',
+      shortName: 'OP',
+      explorerUrl: `https://mainnet.optimism.io/`,
+      testnet: false,
+    },
+  ],
+  [
+    324,
+    {
+      id: 324,
+      nativeCurrency: ZKSYNC,
+      type: 'main',
+      fullName: 'zkSync Era Mainnet',
+      shortName: 'zkSync',
+      explorerUrl: `https://explore.zksync.io/`,
+      testnet: false,
+    },
+  ],
 ])
 
 /**
@@ -468,7 +503,17 @@ export function getChainInformation(
   chainId: number
 ): ChainInformation | ChainType {
   const chainInfo = CHAIN_INFORMATION.get(chainId)
-  if (!chainInfo) throw new ChainUnknownError(`Unknown chain id: ${chainId}`)
+  if (!chainInfo) {
+    return {
+      id: -1,
+      nativeCurrency: OPTIMISM,
+      type: 'Unknow Type',
+      fullName: 'Unknow Support',
+      shortName: 'Unknow',
+      explorerUrl: `https://etherscan.io/`,
+      testnet: false,
+    }
+  }
   return chainInfo
 }
 
@@ -492,5 +537,5 @@ export function getKnownChainInformation(): ChainInformation | ChainType[] {
 }
 
 export function getDefaultChainId(): number {
-  return 1
+  return -1
 }
