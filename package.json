@@ -22,7 +22,7 @@
     "@typescript-eslint/parser": "^4.1.0",
     "@web3-react/core": "6.1.9",
     "@web3-react/fortmatic-connector": "6.1.6",
-    "@web3-react/frame-connector": "6.0.9",
+    "@web3-react/frame-connector": "npm:@0xgabi/frame-connector@6.0.10",
     "@web3-react/injected-connector": "6.0.7",
     "@web3-react/ledger-connector": "6.1.9",
     "@web3-react/portis-connector": "6.1.6",
