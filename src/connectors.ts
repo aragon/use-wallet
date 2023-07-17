@@ -6,6 +6,7 @@ import initPortis from './connectors/ConnectorPortis'
 import initProvided from './connectors/ConnectorProvided'
 import initTorus from './connectors/ConnectorTorus'
 import initWalletConnect from './connectors/ConnectorWalletConnect'
+import initWalletConnectV2 from './connectors/ConnectorWalletConnectV2'
 import initWalletLink from './connectors/ConnectorWalletLink'
 import initLedger from './connectors/ConnectorLedger'
 
@@ -22,6 +23,7 @@ export function getConnectors(
     provided: [initProvided, null],
     torus: [initTorus, null],
     walletconnect: [initWalletConnect, null],
+    walletconnectV2: [initWalletConnectV2, null],
     walletlink: [initWalletLink, null],
     ledger: [initLedger, null],
   }

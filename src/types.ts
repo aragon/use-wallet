@@ -1,4 +1,5 @@
-import { AbstractConnector } from '@web3-react/abstract-connector'
+import { ConnectorUpdate } from '@web3-react/types'
+import { Web3Provider } from '@ethersproject/providers'
 
 export type Currency = {
   name: string
@@ -80,9 +81,9 @@ type EthereumProviderSendAsync = {
   selectedAddress: string
 }
 
-export type EthereumProvider = EthereumProviderEip1193 &
-  EthereumProviderSend &
-  EthereumProviderSendAsync
+export type EthereumProvider =
+  | (EthereumProviderEip1193 & EthereumProviderSend & EthereumProviderSendAsync)
+  | Web3Provider
 
 export type ConnectorInit = () => Promise<Connector>
 
@@ -93,6 +94,12 @@ export type Connector = {
   // extra parameters added to `{}` or `object` in this case.
   web3ReactConnector: (params: any) => AbstractConnector
   handleActivationError?: (error: Error) => Error | null
+}
+
+export abstract class AbstractConnector {
+  abstract activate(): Promise<ConnectorUpdate> | Promise<void>
+  abstract getProvider(): Promise<any>
+  abstract getAccount(): Promise<null | string>
 }
 
 export type ConnectorConfig = {}

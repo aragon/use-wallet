@@ -233,7 +233,11 @@ function UseWalletProvider({
         // TODO: there is no way to prevent an activation to complete, but we
         // could reconnect to the last provider the user tried to connect to.
         setConnector(connectorId)
-        await web3ReactContext.activate(web3ReactConnector, undefined, true)
+        await web3ReactContext.activate(
+          web3ReactConnector as any,
+          undefined,
+          true
+        )
         setLastConnector(connectorId)
         if (connectorId === 'injected') {
           const account = await web3ReactConnector.getAccount()
