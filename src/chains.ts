@@ -108,6 +108,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
     },
   ],
   [
+    10,
+    {
+      id: 10,
+      nativeCurrency: ETH,
+      type: 'optimism',
+      fullName: 'OP Mainnet',
+      shortName: 'Optimism',
+      explorerUrl: `https://optimistic.etherscan.io/`,
+      testnet: false,
+    },
+  ],
+  [
     11155111,
     {
       id: 11155111,
