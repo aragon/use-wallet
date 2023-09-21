@@ -108,6 +108,30 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
     },
   ],
   [
+    10,
+    {
+      id: 10,
+      nativeCurrency: ETH,
+      type: 'optimism',
+      fullName: 'OP Mainnet',
+      shortName: 'Optimism',
+      explorerUrl: `https://optimistic.etherscan.io/`,
+      testnet: false,
+    },
+  ],
+  [
+    11155420,
+    {
+      id: 11155420,
+      nativeCurrency: ETH,
+      type: 'op-sepolia',
+      fullName: 'Optimism Sepolia',
+      shortName: 'OP Sepolia',
+      explorerUrl: `https://optimism-sepolia.blockscout.com/`,
+      testnet: true,
+    },
+  ],
+  [
     11155111,
     {
       id: 11155111,
