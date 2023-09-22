@@ -473,6 +473,22 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
 ])
 
 /**
+ * This method updates chain information map with a new chain settings if not already present.
+ * If present, it returns it
+ */
+
+export function addChainInformation(
+  chainInfo: ChainInformation
+): ChainInformation {
+  if (isKnownChain(chainInfo.id)) {
+    return getChainInformation(chainInfo.id) as ChainInformation
+  } else {
+    CHAIN_INFORMATION.set(chainInfo.id, chainInfo)
+  }
+
+  return chainInfo
+}
+/**
  * This method checks whether a particular chain id is known.
  *
  * @param {number} chainId chain id to check
