@@ -227,6 +227,18 @@ const CHAIN_INFORMATION = new Map<number, ChainInformation | ChainType>([
     },
   ],
   [
+    80002,
+    {
+      id: 80002,
+      nativeCurrency: MATIC,
+      type: 'amoy',
+      fullName: 'Amoy Testnet',
+      shortName: 'Amoy',
+      explorerUrl: `https://amoy.polygonscan.com/`,
+      testnet: true,
+    },
+  ],
+  [
     250,
     {
       id: 250,
